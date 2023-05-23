@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Initial') {
       steps {
-        sh 'git pull'
+        sh 'npm install'
       }
     }
 
