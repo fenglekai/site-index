@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Start Initial') {
+    stage('Initial') {
       steps {
         sh 'npm install'
       }
