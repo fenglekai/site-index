@@ -1,3 +1,7 @@
 /// <reference types="vite/client" />
+import { jarallax } from "jarallax";
 
-export function jarallaxVideo(): void;
+declare module "jarallax" {
+  interface jarallax {}
+  export function jarallaxVideo(): void;
+}
