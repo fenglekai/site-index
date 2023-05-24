@@ -1,9 +1,15 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'node'
+      args 'latest'
+    }
+
+  }
   stages {
     stage('Initial') {
       steps {
-        sh 'sudo docker ps'
+        sh 'npm install'
       }
     }
 
