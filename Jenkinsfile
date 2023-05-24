@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Initial') {
       steps {
-        sh 'npm install'
+        sh 'docker ps'
       }
     }
 
