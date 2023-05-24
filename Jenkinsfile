@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node'
-      args 'latest'
+      args '20.2.0'
     }
 
   }
