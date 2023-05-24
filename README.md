@@ -1,4 +1,4 @@
-# IAI部门首页
+# KAI站点导航首页
 
 采用Vue3+Vite脚手架构建，搭配Element Plus和TailwindCSS简化代码体积。
 
