@@ -18,11 +18,14 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('test') {
       steps {
         sh 'ls'
       }
     }
 
+  }
+  environment {
+    MAVEN_OPTS = '-Xmx4096m -Xms4096m'
   }
 }
