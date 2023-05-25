@@ -2,6 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node'
+      args '-v /web-code/site-index:/web-code/site-index'
     }
 
   }
