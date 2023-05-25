@@ -20,7 +20,7 @@ pipeline {
 
     stage('Copy file to nginx') {
       steps {
-        sh 'docker cp -r ./dist/* /web-code/site-index'
+        sh 'cp -r ./dist/* /web-code/site-index'
       }
     }
 
