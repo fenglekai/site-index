@@ -21,8 +21,7 @@ pipeline {
 
     stage('Copy file to nginx') {
       steps {
-        sh '''ls /web-code/site-index
-cp -r ./dist/* /web-code/site-index'''
+        sh 'cp -r ./dist/* /web-code/site-index'
       }
     }
 
