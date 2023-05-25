@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node'
-      args '-v /web-code/site-index:/var/jenkins_home/web-code/site-index:rw'
+      args '-v /web-code/site-index:/web-code/site-index:rw'
     }
 
   }
@@ -21,7 +21,8 @@ pipeline {
 
     stage('Copy file to nginx') {
       steps {
-        sh 'cp -r ./dist/* /var/jenkins_home/web-code/site-index'
+        sh '''ls /web-code/site-index
+cp -r ./dist/* /web-code/site-index'''
       }
     }
 
