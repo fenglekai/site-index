@@ -20,8 +20,7 @@ pipeline {
 
     stage('Copy file to nginx') {
       steps {
-        sh 'id'
-        sh 'scp -P 2233 -r ./dist/* root@devkai.site:/web-code/site-index'
+        sh 'docker cp -r ./dist/* /web-code/site-index'
       }
     }
 
