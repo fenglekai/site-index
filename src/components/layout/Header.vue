@@ -27,10 +27,8 @@ const setNav = () => {
 </script>
 
 <template>
-  <div class="h-full sm:relative flex sm:block">
-    <div
-      class="header-wrapper flex-grow sm:pt-4 justify-between sm:justify-start items-center"
-    >
+  <div class="w-full h-full flex sm:relative sm:block">
+    <div class="header-wrapper gap-2 sm:pt-4 sm:justify-start">
       <div
         class="hidden sm:flex items-center cursor-pointer transition-all hover:text-yellow-400"
         @click="emits('setCollapse')"
@@ -40,23 +38,22 @@ const setNav = () => {
       </div>
       <h1
         id="logo"
-        class="header-text tracking-wider sm:absolute sm:top-1/2 sm:transform sm:-translate-y-1/2"
+        class="header-text grow tracking-wider sm:absolute sm:top-1/2 sm:transform sm:-translate-y-1/2"
         @click="handleClick"
       >
+        <div
+          :class="[
+            'sm:hidden inline-block mr-2 items-center cursor-pointer transition-all',
+            showNav ? 'rotate-90' : '',
+          ]"
+          @click="setNav"
+        >
+          <el-icon size="20"><Operation /></el-icon>
+        </div>
         <span>KAI</span>
         <span class="hidden sm:inline-block">站点导航</span>
       </h1>
-      <LocalSearch class="w-3/4 sm:w-full" />
-
-      <div
-        :class="[
-          'block sm:hidden flex items-center cursor-pointer transition-all',
-          showNav ? 'rotate-90' : '',
-        ]"
-        @click="setNav"
-      >
-        <el-icon size="20"><MoreFilled /></el-icon>
-      </div>
+      <LocalSearch class="min-w-0 shrink sm:grow" />
     </div>
     <div
       :class="[
@@ -80,6 +77,9 @@ const setNav = () => {
 .header-wrapper {
   color: #fff;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 #logo {
@@ -89,6 +89,7 @@ const setNav = () => {
   font-size: 26px;
   cursor: pointer;
   transition: 0.3s;
+  white-space: nowrap;
 }
 .header-text:hover {
   color: #ffd04b;

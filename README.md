@@ -4,7 +4,7 @@
 
 ## 简介
 
-本项目整合站点快速找到对应网站提供信息；不再依赖浏览器收藏夹。
+本项目整合站点快速找到对应网站提供信息，不再依赖浏览器收藏夹；另外实现一些视觉效果。
 
 - 首页布局设计
 - 初始加载过渡
@@ -27,7 +27,6 @@
 - [x] 集成搜索引擎（google、bing、baidu）
 - [x] 下载、上传本地链接
 - [x] 本地链接搜索提示
-- [ ] 智能推荐排序
 
 
 
@@ -49,15 +48,3 @@ npm run dev
 ```
 npm run build
 ```
-
-
-
-## 问题
-
-如果出现`Module '"jarallax"' has no exported member 'jarallaxVideo'.`问题请在jarallax的声明文件声明函数
-
-```
-export function jarallaxVideo(): void;
-```
-
-

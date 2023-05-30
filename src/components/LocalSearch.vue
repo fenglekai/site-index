@@ -1,14 +1,10 @@
 <script lang="ts" setup>
-import { onMounted, ref, watch } from "vue";
+import { Ref, inject, onMounted, ref, watch } from "vue";
 import google from "../assets/google.png";
 import Bing from "../assets/Bing.png";
 import baidu from "../assets/baidu.png";
 import { ElMessage } from "element-plus";
 import { navLink } from "../config/index";
-
-onMounted(() => {
-  initSearchList();
-});
 
 /**
  * 搜索引擎
@@ -30,9 +26,14 @@ const handleSearchSelect = (item: any) => {
 };
 const searchInput = ref("");
 const handleSearch = (e: Event) => {
-  if (!searchInput.value) {
-    ElMessage.warning("请输入搜索内容");
+  if (!expand.value) {
     e.preventDefault();
+    expand.value = true;
+    return;
+  }
+  if (!searchInput.value) {
+    e.preventDefault();
+    ElMessage.warning("请输入搜索内容");
   }
 };
 
@@ -73,6 +74,25 @@ const handleLocalLink = (url: string) => {
   localSearch.value = false;
   window.open(url);
 };
+
+const screenWidth: Ref<number> = inject("screenWidth") || ref(0);
+const expand = ref(true);
+watch(screenWidth, (newVal) => {
+  if (newVal < 640) {
+    expand.value = false;
+  } else {
+    expand.value = true;
+  }
+});
+
+onMounted(() => {
+  initSearchList();
+  if (screenWidth.value < 640) {
+    expand.value = false;
+  } else {
+    expand.value = true;
+  }
+});
 </script>
 
 <template>
@@ -131,7 +151,7 @@ const handleLocalLink = (url: string) => {
         maxlength="255"
         autocomplete="off"
         placeholder="支持本地搜索筛选"
-        class="outline-none flex-grow px-2 min-w-0 bg-transparent text-slate-900 placeholder:text-slate-100"
+        class="outline-none flex-grow min-w-0 bg-transparent text-slate-100 placeholder:text-slate-300 px-2"
         @focus="focusInput = true"
       />
       <el-tooltip effect="dark" content="搜索" placement="bottom">

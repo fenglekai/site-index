@@ -46,7 +46,7 @@ const animatedTranslate = (node: any, key: number) => {
     let toEnd = 0;
 
     if (distance > 10) {
-      speed += 6;
+      speed += 4;
       if (LR) {
         toEnd = curX + speed;
       } else {
