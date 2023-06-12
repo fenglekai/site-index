@@ -36,23 +36,21 @@ const setNav = () => {
         <el-icon size="20" v-show="!props.collapse"><Expand /></el-icon>
         <el-icon size="20" v-show="props.collapse"><Fold /></el-icon>
       </div>
-      <h1
+      <div
         id="logo"
-        class="header-text grow tracking-wider sm:absolute sm:top-1/2 sm:transform sm:-translate-y-1/2"
-        @click="handleClick"
+        class="whitespace-nowrap grow tracking-wider sm:absolute sm:top-1/2 sm:transform sm:-translate-y-1/2"
       >
         <div
-          :class="[
-            'sm:hidden inline-block mr-2 items-center cursor-pointer transition-all',
-            showNav ? 'rotate-90' : '',
-          ]"
-          @click="setNav"
+          class="sm:hidden inline-block transition-all mr-2"
+          @click="emits('setCollapse')"
         >
           <el-icon size="20"><Operation /></el-icon>
         </div>
-        <span>KAI</span>
-        <span class="hidden sm:inline-block">站点导航</span>
-      </h1>
+        <h2 class="inline-block header-text" @click="handleClick">
+          <span>KAI</span>
+          <span class="hidden sm:inline-block">站点导航</span>
+        </h2>
+      </div>
       <LocalSearch class="min-w-0 shrink sm:grow" />
     </div>
     <div
@@ -89,7 +87,6 @@ const setNav = () => {
   font-size: 26px;
   cursor: pointer;
   transition: 0.3s;
-  white-space: nowrap;
 }
 .header-text:hover {
   color: #ffd04b;

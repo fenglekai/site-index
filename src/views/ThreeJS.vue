@@ -130,12 +130,12 @@ onMounted(() => {
   <div class="relative w-screen h-screen" ref="canvasWrapper">
     <ul
       v-if="props.showList"
-      class="absolute right-10 top-1/2 transform -translate-y-1/2 bg-white rounded overflow-hidden"
+      class="absolute w-3/4 sm:w-auto right-10 bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded overflow-hidden flex flex-wrap justify-center"
     >
       <li
         v-for="item in list"
         @click="handleSwitch(item.index)"
-        class="p-2 text-center cursor-pointer transition hover:bg-gray-100"
+        class="p-2 border-r text-center cursor-pointer transition hover:bg-gray-100"
       >
         {{ item.title }}
       </li>

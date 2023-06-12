@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const props = defineProps(['dark'])
+const props = defineProps(["dark", "mobileHeightScreen"]);
 const emits = defineEmits(["darkSwitch"]);
 
 const darkBackground = inject("darkBackground");
@@ -21,12 +21,23 @@ const handleNavClick = (key: string = "home") => {
 </script>
 
 <template>
-  <div class="h-full">
+  <div>
     <el-menu
       class="el-menu-list"
-      background-color="transparent"
-      :text-color="props.dark ? '#ffffff' : '#343434'"
-      :style="props.dark ? 'border-right: none;' : ''"
+      :style="[
+        props.dark ? 'border-right: none;' : '',
+        `min-height: calc(100vh - ${props.mobileHeightScreen});`,
+      ]"
+      :background-color="
+        props.dark && props.mobileHeightScreen == '180px'
+          ? 'transparent'
+          : '#ffffff'
+      "
+      :text-color="
+        props.dark && props.mobileHeightScreen == '180px'
+          ? '#ffffff'
+          : '#343434'
+      "
       active-text-color="#F6AE2D"
       :ellipsis="false"
       @select="handleSelect"
@@ -53,7 +64,6 @@ const handleNavClick = (key: string = "home") => {
 
 <style scoped>
 .el-menu-list {
-  min-height: calc(100vh - 180px);
   height: 100%;
 }
 .flex-grow {

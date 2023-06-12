@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, provide, ref } from "vue";
+import { computed, onMounted, onUnmounted, provide, ref } from "vue";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import Aside from "./Aside.vue";
@@ -7,20 +7,25 @@ import ThreeJS from "../../views/ThreeJS.vue";
 import AnimateBanner from "../AnimateBanner.vue";
 
 const screenWidth = ref(document.body.clientWidth);
+provide("screenWidth", screenWidth);
 const mobileHeightScreen = ref("180px");
 onMounted(() => {
   if (screenWidth.value < 640) {
     mobileHeightScreen.value = "80px";
+    collapse.value = false;
   } else {
     mobileHeightScreen.value = "180px";
+    collapse.value = true;
   }
   window.onresize = () => {
     return (() => {
       screenWidth.value = document.body.clientWidth;
       if (document.body.clientWidth < 640) {
         mobileHeightScreen.value = "80px";
+        collapse.value = false;
       } else {
         mobileHeightScreen.value = "180px";
+        collapse.value = true;
       }
     })();
   };
@@ -30,13 +35,14 @@ onUnmounted(() => {
 });
 
 const collapse = ref(true);
-const asideWidth = ref("200px");
-const setCollapse = () => {
+const asideWidth = computed(() => {
   if (collapse.value) {
-    asideWidth.value = "0px";
+    return "200px";
   } else {
-    asideWidth.value = "200px";
+    return "0px";
   }
+});
+const setCollapse = () => {
   collapse.value = !collapse.value;
 };
 
@@ -61,20 +67,21 @@ provide("darkBackground", darkBackground);
       class="relative px-0 shadow-lg"
       :style="darkBackground ? 'background-color: transparent;' : ''"
     >
-      <div class="absolute top-0 left-0 w-full h-full overflow-hidden hidden sm:block">
+      <div
+        class="absolute top-0 left-0 w-full h-full overflow-hidden hidden sm:block"
+      >
         <AnimateBanner v-show="!darkBackground" />
       </div>
       <Header :collapse="collapse" @setCollapse="setCollapse" />
     </el-header>
-    <el-container
-      :style="`max-height: calc(100vh - ${mobileHeightScreen})`"
-    >
+    <el-container :style="`max-height: calc(100vh - ${mobileHeightScreen})`">
       <el-aside
-        class="transition-all duration-500 hidden sm:block"
+        class="transition-all duration-500 block fixed z-10 sm:static sm:z-none"
         :width="asideWidth"
       >
         <el-scrollbar>
           <Aside
+            :mobileHeightScreen="mobileHeightScreen"
             :dark="darkBackground"
             @darkSwitch="darkSwitch"
           />
@@ -82,7 +89,14 @@ provide("darkBackground", darkBackground);
       </el-aside>
       <el-container>
         <el-scrollbar class="w-full" wrap-class="main-scroll-wrap">
-          <el-main class="w-full p-0">
+          <el-main
+            class="w-full p-0"
+            @click="
+              () => {
+                if (mobileHeightScreen == '80px') setCollapse();
+              }
+            "
+          >
             <RouterView />
           </el-main>
           <el-footer class="text-gray-500"><Footer /></el-footer>
