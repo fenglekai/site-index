@@ -93,7 +93,7 @@ provide("darkBackground", darkBackground);
             class="w-full p-0"
             @click="
               () => {
-                if (mobileHeightScreen == '80px') setCollapse();
+                if (mobileHeightScreen == '80px' && collapse) setCollapse();
               }
             "
           >
