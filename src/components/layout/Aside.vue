@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
+const props = defineProps(['dark'])
 const emits = defineEmits(["darkSwitch"]);
 
 const darkBackground = inject("darkBackground");
@@ -24,8 +25,9 @@ const handleNavClick = (key: string = "home") => {
     <el-menu
       class="el-menu-list"
       background-color="transparent"
-      text-color="#fff"
-      active-text-color="#ffd04b"
+      :text-color="props.dark ? '#ffffff' : '#343434'"
+      :style="props.dark ? 'border-right: none;' : ''"
+      active-text-color="#F6AE2D"
       :ellipsis="false"
       @select="handleSelect"
     >
@@ -56,8 +58,5 @@ const handleNavClick = (key: string = "home") => {
 }
 .flex-grow {
   flex-grow: 1;
-}
-.el-menu {
-  border-right: none;
 }
 </style>

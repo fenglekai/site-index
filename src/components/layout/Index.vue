@@ -68,7 +68,6 @@ provide("darkBackground", darkBackground);
     </el-header>
     <el-container
       :style="`max-height: calc(100vh - ${mobileHeightScreen})`"
-      class="bg-gray-100"
     >
       <el-aside
         class="transition-all duration-500 hidden sm:block"
@@ -76,11 +75,7 @@ provide("darkBackground", darkBackground);
       >
         <el-scrollbar>
           <Aside
-            :style="
-              darkBackground
-                ? 'background-color: transparent;'
-                : 'background-color: #545c64;'
-            "
+            :dark="darkBackground"
             @darkSwitch="darkSwitch"
           />
         </el-scrollbar>

@@ -210,7 +210,7 @@ const handleUpload = () => {
   <div
     :class="[
       'grid grid-cols-1 xl:grid-cols-6 gap-4 mt-2',
-      darkBackground ? 'text-white' : 'text-black',
+      darkBackground ? 'text-white' : 'text-gray-600',
     ]"
   >
     <!-- 主要链接 -->
@@ -226,16 +226,16 @@ const handleUpload = () => {
           >
             <template v-for="item in category.children">
               <div
-                class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer hover:bg-indigo-100"
+                class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer hover:bg-orange-100"
                 @click="handleClick(item.site, item.url)"
               >
                 <h3
-                  class="text-blue-600 font-bold text-md break-words group-hover:text-indigo-700"
+                  class="text-orange-500 font-bold text-md break-words group-hover:text-orange-600"
                 >
                   {{ item.site }}
                 </h3>
                 <p
-                  class="text-gray-400 text-sm break-words group-hover:text-indigo-400"
+                  class="text-gray-400 text-sm break-words group-hover:text-orange-400"
                 >
                   {{ item.introduction }}
                 </p>
@@ -253,14 +253,14 @@ const handleUpload = () => {
           <h3>我的链接</h3>
           <el-tooltip content="添加链接">
             <el-icon
-              class="cursor-pointer transition-all hover:text-indigo-500"
+              class="cursor-pointer transition-all hover:text-orange-500"
               @click="showAddForm = !showAddForm"
               ><CirclePlusFilled
             /></el-icon>
           </el-tooltip>
           <el-tooltip content="保存到本地">
             <el-icon
-              class="cursor-pointer transition-all hover:text-indigo-500"
+              class="cursor-pointer transition-all hover:text-orange-500"
               @click="handleDownload"
             >
               <Download />
@@ -268,7 +268,7 @@ const handleUpload = () => {
           </el-tooltip>
           <el-tooltip content="导入链接">
             <el-icon
-              class="cursor-pointer transition-all hover:text-indigo-500"
+              class="cursor-pointer transition-all hover:text-orange-500"
               @click="handleUpload"
             >
               <Upload />
@@ -320,7 +320,7 @@ const handleUpload = () => {
               >{{ item.title }}</a
             >
             <el-icon
-              class="cursor-pointer transition-all hover:text-indigo-500"
+              class="cursor-pointer transition-all hover:text-orange-500"
               @click="deleteOwnRow(item)"
               ><RemoveFilled
             /></el-icon>
@@ -340,7 +340,7 @@ const handleUpload = () => {
               >{{ item.title }}</a
             >
             <el-icon
-              class="cursor-pointer transition-all hover:text-indigo-500"
+              class="cursor-pointer transition-all hover:text-orange-500"
               @click="deleteHistoryRow(item)"
               ><RemoveFilled
             /></el-icon>

@@ -21,13 +21,13 @@ import footerImg from "../../assets/footerImg.webp";
     <p>Power for Fenglekai</p>
     <p class="space-x-4 text-gray-500">
       <a
-        class="font-medium text-gray-500 transition-colors hover:text-blue-500"
+        class="font-medium text-gray-500 transition-colors hover:text-orange-500"
         href="https://beian.miit.gov.cn/"
         target="_blank"
         rel="noopener noreferrer"
         >桂ICP备2023001286号-1</a
       ><a
-        class="font-medium text-gray-500 transition-colors hover:text-blue-500"
+        class="font-medium text-gray-500 transition-colors hover:text-orange-500"
         href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702005344"
         target="_blank"
         rel="noopener noreferrer"

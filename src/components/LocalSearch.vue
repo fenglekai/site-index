@@ -109,12 +109,12 @@ onMounted(() => {
       :action="urlSelected"
       target="_blank"
       :class="[
-        'relative backdrop-blur-xl bg-white/20 max-w-lg flex items-center p-2 shadow-lg z-20 text-slate-100 sm:mx-auto',
+        'relative backdrop-blur-sm bg-white/20 max-w-lg flex items-center p-2 shadow-lg z-20 sm:mx-auto',
         focusInput ? 'rounded-t-2xl' : 'rounded-full',
       ]"
     >
       <el-dropdown trigger="click" @command="handleSearchSelect">
-        <div class="cursor-pointer flex items-center text-slate-100">
+        <div class="cursor-pointer flex items-center">
           <el-image
             style="width: 24px; height: auto; padding-right: 2px"
             :src="searchSelected"
@@ -151,12 +151,12 @@ onMounted(() => {
         maxlength="255"
         autocomplete="off"
         placeholder="支持本地搜索筛选"
-        class="outline-none flex-grow min-w-0 bg-transparent text-slate-100 placeholder:text-slate-300 px-2"
+        class="outline-none flex-grow min-w-0 bg-transparent placeholder:text-white px-2"
         @focus="focusInput = true"
       />
       <el-tooltip effect="dark" content="搜索" placement="bottom">
         <div
-          class="relative transition-all flex items-center hover:text-slate-400"
+          class="relative transition-all flex items-center hover:text-orange-400"
         >
           <el-icon size="24"><Search /></el-icon>
           <input
@@ -169,11 +169,11 @@ onMounted(() => {
       </el-tooltip>
       <div
         v-show="focusInput"
-        class="absolute top-full left-0 w-full bg-white text-slate-700 border-t-2 rounded-b-2xl overflow-hidden pb-2"
+        class="absolute top-full left-0 w-full backdrop-blur-sm bg-white/80 border-t-2 rounded-b-2xl overflow-hidden pb-2"
       >
         <ul>
           <li
-            class="px-4 py-2 cursor-pointer transition-all hover:bg-slate-100 line-clamp-1"
+            class="px-4 py-2 cursor-pointer transition-all text-orange-500 hover:bg-gray-200 line-clamp-1"
             v-for="item in dropDownMenu"
             @click="handleLocalLink(item.url)"
           >
