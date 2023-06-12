@@ -64,8 +64,7 @@ provide("darkBackground", darkBackground);
     </div>
     <el-header
       :height="mobileHeightScreen"
-      class="relative px-0 shadow-lg"
-      :style="darkBackground ? 'background-color: transparent;' : ''"
+      class="fixed px-0 border-b backdrop-blur-md z-10 w-full"
     >
       <div
         class="absolute top-0 left-0 w-full h-full overflow-hidden hidden sm:block"
@@ -74,7 +73,9 @@ provide("darkBackground", darkBackground);
       </div>
       <Header :collapse="collapse" @setCollapse="setCollapse" />
     </el-header>
-    <el-container :style="`max-height: calc(100vh - ${mobileHeightScreen})`">
+    <el-container
+      :style="[mobileHeightScreen == '180px' ? `max-height: calc(100vh - ${mobileHeightScreen});margin-top: ${mobileHeightScreen};` : `margin-top: ${mobileHeightScreen};`]"
+    >
       <el-aside
         class="transition-all duration-500 block fixed z-10 sm:static sm:z-none"
         :width="asideWidth"
@@ -108,9 +109,6 @@ provide("darkBackground", darkBackground);
 </template>
 
 <style scoped>
-.el-header {
-  background-color: #545c64;
-}
 #base-nav {
   max-width: 2560px;
   margin: 0 auto;

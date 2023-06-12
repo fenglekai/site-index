@@ -100,8 +100,8 @@ onMounted(() => {
   <div>
     <div
       :class="[
-        'fixed top-0 left-0 w-full h-full bg-black z-10 transition-all duration-500',
-        focusInput ? 'opacity-30 visible' : 'opacity-0 invisible',
+        'fixed top-0 left-0 w-screen h-screen z-10 transition-all duration-500',
+        focusInput ? ' bg-black/20 visible' : 'opacity-0 invisible',
       ]"
       @click="handleFocusout"
     ></div>
@@ -109,7 +109,7 @@ onMounted(() => {
       :action="urlSelected"
       target="_blank"
       :class="[
-        'relative backdrop-blur-sm bg-white/20 max-w-lg flex items-center p-2 shadow-lg z-20 sm:mx-auto',
+        'relative backdrop-blur-sm bg-white/20 max-w-lg flex items-center p-2 shadow-lg border z-20 sm:mx-auto',
         focusInput ? 'rounded-t-2xl' : 'rounded-full',
       ]"
     >
@@ -151,7 +151,7 @@ onMounted(() => {
         maxlength="255"
         autocomplete="off"
         placeholder="支持本地搜索筛选"
-        class="outline-none flex-grow min-w-0 bg-transparent placeholder:text-white px-2"
+        class="outline-none flex-grow min-w-0 bg-transparent focus:placeholder:text-white sm:placeholder:text-white px-2"
         @focus="focusInput = true"
       />
       <el-tooltip effect="dark" content="搜索" placement="bottom">

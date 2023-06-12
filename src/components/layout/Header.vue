@@ -28,7 +28,7 @@ const setNav = () => {
 
 <template>
   <div class="w-full h-full flex sm:relative sm:block">
-    <div class="header-wrapper gap-2 sm:pt-4 sm:justify-start">
+    <div class="header-wrapper text-gray-400 sm:text-white gap-2 sm:pt-4 sm:justify-start">
       <div
         class="hidden sm:flex items-center cursor-pointer transition-all hover:text-yellow-400"
         @click="emits('setCollapse')"
@@ -53,27 +53,11 @@ const setNav = () => {
       </div>
       <LocalSearch class="min-w-0 shrink sm:grow" />
     </div>
-    <div
-      :class="[
-        'block sm:hidden absolute top-full left-0 bg-wrapper w-screen z-30 transition-all duration overflow-hidden',
-        showNav ? 'max-h-screen' : 'max-h-0',
-      ]"
-    >
-      <template v-for="item in navLink">
-        <p
-          class="text-center text-white mb-2"
-          @click="handleNavClick(item.navTitle)"
-        >
-          {{ item.navTitle }}
-        </p>
-      </template>
-    </div>
   </div>
 </template>
 
 <style scoped>
 .header-wrapper {
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -90,8 +74,5 @@ const setNav = () => {
 }
 .header-text:hover {
   color: #ffd04b;
-}
-.bg-wrapper {
-  background-color: #545c64;
 }
 </style>

@@ -23,16 +23,12 @@ const handleNavClick = (key: string = "home") => {
 <template>
   <div>
     <el-menu
-      class="el-menu-list"
+      class="el-menu-list backdrop-blur-md"
       :style="[
         props.dark ? 'border-right: none;' : '',
         `min-height: calc(100vh - ${props.mobileHeightScreen});`,
       ]"
-      :background-color="
-        props.dark && props.mobileHeightScreen == '180px'
-          ? 'transparent'
-          : '#ffffff'
-      "
+      background-color="transparent"
       :text-color="
         props.dark && props.mobileHeightScreen == '180px'
           ? '#ffffff'
