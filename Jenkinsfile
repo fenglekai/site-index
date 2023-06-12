@@ -25,5 +25,11 @@ pipeline {
       }
     }
 
+    stage('Clean workspace') {
+      steps {
+        cleanWs(deleteDirs: true, cleanupMatrixParent: true, cleanWhenUnstable: true, cleanWhenSuccess: true, cleanWhenNotBuilt: true, cleanWhenFailure: true, cleanWhenAborted: true)
+      }
+    }
+
   }
 }
