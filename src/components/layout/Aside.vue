@@ -42,17 +42,17 @@ const handleNavClick = (key: string = "home") => {
         <el-menu-item
           :index="item.navTitle"
           @click="handleNavClick(item.navTitle)"
-          ><el-icon><location /></el-icon>{{ item.navTitle }}</el-menu-item
+          ><el-icon><IEpLocation /></el-icon>{{ item.navTitle }}</el-menu-item
         >
       </template>
       <el-menu-item index="threeJS" @click="emits('darkSwitch')"
-        ><el-icon><MagicStick /></el-icon>3D模型渲染</el-menu-item
+        ><el-icon><IEpMagicStick /></el-icon>3D模型渲染</el-menu-item
       >
       <el-menu-item
         index="threeJS"
         v-show="darkBackground"
         @click="router.push('/threeJS')"
-        ><el-icon><Right /></el-icon>去看看</el-menu-item
+        ><el-icon><IEpRight /></el-icon>去看看</el-menu-item
       >
     </el-menu>
   </div>

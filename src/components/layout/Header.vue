@@ -33,8 +33,8 @@ const setNav = () => {
         class="hidden sm:flex items-center cursor-pointer transition-all hover:text-yellow-400"
         @click="emits('setCollapse')"
       >
-        <el-icon size="20" v-show="!props.collapse"><Expand /></el-icon>
-        <el-icon size="20" v-show="props.collapse"><Fold /></el-icon>
+        <el-icon size="20" v-show="!props.collapse"><IEpExpand /></el-icon>
+        <el-icon size="20" v-show="props.collapse"><IEpFold /></el-icon>
       </div>
       <div
         id="logo"
@@ -44,7 +44,7 @@ const setNav = () => {
           class="sm:hidden inline-block transition-all mr-2"
           @click="emits('setCollapse')"
         >
-          <el-icon size="20"><Operation /></el-icon>
+          <el-icon size="20"><IEpOperation /></el-icon>
         </div>
         <h2 class="inline-block header-text" @click="handleClick">
           <span>KAI</span>

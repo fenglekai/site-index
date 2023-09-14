@@ -90,7 +90,7 @@ const handleCloseMoreClick = () => {
                     isMore ? 'rotate-90' : '',
                   ]"
                   @click="handleMoreClick"
-                  ><MoreFilled
+                  ><IEpMoreFilled
                 /></el-icon>
               </div>
               <div class="hidden lg:flex">
@@ -218,7 +218,7 @@ const handleCloseMoreClick = () => {
               v-show="baseView"
               class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-md lg:text-2xl maxSize:text-6xl flex items-center animate-pulse"
             >
-              <el-icon><Bottom /></el-icon>
+              <el-icon><IEpBottom /></el-icon>
               <span> 下滑查看更多 </span>
             </div>
           </div>

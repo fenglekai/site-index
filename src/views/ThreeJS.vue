@@ -146,7 +146,7 @@ onMounted(() => {
         "
         class="p-2 flex justify-center items-center cursor-pointer transition hover:bg-gray-100"
       >
-        <el-icon><Back /></el-icon>
+        <el-icon><IEpBack /></el-icon>
         回导航
       </li>
     </ul>

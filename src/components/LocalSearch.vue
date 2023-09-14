@@ -119,7 +119,7 @@ onMounted(() => {
             style="width: 24px; height: auto; padding-right: 2px"
             :src="searchSelected"
           ></el-image>
-          <el-icon><CaretBottom /></el-icon>
+          <el-icon><IEpCaretBottom /></el-icon>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -158,7 +158,7 @@ onMounted(() => {
         <div
           class="relative transition-all flex items-center hover:text-orange-400"
         >
-          <el-icon size="24"><Search /></el-icon>
+          <el-icon size="24"><IEpSearch /></el-icon>
           <input
             type="submit"
             value=" "

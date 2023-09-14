@@ -255,7 +255,7 @@ const handleUpload = () => {
             <el-icon
               class="cursor-pointer transition-all hover:text-orange-500"
               @click="showAddForm = !showAddForm"
-              ><CirclePlusFilled
+              ><IEpCirclePlusFilled
             /></el-icon>
           </el-tooltip>
           <el-tooltip content="保存到本地">
@@ -263,7 +263,7 @@ const handleUpload = () => {
               class="cursor-pointer transition-all hover:text-orange-500"
               @click="handleDownload"
             >
-              <Download />
+              <IEpDownload />
             </el-icon>
           </el-tooltip>
           <el-tooltip content="导入链接">
@@ -271,7 +271,7 @@ const handleUpload = () => {
               class="cursor-pointer transition-all hover:text-orange-500"
               @click="handleUpload"
             >
-              <Upload />
+              <IEpUpload />
             </el-icon>
           </el-tooltip>
         </div>
@@ -322,7 +322,7 @@ const handleUpload = () => {
             <el-icon
               class="cursor-pointer transition-all hover:text-orange-500"
               @click="deleteOwnRow(item)"
-              ><RemoveFilled
+              ><IEpRemoveFilled
             /></el-icon>
           </li>
         </ul>
@@ -342,7 +342,7 @@ const handleUpload = () => {
             <el-icon
               class="cursor-pointer transition-all hover:text-orange-500"
               @click="deleteHistoryRow(item)"
-              ><RemoveFilled
+              ><IEpRemoveFilled
             /></el-icon>
           </li>
         </ul>
