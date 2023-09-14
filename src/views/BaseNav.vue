@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { Ref, inject, onMounted, reactive, ref, watch } from "vue";
+import { inject, onMounted, reactive, ref, watch } from "vue";
 import { navLink } from "../config/index";
-
 import { ElMessage, FormInstance } from "element-plus";
+import Giscus from "@giscus/vue";
 
 onMounted(() => {
   getLocalList();
@@ -347,6 +347,23 @@ const handleUpload = () => {
           </li>
         </ul>
         <p class="text-gray-400 text-sm">显示最近15条访问记录</p>
+      </section>
+      <section class="mb-4 space-y-2">
+        <h3>评论</h3>
+        <Giscus
+          id="comments"
+          repo="fenglekai/giscus"
+          repoId="R_kgDOKS-Cjg"
+          category="Announcements"
+          categoryId="DIC_kwDOKS-Cjs4CZRcG"
+          mapping="pathname"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="top"
+          theme="light"
+          lang="zh-CN"
+          loading="lazy"
+        />
       </section>
     </div>
   </div>
