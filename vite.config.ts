@@ -33,7 +33,8 @@ export default defineConfig({
       gzipSize: true,
       brotliSize: true,
       emitFile: true,
-      filename: "stats.html",
+      open: true,
+      filename: "./node_modules/.cache/visualizer/stats.html",
     }),
     AutoImport({
       // Auto import functions from Vue, e.g. ref, reactive, toRef...
