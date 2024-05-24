@@ -32,8 +32,6 @@ export default defineConfig({
     visualizer({
       gzipSize: true,
       brotliSize: true,
-      emitFile: true,
-      open: true,
       filename: "./node_modules/.cache/visualizer/stats.html",
     }),
     AutoImport({
