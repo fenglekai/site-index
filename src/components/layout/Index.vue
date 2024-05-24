@@ -6,27 +6,33 @@ import Aside from "./Aside.vue";
 import ThreeJS from "../../views/ThreeJS.vue";
 import AnimateBanner from "../AnimateBanner.vue";
 
+const MOBILE_WIDTH = 640;
 const screenWidth = ref(document.body.clientWidth);
 provide("screenWidth", screenWidth);
-const mobileHeightScreen = ref("180px");
-onMounted(() => {
-  if (screenWidth.value < 640) {
-    mobileHeightScreen.value = "80px";
-    collapse.value = false;
+const collapse = ref(screenWidth.value < MOBILE_WIDTH ? false : true);
+const mainScroll = ref(0);
+const headerHeight = computed(() => {
+  if (screenWidth.value < MOBILE_WIDTH) {
+    return "80px";
   } else {
-    mobileHeightScreen.value = "180px";
-    collapse.value = true;
+    return "180px";
   }
+});
+
+const asideWidth = computed(() => {
+  if (collapse.value) {
+    return "200px";
+  } else if (screenWidth.value >= MOBILE_WIDTH) {
+    return "calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)*2)";
+  } else {
+    return "0px";
+  }
+});
+
+onMounted(() => {
   window.onresize = () => {
     return (() => {
       screenWidth.value = document.body.clientWidth;
-      if (document.body.clientWidth < 640) {
-        mobileHeightScreen.value = "80px";
-        collapse.value = false;
-      } else {
-        mobileHeightScreen.value = "180px";
-        collapse.value = true;
-      }
     })();
   };
 });
@@ -34,14 +40,6 @@ onUnmounted(() => {
   window.onresize = null;
 });
 
-const collapse = ref(true);
-const asideWidth = computed(() => {
-  if (collapse.value) {
-    return "200px";
-  } else {
-    return "0px";
-  }
-});
 const setCollapse = () => {
   collapse.value = !collapse.value;
 };
@@ -63,7 +61,7 @@ provide("darkBackground", darkBackground);
       <ThreeJS :show-list="false" />
     </div>
     <el-header
-      :height="mobileHeightScreen"
+      :height="headerHeight"
       class="fixed px-0 border-b backdrop-blur-md z-10 w-full"
     >
       <div
@@ -74,27 +72,38 @@ provide("darkBackground", darkBackground);
       <Header :collapse="collapse" @setCollapse="setCollapse" />
     </el-header>
     <el-container
-      :style="[mobileHeightScreen == '180px' ? `max-height: calc(100vh - ${mobileHeightScreen});margin-top: ${mobileHeightScreen};` : `margin-top: ${mobileHeightScreen};`]"
+      :style="[
+        headerHeight == '180px'
+          ? `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight};`
+          : `margin-top: ${headerHeight};`,
+      ]"
     >
       <el-aside
-        class="transition-all duration-500 block fixed z-10 sm:static sm:z-none"
+        class="duration-500 block fixed z-10 sm:static sm:z-none"
+        style="transition: 0.3s"
         :width="asideWidth"
       >
         <el-scrollbar>
           <Aside
-            :mobileHeightScreen="mobileHeightScreen"
+            :headerHeight="headerHeight"
             :dark="darkBackground"
+            :collapse="collapse"
             @darkSwitch="darkSwitch"
+            @setCollapse="setCollapse"
           />
         </el-scrollbar>
       </el-aside>
       <el-container>
-        <el-scrollbar class="w-full" wrap-class="main-scroll-wrap">
+        <el-scrollbar
+          class="w-full"
+          wrap-class="main-scroll-wrap"
+          @scroll="({ scrollTop }) => (mainScroll = scrollTop)"
+        >
           <el-main
             class="w-full p-0"
             @click="
               () => {
-                if (mobileHeightScreen == '80px' && collapse) setCollapse();
+                if (headerHeight == '80px' && collapse) setCollapse();
               }
             "
           >

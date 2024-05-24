@@ -27,8 +27,8 @@
 ## 起步
 
 ```
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ### 配置
@@ -39,5 +39,5 @@ npm run dev
 ## 打包
 
 ```
-npm run build
+pnpm run build
 ```

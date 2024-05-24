@@ -95,8 +95,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       addOwnRow(formLabelAlign.title, formLabelAlign.url);
-    } else {
-      return false;
     }
   });
 };
