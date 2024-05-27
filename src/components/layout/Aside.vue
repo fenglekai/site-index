@@ -19,14 +19,14 @@ const handleNavClick = (key: string = "home") => {
   doc.querySelector(`#${key}`).scrollIntoView({ behavior: "smooth" });
 };
 
-const collapse = ref(false);
+const menuCollapse = ref(false);
 </script>
 
 <template>
   <div
     :class="[
       'el-menu-list relative wrapper',
-      collapse ? 'el-menu--collapse' : null,
+      menuCollapse ? 'el-menu--collapse' : null,
     ]"
   >
     <el-menu
@@ -41,7 +41,7 @@ const collapse = ref(false);
           ? '#ffffff'
           : '#343434'
       "
-      :collapse="collapse"
+      :collapse="menuCollapse"
       active-text-color="#F6AE2D"
       @select="handleSelect"
     >
@@ -70,12 +70,12 @@ const collapse = ref(false);
     <div
       class="hidden sm:flex absolute left-2 bottom-2 items-center cursor-pointer transition-all"
     >
-      <el-button type="info" text bg @click="collapse = !collapse; emits('setCollapse')">
+      <el-button type="info" text bg @click="menuCollapse = !menuCollapse; emits('setCollapse')">
         <div style="width: 20px" class="overflow-hidden">
           <div
             class="transition-all space-x-1"
             :style="{
-              transform: collapse
+              transform: menuCollapse
                 ? 'translateX(calc(-20px - 0.25rem))'
                 : 'translateX(0px)',
             }"

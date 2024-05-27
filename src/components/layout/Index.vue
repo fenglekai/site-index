@@ -12,7 +12,7 @@ provide("screenWidth", screenWidth);
 const collapse = ref(screenWidth.value < MOBILE_WIDTH ? false : true);
 const mainScroll = ref(0);
 const headerHeight = computed(() => {
-  if (screenWidth.value < MOBILE_WIDTH) {
+  if (screenWidth.value < MOBILE_WIDTH || mainScroll.value > 0) {
     return "80px";
   } else {
     return "180px";
@@ -61,7 +61,7 @@ provide("darkBackground", darkBackground);
       <ThreeJS :show-list="false" />
     </div>
     <el-header
-      :height="headerHeight"
+      :style="[`min-height: ${headerHeight}; transition: 0.3s;`]"
       class="fixed px-0 border-b backdrop-blur-md z-10 w-full"
     >
       <div
@@ -73,9 +73,7 @@ provide("darkBackground", darkBackground);
     </el-header>
     <el-container
       :style="[
-        headerHeight == '180px'
-          ? `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight};`
-          : `margin-top: ${headerHeight};`,
+        `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
       ]"
     >
       <el-aside
@@ -83,7 +81,6 @@ provide("darkBackground", darkBackground);
         style="transition: 0.3s"
         :width="asideWidth"
       >
-        <el-scrollbar>
           <Aside
             :headerHeight="headerHeight"
             :dark="darkBackground"
@@ -91,7 +88,6 @@ provide("darkBackground", darkBackground);
             @darkSwitch="darkSwitch"
             @setCollapse="setCollapse"
           />
-        </el-scrollbar>
       </el-aside>
       <el-container>
         <el-scrollbar
