@@ -19,9 +19,9 @@ pipeline {
       }
     }
 
-    stage('Copy file to nginx') {
+    stage('Update file to nginx') {
       steps {
-        sh 'cp -r ./dist/* /web-code/site-index'
+        sh 'rm -rf /web-code/site-index/* && cp -r ./dist/* /web-code/site-index'
       }
     }
 
