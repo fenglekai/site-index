@@ -150,7 +150,7 @@ onMounted(() => {
         v-model="searchInput"
         maxlength="255"
         autocomplete="off"
-        placeholder="支持本地搜索筛选"
+        placeholder="请输入关键字"
         class="outline-none flex-grow min-w-0 bg-transparent focus:placeholder:text-white sm:placeholder:text-white px-2"
         @focus="focusInput = true"
       />
