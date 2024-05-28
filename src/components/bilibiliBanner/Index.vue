@@ -1,8 +1,10 @@
+<script lang="ts">
+import { ref } from "vue";
+import { Layout } from "./types";
+</script>
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
-
 const props = defineProps<{
-  layout: Array<{ key: number; translatePower?: number; rotatePower?: number }>;
+  layout: Array<Layout>;
 }>();
 
 const bannerWrapper: any = ref(null);
@@ -10,14 +12,13 @@ const animated: any = ref(null);
 const startX = ref(0);
 const useStart = ref(false);
 const layerList = ref(props.layout || []);
+const STEP = 120;
 
 const nodeTransformList = computed(() => {
   const result: any = [];
   for (let i = 0; i < animated.value.children.length; i++) {
     result.push(animated.value.children[i].children[0].style.transform);
   }
-  console.log(result);
-  
   return result;
 });
 
@@ -31,36 +32,54 @@ const getTranslateXY = (item: any) => {
     });
 };
 
-const transitionXLabel = (key: number, translateX: number) => {
+const transitionLabel = (
+  key: number,
+  translateX: number,
+  translateY: number = 0
+) => {
   const splitTransform = getTranslateXY(nodeTransformList.value[key]);
   return `translate(${splitTransform[0] + translateX}px , ${
-    splitTransform[1]
+    splitTransform[1] + translateY
   }px) rotate(0deg) scale(1)`;
 };
 
-const translateReset = (data: { key: number; translatePower?: number }) => {
-  const { key, translatePower } = data;
+const translateReset = (data: Layout) => {
+  const { key, translateXPower, translateYPower } = data;
   const img = animated.value.children[key].children[0];
-  const defaultX = getTranslateXY(nodeTransformList.value[key])[0];
-  const currentX = getTranslateXY(img.style.transform)[0];
-  const STEP = 150;
-  if (translatePower && img) {
-    let count = Math.abs(currentX - defaultX) / translatePower;
-    if (count < STEP) {
-      return;
-    }
+  const defaultValue = getTranslateXY(nodeTransformList.value[key]);
+  const currentValue = getTranslateXY(img.style.transform);
+  if (img) {
+    let countX = translateXPower
+      ? Math.abs(currentValue[0] - defaultValue[0]) / Math.abs(translateXPower)
+      : 0;
+    let countY = translateYPower
+      ? Math.abs(currentValue[1] - defaultValue[1]) / Math.abs(translateYPower)
+      : 0;
+
     const frame = requestAnimationFrame(loop);
     function loop() {
-      if (count < 0 || !translatePower) {
+      if (countX + countY === 0) {
         cancelAnimationFrame(frame);
         return;
       }
-      count -= STEP;
-      if (currentX > defaultX) {
-        img.style.transform = transitionXLabel(key, translatePower * count);
+      
+      countX = Math.max(countX - STEP, 0);
+      countY = Math.max(countY - STEP, 0);
+      let x = translateXPower ? Math.abs(translateXPower) : 0;
+      let y = translateYPower ? Math.abs(translateYPower) : 0;
+
+      if (currentValue[0] > defaultValue[0]) {
+        x *= countX;
       } else {
-        img.style.transform = transitionXLabel(key, -translatePower * count);
+        x *= -countX;
       }
+      if (currentValue[1] > defaultValue[1]) {
+        y *= countY;
+      } else {
+        y *= -countY;
+      }
+
+      img.style.transform = transitionLabel(key, x, y);
       requestAnimationFrame(loop);
     }
   }
@@ -90,19 +109,14 @@ const rotateReset = (data: { key: number; rotatePower?: number }) => {
   if (rotatePower && img) {
     const defaultRotate = getRotate(nodeTransformList.value[key]);
     const currentRotate = getRotate(img.style.transform);
-    const STEP = 150;
     let count = Math.abs(currentRotate - defaultRotate) / rotatePower;
-    if (count < STEP) {
-      return;
-    }
     const frame = requestAnimationFrame(loop);
     function loop() {
-      if (count < 0 || !rotatePower) {
+      if (count <= 0 || !rotatePower) {
         cancelAnimationFrame(frame);
-        img.style.transform = rotateLabel(key, defaultRotate);
         return;
       }
-      count -= STEP;
+      count = Math.max(count - STEP, 0);
       if (currentRotate > defaultRotate) {
         img.style.transform = rotateLabel(key, rotatePower * count);
       } else {
@@ -130,13 +144,18 @@ const useMousemove = (e: any) => {
     const translateXNum = -(startX.value - e.x);
 
     layerList.value.forEach((item) => {
-      const { key, translatePower, rotatePower } = item;
+      const {
+        key,
+        translateXPower,
+        translateYPower,
+        disableTranslateX,
+        rotatePower,
+      } = item;
       const img = animated.value.children[key].children[0];
-      if (translatePower && img) {
-        img.style.transform = transitionXLabel(
-          key,
-          translateXNum * translatePower
-        );
+      if (translateXPower && img) {
+        const x = !disableTranslateX ? translateXNum * translateXPower : 0;
+        const y = translateYPower ? translateXNum * translateYPower : 0;
+        img.style.transform = transitionLabel(key, x, y);
       }
       if (rotatePower && img) {
         const splitTransform = getTranslateXY(nodeTransformList.value[3]);

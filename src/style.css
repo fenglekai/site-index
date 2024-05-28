@@ -75,9 +75,14 @@ button {
 button:hover {
   border-color: #F26419;
 }
+button:active,
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
+}
+
+img {
+  max-width: none;
 }
 
 .card {
@@ -119,8 +124,4 @@ button:focus-visible {
 ::-webkit-scrollbar {
   width: 0px;
   height: 0px;
-}
-
-button:focus, button:focus-visible {
-  outline: none;
 }

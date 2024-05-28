@@ -228,12 +228,12 @@ const handleUpload = () => {
                 @click="handleClick(item.site, item.url)"
               >
                 <h3
-                  class="text-orange-500 font-bold text-md break-words group-hover:text-orange-600"
+                  class="font-bold text-md break-words"
                 >
                   {{ item.site }}
                 </h3>
                 <p
-                  class="text-gray-400 text-sm break-words group-hover:text-orange-400"
+                  class="text-gray-400 text-sm break-words"
                 >
                   {{ item.introduction }}
                 </p>
@@ -251,14 +251,14 @@ const handleUpload = () => {
           <h3>我的链接</h3>
           <el-tooltip content="添加链接">
             <el-icon
-              class="cursor-pointer transition-all hover:text-orange-500"
+              class="cursor-pointer transition-all hover:text-orange-400"
               @click="showAddForm = !showAddForm"
               ><IEpCirclePlusFilled
             /></el-icon>
           </el-tooltip>
           <el-tooltip content="保存到本地">
             <el-icon
-              class="cursor-pointer transition-all hover:text-orange-500"
+              class="cursor-pointer transition-all hover:text-orange-400"
               @click="handleDownload"
             >
               <IEpDownload />
@@ -266,7 +266,7 @@ const handleUpload = () => {
           </el-tooltip>
           <el-tooltip content="导入链接">
             <el-icon
-              class="cursor-pointer transition-all hover:text-orange-500"
+              class="cursor-pointer transition-all hover:text-orange-400"
               @click="handleUpload"
             >
               <IEpUpload />
@@ -318,7 +318,7 @@ const handleUpload = () => {
               >{{ item.title }}</a
             >
             <el-icon
-              class="cursor-pointer transition-all hover:text-orange-500"
+              class="cursor-pointer transition-all hover:text-orange-400"
               @click="deleteOwnRow(item)"
               ><IEpRemoveFilled
             /></el-icon>
@@ -338,7 +338,7 @@ const handleUpload = () => {
               >{{ item.title }}</a
             >
             <el-icon
-              class="cursor-pointer transition-all hover:text-orange-500"
+              class="cursor-pointer transition-all hover:text-orange-400"
               @click="deleteHistoryRow(item)"
               ><IEpRemoveFilled
             /></el-icon>

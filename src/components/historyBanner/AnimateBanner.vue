@@ -1,26 +1,27 @@
 <script lang="ts" setup>
-import AnimateBanner from "./bilibiliBanner/Index.vue";
+import { onMounted, ref } from "vue";
+import AnimateBanner from "../bilibiliBanner/Index.vue";
 const layerList = [
-  { key: 1, translatePower: 0.005 },
-  { key: 2, translatePower: 0.005 },
+  { key: 1, translateXPower: 0.005 },
+  { key: 2, translateXPower: 0.005 },
   { key: 3, rotatePower: 0.05 },
-  { key: 4, translatePower: 0.005 },
-  { key: 5, translatePower: 0.1 },
-  { key: 6, translatePower: 0.04 },
-  { key: 7, translatePower: 0.04 },
-  { key: 8, translatePower: 0.04 },
-  { key: 9, translatePower: 0.04 },
-  { key: 10, translatePower: 0.04 },
-  { key: 11, translatePower: 0.05 },
-  { key: 12, translatePower: 0.05 },
-  { key: 13, translatePower: 0.06 },
-  { key: 14, translatePower: 0.07 },
-  { key: 15, translatePower: 0.1 },
-  { key: 16, translatePower: 0.06 },
-  { key: 17, translatePower: 0.1 },
-  { key: 18, translatePower: 0.1 },
-  { key: 19, translatePower: 0.1 },
-  { key: 20, translatePower: 0.08 },
+  { key: 4, translateXPower: 0.005 },
+  { key: 5, translateXPower: 0.04 },
+  { key: 6, translateXPower: 0.04 },
+  { key: 7, translateXPower: 0.04 },
+  { key: 8, translateXPower: 0.04 },
+  { key: 9, translateXPower: 0.04 },
+  { key: 10, translateXPower: 0.04 },
+  { key: 11, translateXPower: 0.05 },
+  { key: 12, translateXPower: 0.05 },
+  { key: 13, translateXPower: 0.06 },
+  { key: 14, translateXPower: 0.07 },
+  { key: 15, translateXPower: 0.1 },
+  { key: 16, translateXPower: 0.06 },
+  { key: 17, translateXPower: 0.1 },
+  { key: 18, translateXPower: 0.1 },
+  { key: 19, translateXPower: 0.1 },
+  { key: 20, translateXPower: 0.08 },
 ];
 const video1: any = ref(null);
 const video2: any = ref(null);
@@ -34,7 +35,7 @@ onMounted(() => {
   <AnimateBanner :layout="layerList">
     <div class="layer">
       <img
-        src="/src/assets/banner/84d497a6dfd615b19a043ff698e1c2ec7778e5e0.png@1c.webp"
+        src="/src/assets/banner/default/84d497a6dfd615b19a043ff698e1c2ec7778e5e0.png@1c.webp"
         data-height="141"
         data-width="1500"
         height="240"
@@ -49,7 +50,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/f9b6799c3c961d2d84a90766c57f1dc77c4ed810.png@1c.webp"
+        src="/src/assets/banner/default/f9b6799c3c961d2d84a90766c57f1dc77c4ed810.png@1c.webp"
         data-height="247"
         data-width="999"
         height="286"
@@ -86,7 +87,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/959e712ac2d218c9db749721aa29058eacbdd314.png@1c.webp"
+        src="/src/assets/banner/default/959e712ac2d218c9db749721aa29058eacbdd314.png@1c.webp"
         data-height="308"
         data-width="298"
         height="286"
@@ -102,7 +103,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/d769fffe86c057cbff0e633079a047f1c2934013.png@1c.webp"
+        src="/src/assets/banner/default/d769fffe86c057cbff0e633079a047f1c2934013.png@1c.webp"
         data-height="241"
         data-width="1998"
         height="242"
@@ -117,7 +118,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/4b60843c6b101b27a38d2ab50e0437d823569add.png@1c.webp"
+        src="/src/assets/banner/default/4b60843c6b101b27a38d2ab50e0437d823569add.png@1c.webp"
         data-height="264"
         data-width="1004"
         height="286"
@@ -132,7 +133,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/bf6fe9544f6fe613df296225d200a31db1b285dd.png@1c.webp"
+        src="/src/assets/banner/default/bf6fe9544f6fe613df296225d200a31db1b285dd.png@1c.webp"
         data-height="284"
         data-width="399"
         height="307"
@@ -147,7 +148,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/80e5bc372faa9b38ba794a2bf371c45486fe7130.png@1c.webp"
+        src="/src/assets/banner/default/80e5bc372faa9b38ba794a2bf371c45486fe7130.png@1c.webp"
         data-height="104"
         data-width="1505"
         height="96"
@@ -162,7 +163,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/be626199daaaa4799925217f0b91bd8ff7cd71a4.png@1c.webp"
+        src="/src/assets/banner/default/be626199daaaa4799925217f0b91bd8ff7cd71a4.png@1c.webp"
         data-height="84"
         data-width="100"
         height="117"
@@ -177,7 +178,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/671e3861e049d01e274f4828974726bcb9c036ef.png@1c.webp"
+        src="/src/assets/banner/default/671e3861e049d01e274f4828974726bcb9c036ef.png@1c.webp"
         data-height="143"
         data-width="200"
         height="177"
@@ -192,7 +193,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/bc954b9250303d69f601b534424be6dc54c58ce8.png@1c.webp"
+        src="/src/assets/banner/default/bc954b9250303d69f601b534424be6dc54c58ce8.png@1c.webp"
         data-height="97"
         data-width="100"
         height="112"
@@ -207,7 +208,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/94228d32fd6379eda248b31518b26f80fbf38809.png@1c.webp"
+        src="/src/assets/banner/default/94228d32fd6379eda248b31518b26f80fbf38809.png@1c.webp"
         data-height="102"
         data-width="200"
         height="126"
@@ -243,7 +244,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/3c26423644a88603952bf7c68df6c904fe6ab709.png@1c.webp"
+        src="/src/assets/banner/default/3c26423644a88603952bf7c68df6c904fe6ab709.png@1c.webp"
         data-height="92"
         data-width="200"
         height="128"
@@ -258,7 +259,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/4d0b65e71e810a8d4c221f6856854505ed69a674.png@1c.webp"
+        src="/src/assets/banner/default/4d0b65e71e810a8d4c221f6856854505ed69a674.png@1c.webp"
         data-height="201"
         data-width="300"
         height="155"
@@ -273,7 +274,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/d2b652c22d4f34c56f666770c7c6f512afaceb4a.png@1c.webp"
+        src="/src/assets/banner/default/d2b652c22d4f34c56f666770c7c6f512afaceb4a.png@1c.webp"
         data-height="135"
         data-width="300"
         height="146"
@@ -288,7 +289,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/c96f03a28e64ed99ce771826109bbbc8aecc1ef8.png@1c.webp"
+        src="/src/assets/banner/default/c96f03a28e64ed99ce771826109bbbc8aecc1ef8.png@1c.webp"
         data-height="267"
         data-width="400"
         height="227"
@@ -304,7 +305,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/6bea5126260c524aac992b24e079b18c38b8f213.png@1c.webp"
+        src="/src/assets/banner/default/6bea5126260c524aac992b24e079b18c38b8f213.png@1c.webp"
         data-height="180"
         data-width="99"
         height="278"
@@ -320,7 +321,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/cfb34b346ebd8887cc6c1c12440d8c6a491338c7.png@1c.webp"
+        src="/src/assets/banner/default/cfb34b346ebd8887cc6c1c12440d8c6a491338c7.png@1c.webp"
         data-height="199"
         data-width="598"
         height="246"
@@ -336,7 +337,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/5d3faa724d37deac240d72db0d2815a49627dca2.png@1c.webp"
+        src="/src/assets/banner/default/5d3faa724d37deac240d72db0d2815a49627dca2.png@1c.webp"
         data-height="262"
         data-width="498"
         height="283"
@@ -351,7 +352,7 @@ onMounted(() => {
     </div>
     <div class="layer">
       <img
-        src="/src/assets/banner/9053f6601e309fe373b91f5b1d54e1e19536b3b8.png@1c.webp"
+        src="/src/assets/banner/default/9053f6601e309fe373b91f5b1d54e1e19536b3b8.png@1c.webp"
         data-height="151"
         data-width="800"
         height="280"

@@ -7,8 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AnimateBanner: typeof import('./components/AnimateBanner.vue')['default']
+    AnimateBanner: typeof import('./components/historyBanner/AnimateBanner.vue')['default']
     Aside: typeof import('./components/layout/Aside.vue')['default']
+    Banner_20240527: typeof import('./components/historyBanner/Banner_20240527.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -48,7 +49,7 @@ declare module 'vue' {
     IEpRight: typeof import('~icons/ep/right')['default']
     IEpSearch: typeof import('~icons/ep/search')['default']
     IEpUpload: typeof import('~icons/ep/upload')['default']
-    Index: typeof import('./components/layout/Index.vue')['default']
+    Index: typeof import('./components/bilibiliBanner/Index.vue')['default']
     LocalSearch: typeof import('./components/LocalSearch.vue')['default']
     ProjectCard: typeof import('./components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

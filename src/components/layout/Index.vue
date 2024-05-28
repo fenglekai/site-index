@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, provide, ref } from "vue";
+import {
+  computed,
+  onMounted,
+  onUnmounted,
+  provide,
+  ref,
+  shallowRef,
+} from "vue";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import Aside from "./Aside.vue";
 import ThreeJS from "../../views/ThreeJS.vue";
-import AnimateBanner from "../AnimateBanner.vue";
 
 const MOBILE_WIDTH = 640;
 const screenWidth = ref(document.body.clientWidth);
@@ -61,15 +67,15 @@ provide("darkBackground", darkBackground);
       <ThreeJS :show-list="false" />
     </div>
     <el-header
-      :style="[`min-height: ${headerHeight}; transition: 0.3s;`]"
-      class="fixed px-0 border-b backdrop-blur-md z-10 w-full"
+      :style="[`min-height: ${headerHeight}; transition: 0.3s; padding: 0;`]"
+      class="fixed border-b backdrop-blur-md z-10 w-full"
     >
-      <div
-        class="absolute top-0 left-0 w-full h-full overflow-hidden hidden sm:block"
-      >
-        <AnimateBanner v-show="!darkBackground" />
-      </div>
-      <Header :collapse="collapse" @setCollapse="setCollapse" />
+      <Header
+        :collapse="collapse"
+        :is-mobile="screenWidth <= MOBILE_WIDTH"
+        :dark-background="darkBackground"
+        @setCollapse="setCollapse"
+      />
     </el-header>
     <el-container
       :style="[
@@ -81,19 +87,19 @@ provide("darkBackground", darkBackground);
         style="transition: 0.3s"
         :width="asideWidth"
       >
-          <Aside
-            :headerHeight="headerHeight"
-            :dark="darkBackground"
-            :collapse="collapse"
-            @darkSwitch="darkSwitch"
-            @setCollapse="setCollapse"
-          />
+        <Aside
+          :headerHeight="headerHeight"
+          :dark="darkBackground"
+          :collapse="collapse"
+          @darkSwitch="darkSwitch"
+          @setCollapse="setCollapse"
+        />
       </el-aside>
       <el-container>
         <el-scrollbar
           class="w-full"
           wrap-class="main-scroll-wrap"
-          @scroll="({ scrollTop }) => (mainScroll = scrollTop)"
+          @scroll="({ scrollTop }: any) => (mainScroll = scrollTop)"
         >
           <el-main
             class="w-full p-0"
