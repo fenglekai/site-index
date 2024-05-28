@@ -5,8 +5,9 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const props = defineProps(["dark", "headerHeight", "collapse"]);
-const emits = defineEmits(["darkSwitch", "setCollapse"]);
+const menuCollapse = defineModel("menuCollapse", {type: Boolean})
+const props = defineProps(["dark", "headerHeight"]);
+const emits = defineEmits(["darkSwitch"]);
 
 const darkBackground = inject("darkBackground");
 
@@ -18,8 +19,6 @@ const handleNavClick = (key: string = "home") => {
   let doc: Document | any = document;
   doc.querySelector(`#${key}`).scrollIntoView({ behavior: "smooth" });
 };
-
-const menuCollapse = ref(false);
 </script>
 
 <template>
@@ -70,7 +69,7 @@ const menuCollapse = ref(false);
     <div
       class="hidden sm:flex absolute left-2 bottom-2 items-center cursor-pointer transition-all"
     >
-      <el-button type="info" text bg @click="menuCollapse = !menuCollapse; emits('setCollapse')">
+      <el-button type="info" text bg @click="menuCollapse = !menuCollapse;">
         <div style="width: 20px" class="overflow-hidden">
           <div
             class="transition-all space-x-1"

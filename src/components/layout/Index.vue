@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-import {
-  computed,
-  onMounted,
-  onUnmounted,
-  provide,
-  ref,
-  shallowRef,
-} from "vue";
+import { computed, onMounted, onUnmounted, provide, ref, watch } from "vue";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import Aside from "./Aside.vue";
@@ -15,10 +8,14 @@ import ThreeJS from "../../views/ThreeJS.vue";
 const MOBILE_WIDTH = 640;
 const screenWidth = ref(document.body.clientWidth);
 provide("screenWidth", screenWidth);
-const collapse = ref(screenWidth.value < MOBILE_WIDTH ? false : true);
+const notMobile = computed(() => {
+  return screenWidth.value < MOBILE_WIDTH;
+});
+const collapse = ref(notMobile.value ? false : true);
+const menuCollapse = ref(false);
 const mainScroll = ref(0);
 const headerHeight = computed(() => {
-  if (screenWidth.value < MOBILE_WIDTH || mainScroll.value > 0) {
+  if (notMobile.value || mainScroll.value > 0) {
     return "80px";
   } else {
     return "180px";
@@ -28,33 +25,38 @@ const headerHeight = computed(() => {
 const asideWidth = computed(() => {
   if (collapse.value) {
     return "200px";
-  } else if (screenWidth.value >= MOBILE_WIDTH) {
+  } else if (!notMobile.value) {
     return "calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)*2)";
   } else {
     return "0px";
   }
 });
 
-onMounted(() => {
-  window.onresize = () => {
-    return (() => {
-      screenWidth.value = document.body.clientWidth;
-    })();
-  };
-});
-onUnmounted(() => {
-  window.onresize = null;
-});
-
 const setCollapse = () => {
   collapse.value = !collapse.value;
 };
+
+watch(notMobile, (v) => {
+  menuCollapse.value = false;
+});
 
 const darkBackground = ref(false);
 const darkSwitch = () => {
   darkBackground.value = !darkBackground.value;
 };
 provide("darkBackground", darkBackground);
+
+onMounted(() => {
+  window.onresize = () => {
+    return (() => {
+      screenWidth.value = document.body.clientWidth;
+      collapse.value = !notMobile.value;
+    })();
+  };
+});
+onUnmounted(() => {
+  window.onresize = null;
+});
 </script>
 
 <template>
@@ -72,7 +74,7 @@ provide("darkBackground", darkBackground);
     >
       <Header
         :collapse="collapse"
-        :is-mobile="screenWidth <= MOBILE_WIDTH"
+        :not-mobile="notMobile"
         :dark-background="darkBackground"
         @setCollapse="setCollapse"
       />
@@ -88,11 +90,10 @@ provide("darkBackground", darkBackground);
         :width="asideWidth"
       >
         <Aside
+          v-model:menu-collapse="menuCollapse"
           :headerHeight="headerHeight"
           :dark="darkBackground"
-          :collapse="collapse"
           @darkSwitch="darkSwitch"
-          @setCollapse="setCollapse"
         />
       </el-aside>
       <el-container>

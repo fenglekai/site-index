@@ -7,7 +7,7 @@ import Banner_20240527 from "../historyBanner/Banner_20240527.vue";
 
 interface Props {
   collapse: boolean;
-  isMobile: boolean;
+  notMobile: boolean;
   darkBackground: boolean;
 }
 
@@ -25,7 +25,7 @@ const setNav = () => {
 };
 
 const bannerList = shallowRef<{ [key: string]: Component }>({
-  "默认": AnimateBanner,
+  默认: AnimateBanner,
   "20240527": Banner_20240527,
 });
 const selectedBanner = ref("20240527");
@@ -36,7 +36,7 @@ const selectOptions = computed(() => {
 
 <template>
   <div
-    v-if="isMobile || !darkBackground"
+    v-if="!notMobile"
     class="absolute top-0 left-0 w-full h-full overflow-hidden"
   >
     <Transition name="fade" mode="out-in">
@@ -62,12 +62,13 @@ const selectOptions = computed(() => {
 
       <LocalSearch class="min-w-0 grow" />
 
-      <el-dropdown @command="selectedBanner = $event">
-        <span class="text-white" style="outline: none;"> 切换Banner </span>
+      <el-dropdown v-if="!notMobile" @command="selectedBanner = $event">
+        <span class="text-white" style="outline: none"> 切换Banner </span>
         <template #dropdown>
           <el-dropdown-menu>
-
-            <el-dropdown-item v-for="item in selectOptions" :command="item">{{ item }}</el-dropdown-item>
+            <el-dropdown-item v-for="item in selectOptions" :command="item">{{
+              item
+            }}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -81,7 +82,6 @@ const selectOptions = computed(() => {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
 }
 
 #logo {
@@ -94,5 +94,15 @@ const selectOptions = computed(() => {
 }
 .header-text:hover {
   color: #ffd04b;
+}
+
+@media (min-width: 640px) {
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
+  }
 }
 </style>
