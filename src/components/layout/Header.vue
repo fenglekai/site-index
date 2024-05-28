@@ -39,7 +39,7 @@ const selectOptions = computed(() => {
     v-if="isMobile || !darkBackground"
     class="absolute top-0 left-0 w-full h-full overflow-hidden"
   >
-    <Transition>
+    <Transition name="fade" mode="out-in">
       <component :is="bannerList[selectedBanner]" />
     </Transition>
   </div>

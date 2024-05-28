@@ -45,10 +45,10 @@ const transitionLabel = (
 
 const translateReset = (data: Layout) => {
   const { key, translateXPower, translateYPower } = data;
-  const img = animated.value.children[key].children[0];
-  const defaultValue = getTranslateXY(nodeTransformList.value[key]);
-  const currentValue = getTranslateXY(img.style.transform);
+  const img = animated.value?.children[key].children[0];
   if (img) {
+    const defaultValue = getTranslateXY(nodeTransformList.value[key]);
+    const currentValue = getTranslateXY(img.style.transform);
     let countX = translateXPower
       ? Math.abs(currentValue[0] - defaultValue[0]) / Math.abs(translateXPower)
       : 0;
@@ -105,7 +105,7 @@ const rotateLabel = (key: number, rotate: number) => {
 
 const rotateReset = (data: { key: number; rotatePower?: number }) => {
   const { key, rotatePower } = data;
-  const img = animated.value.children[key].children[0];
+  const img = animated.value?.children[key].children[0];
   if (rotatePower && img) {
     const defaultRotate = getRotate(nodeTransformList.value[key]);
     const currentRotate = getRotate(img.style.transform);
@@ -182,7 +182,7 @@ onMounted(() => {
 });
 onUnmounted(() => {
   document.body.removeEventListener("mousemove", useMousemove);
-  document.body.removeEventListener("mousemove", useMouseleave);
+  document.body.removeEventListener("mouseleave", useMouseleave);
 });
 </script>
 
