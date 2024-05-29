@@ -8,8 +8,6 @@ onMounted(() => {
   getLocalList();
 });
 
-const darkBackground = inject("darkBackground");
-
 const handleClick = (title: string, url: string) => {
   addHistoryRow(title, url);
   window.open(url);
@@ -205,14 +203,9 @@ const handleUpload = () => {
 </script>
 
 <template>
-  <div
-    :class="[
-      'grid grid-cols-1 xl:grid-cols-6 gap-4 mt-2',
-      darkBackground ? 'text-white' : 'text-gray-600',
-    ]"
-  >
+  <div :class="['lg:flex gap-4 mt-2']">
     <!-- 主要链接 -->
-    <div class="col-span-5">
+    <div class="lg:flex-1">
       <!-- nav container -->
       <template v-for="category in navLink">
         <div class="mb-6">
@@ -227,14 +220,10 @@ const handleUpload = () => {
                 class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer hover:bg-orange-100"
                 @click="handleClick(item.site, item.url)"
               >
-                <h3
-                  class="font-bold text-md break-words"
-                >
+                <h3 class="font-bold text-md break-words">
                   {{ item.site }}
                 </h3>
-                <p
-                  class="text-gray-400 text-sm break-words"
-                >
+                <p class="text-gray-400 text-sm break-words">
                   {{ item.introduction }}
                 </p>
               </div>
@@ -245,7 +234,7 @@ const handleUpload = () => {
     </div>
 
     <!-- 我的链接&历史访问 -->
-    <div class="col-span-1 pl-8">
+    <div class="lg:basis-60">
       <section class="mb-4 space-y-2">
         <div class="flex items-center space-x-2">
           <h3>我的链接</h3>

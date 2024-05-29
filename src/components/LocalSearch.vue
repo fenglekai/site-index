@@ -97,83 +97,81 @@ onMounted(() => {
 
 <template>
   <!-- search -->
-  <div>
-    <div
-      :class="[
-        'fixed top-0 left-0 w-screen h-screen z-10 transition-all duration-500',
-        focusInput ? ' bg-black/20 visible' : 'opacity-0 invisible',
-      ]"
-      @click="handleFocusout"
-    ></div>
+  <div class="flex justify-center">
     <form
       :action="urlSelected"
       target="_blank"
-      :class="[
-        'relative backdrop-blur-sm bg-white/20 max-w-lg flex items-center p-2 shadow-lg border z-20 sm:mx-auto',
-        focusInput ? 'rounded-t-2xl' : 'rounded-full',
-      ]"
+      class="relative max-w-lg shadow-lg grow rounded-full"
     >
-      <el-dropdown trigger="click" @command="handleSearchSelect">
-        <div class="cursor-pointer flex items-center">
-          <el-image
-            style="width: 24px; height: auto; padding-right: 2px"
-            :src="searchSelected"
-          ></el-image>
-          <el-icon><IEpCaretBottom /></el-icon>
-        </div>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="0"
-              ><el-image
-                style="width: auto; height: 24px; padding-right: 2px"
-                :src="google"
-              ></el-image
-            ></el-dropdown-item>
-            <el-dropdown-item command="1"
-              ><el-image
-                style="width: auto; height: 24px; padding-right: 2px"
-                :src="Bing"
-              ></el-image
-            ></el-dropdown-item>
-            <el-dropdown-item command="2"
-              ><el-image
-                style="width: auto; height: 24px; padding-right: 2px"
-                :src="baidu"
-              ></el-image
-            ></el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-      <input
-        type="text"
-        :name="inputSelected"
-        v-model="searchInput"
-        maxlength="255"
-        autocomplete="off"
-        placeholder="请输入关键字"
-        class="outline-none flex-grow min-w-0 bg-transparent focus:placeholder:text-white sm:placeholder:text-white px-2"
-        @focus="focusInput = true"
-      />
-      <el-tooltip effect="dark" content="搜索" placement="bottom">
-        <div
-          class="relative transition-all flex items-center hover:text-orange-400"
-        >
-          <el-icon size="24"><IEpSearch /></el-icon>
-          <input
-            type="submit"
-            value=" "
-            class="absolute cursor-pointer left-0 w-full h-full"
-            @click="handleSearch"
-          />
-        </div>
-      </el-tooltip>
+      <div
+        :class="[
+          'search-input bg-white/20 backdrop-blur flex items-center p-2 border z-20 sm:mx-auto',
+          focusInput ? 'rounded-t-2xl' : 'rounded-full',
+        ]"
+      >
+        <el-dropdown trigger="click" @command="handleSearchSelect">
+          <div class="cursor-pointer flex items-center">
+            <el-image
+              style="width: 24px; height: auto; padding-right: 2px"
+              :src="searchSelected"
+            ></el-image>
+            <el-icon><IEpCaretBottom /></el-icon>
+          </div>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="0"
+                ><el-image
+                  style="width: auto; height: 24px; padding-right: 2px"
+                  :src="google"
+                ></el-image
+              ></el-dropdown-item>
+              <el-dropdown-item command="1"
+                ><el-image
+                  style="width: auto; height: 24px; padding-right: 2px"
+                  :src="Bing"
+                ></el-image
+              ></el-dropdown-item>
+              <el-dropdown-item command="2"
+                ><el-image
+                  style="width: auto; height: 24px; padding-right: 2px"
+                  :src="baidu"
+                ></el-image
+              ></el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <input
+          type="text"
+          :name="inputSelected"
+          v-model="searchInput"
+          maxlength="255"
+          autocomplete="off"
+          placeholder="请输入关键字"
+          class="outline-none flex-grow min-w-0 bg-transparent focus:placeholder:text-white sm:placeholder:text-white px-2"
+          @focus="focusInput = true"
+          @focusout="focusInput = false"
+        />
+        <el-tooltip effect="dark" content="搜索" placement="bottom">
+          <div
+            class="relative transition-all flex items-center hover:text-orange-400"
+          >
+            <el-icon size="24"><IEpSearch /></el-icon>
+            <input
+              type="submit"
+              value=" "
+              class="absolute cursor-pointer left-0 w-full h-full"
+              @click="handleSearch"
+            />
+          </div>
+        </el-tooltip>
+      </div>
       <div
         v-show="focusInput"
-        class="absolute top-full left-0 w-full backdrop-blur-sm bg-white/80 border-t-2 rounded-b-2xl overflow-hidden pb-2"
+        class="associate-label absolute top-full left-0 w-full bg-white/90 border-x-2 border-slate-200 rounded-b-2xl overflow-hidden pb-2"
       >
         <ul>
           <li
-            class="px-4 py-2 cursor-pointer transition-all text-orange-500 hover:bg-gray-200 line-clamp-1"
+            class="px-4 py-2 cursor-pointer transition-all text-orange-500 hover:bg-orange-100 line-clamp-1"
             v-for="item in dropDownMenu"
             @click="handleLocalLink(item.url)"
           >

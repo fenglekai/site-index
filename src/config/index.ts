@@ -79,19 +79,9 @@ const navLink = [
     navTitle: "个人建站",
     children: [
       {
-        site: "宝塔面板",
-        url: "https://baota.devkai.site/",
-        introduction: "服务器的宝塔面板",
-      },
-      {
-        site: "首页站点",
-        url: "/home",
-        introduction: "个人设计的首页封面",
-      },
-      {
-        site: "Rocket.Chat",
-        url: "https://chat.devkai.site/",
-        introduction: "个人聊天室",
+        site: "个人博客",
+        url: "https://fenglekai.github.io/vitepress-blog",
+        introduction: "学习笔记和搭建博客教程",
       },
       {
         site: "Github代理",
@@ -99,14 +89,40 @@ const navLink = [
         introduction: "可以访问Github查阅项目，无法登录和下载",
       },
       {
-        site: "个人博客",
-        url: "https://fenglekai.github.io/",
-        introduction: "学习笔记和搭建博客教程",
+        site: "宝塔面板",
+        url: "https://baota.devkai.site/",
+        introduction: "服务器的宝塔面板",
+      },
+
+      {
+        site: "Rocket.Chat",
+        url: "https://chat.devkai.site/",
+        introduction: "个人聊天室",
+      },
+      {
+        site: "首页站点",
+        url: "/home",
+        introduction: "个人设计的首页封面",
+      },
+      {
+        site: "Three.js效果",
+        url: "/demo",
+        introduction: "一些Three.js的示例",
+      },
+      {
+        site: "导出excel",
+        url: "https://www.npmjs.com/package/awesome-excel",
+        introduction: "基于exceljs集成简易导出功能",
+      },
+      {
+        site: "LessWriteUI组件",
+        url: "https://www.npmjs.com/package/less-write-ui",
+        introduction: "Vue3组件库",
       },
     ],
   },
   {
-    navTitle: "框架/UI",
+    navTitle: "框架、UI",
     children: [
       {
         site: "Vue",

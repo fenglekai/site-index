@@ -7,17 +7,17 @@ import { ref } from "vue";
 
 const routes = [
   {
-    path: "/home",
-    component: Home,
-  },
-  {
     path: "/",
     component: Layout,
     redirect: "/nav",
     children: [{ path: "/nav", component: BaseNav }],
   },
   {
-    path: "/threeJS",
+    path: "/home",
+    component: Home,
+  },
+  {
+    path: "/demo",
     component: ThreeJS,
   },
 ];

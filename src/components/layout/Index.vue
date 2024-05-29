@@ -3,7 +3,6 @@ import { computed, onMounted, onUnmounted, provide, ref, watch } from "vue";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import Aside from "./Aside.vue";
-import ThreeJS from "../../views/ThreeJS.vue";
 
 const MOBILE_WIDTH = 640;
 const screenWidth = ref(document.body.clientWidth);
@@ -24,9 +23,9 @@ const headerHeight = computed(() => {
 
 const asideWidth = computed(() => {
   if (collapse.value) {
-    return "200px";
-  } else if (!notMobile.value) {
-    return "calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)*2)";
+    return menuCollapse.value
+      ? "calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)*2)"
+      : "200px";
   } else {
     return "0px";
   }
@@ -39,12 +38,6 @@ const setCollapse = () => {
 watch(notMobile, (v) => {
   menuCollapse.value = false;
 });
-
-const darkBackground = ref(false);
-const darkSwitch = () => {
-  darkBackground.value = !darkBackground.value;
-};
-provide("darkBackground", darkBackground);
 
 onMounted(() => {
   window.onresize = () => {
@@ -60,14 +53,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <el-container id="base-nav" class="min-h-screen relative">
-    <div
-      v-if="darkBackground"
-      class="absolute top-0 left-0 w-full h-full"
-      style="z-index: 0"
-    >
-      <ThreeJS :show-list="false" />
-    </div>
+  <el-container id="base-nav" class="min-h-screen relative text-slate-700">
     <el-header
       :style="[`min-height: ${headerHeight}; transition: 0.3s; padding: 0;`]"
       class="fixed border-b backdrop-blur-md z-10 w-full"
@@ -75,7 +61,6 @@ onUnmounted(() => {
       <Header
         :collapse="collapse"
         :not-mobile="notMobile"
-        :dark-background="darkBackground"
         @setCollapse="setCollapse"
       />
     </el-header>
@@ -92,8 +77,8 @@ onUnmounted(() => {
         <Aside
           v-model:menu-collapse="menuCollapse"
           :headerHeight="headerHeight"
-          :dark="darkBackground"
-          @darkSwitch="darkSwitch"
+          :collapse="collapse"
+          @setCollapse="setCollapse"
         />
       </el-aside>
       <el-container>
@@ -102,14 +87,7 @@ onUnmounted(() => {
           wrap-class="main-scroll-wrap"
           @scroll="({ scrollTop }: any) => (mainScroll = scrollTop)"
         >
-          <el-main
-            class="w-full p-0"
-            @click="
-              () => {
-                if (headerHeight == '80px' && collapse) setCollapse();
-              }
-            "
-          >
+          <el-main class="w-full p-0">
             <RouterView />
           </el-main>
           <el-footer class="text-gray-500"><Footer /></el-footer>

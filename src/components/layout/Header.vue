@@ -8,24 +8,19 @@ import Banner_20240527 from "../historyBanner/Banner_20240527.vue";
 interface Props {
   collapse: boolean;
   notMobile: boolean;
-  darkBackground: boolean;
+}
+
+interface Emits {
+  (e: "setCollapse"): void;
 }
 
 const router = useRouter();
-const handleClick = () => {
-  router.push("/home");
-};
 
 const props = defineProps<Props>();
-const emits = defineEmits(["setCollapse"]);
-
-const showNav = ref(false);
-const setNav = () => {
-  showNav.value = !showNav.value;
-};
+const emits = defineEmits<Emits>();
 
 const bannerList = shallowRef<{ [key: string]: Component }>({
-  默认: AnimateBanner,
+  default: AnimateBanner,
   "20240527": Banner_20240527,
 });
 const selectedBanner = ref("20240527");
@@ -54,7 +49,7 @@ const selectOptions = computed(() => {
         >
           <el-icon size="20"><IEpOperation /></el-icon>
         </div>
-        <h2 class="inline-block header-text" @click="handleClick">
+        <h2 class="inline-block header-text" @click="router.push('/')">
           <span>KAI</span>
           <span class="hidden sm:inline-block">站点导航</span>
         </h2>
@@ -62,16 +57,23 @@ const selectOptions = computed(() => {
 
       <LocalSearch class="min-w-0 grow" />
 
-      <el-dropdown v-if="!notMobile" @command="selectedBanner = $event">
-        <span class="text-white" style="outline: none"> 切换Banner </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item v-for="item in selectOptions" :command="item">{{
-              item
-            }}</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <ul class="flex space-x-3 items-center">
+        <li></li>
+        <li class="flex items-center">
+          <el-dropdown v-if="!notMobile" @command="selectedBanner = $event">
+            <span class="text-white" style="outline: none"> 切换Banner </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  v-for="item in selectOptions"
+                  :command="item"
+                  >{{ item }}</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
