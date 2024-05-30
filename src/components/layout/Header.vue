@@ -43,12 +43,12 @@ const selectOptions = computed(() => {
       class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start"
     >
       <div id="logo" class="whitespace-nowrap tracking-wider">
-        <div
+        <!-- <div
           class="sm:hidden inline-block transition-all mr-2"
           @click="emits('setCollapse')"
         >
           <el-icon size="20"><IEpOperation /></el-icon>
-        </div>
+        </div> -->
         <h2 class="inline-block header-text" @click="router.push('/')">
           <span>KAI</span>
           <span class="hidden sm:inline-block">站点导航</span>
@@ -57,7 +57,7 @@ const selectOptions = computed(() => {
 
       <LocalSearch class="min-w-0 grow" />
 
-      <ul class="flex space-x-3 items-center">
+      <ul class="hidden md:flex space-x-3 items-center">
         <li></li>
         <li class="flex items-center">
           <el-dropdown v-if="!notMobile" @command="selectedBanner = $event">

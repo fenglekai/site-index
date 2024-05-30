@@ -31,8 +31,8 @@ const asideWidth = computed(() => {
   }
 });
 
-const setCollapse = () => {
-  collapse.value = !collapse.value;
+const setCollapse = (value = !collapse.value) => {
+  collapse.value = value;
 };
 
 watch(notMobile, (v) => {

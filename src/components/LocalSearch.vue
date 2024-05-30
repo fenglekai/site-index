@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Ref, inject, onMounted, ref, watch } from "vue";
+import { Ref, inject, onMounted, ref, watch, reactive } from "vue";
 import google from "../assets/google.png";
 import Bing from "../assets/Bing.png";
 import baidu from "../assets/baidu.png";
@@ -46,7 +46,7 @@ const initSearchList = () => {
       searchList.push(navLink[key]["children"][children]);
     }
   }
-  dropDownMenu.value = searchList.slice(0, 15);
+  dropDownMenu.value = searchList.slice(0, 10);
 };
 watch(searchInput, (newVal) => {
   const curVal = newVal.toLocaleLowerCase();
@@ -85,6 +85,28 @@ watch(screenWidth, (newVal) => {
   }
 });
 
+function handleFocus() {
+  setAssociateSize();
+  focusInput.value = true;
+}
+
+const searchRef = ref<HTMLDivElement>();
+const associateSize = reactive({
+  width: "0",
+  left: "0",
+  top: "0",
+  zIndex: 999,
+});
+function setAssociateSize() {
+  
+  if (searchRef.value) {
+    const {x,y} = searchRef.value.getBoundingClientRect()
+    associateSize.width = searchRef.value.offsetWidth + "px";
+    associateSize.left = x + "px";
+    associateSize.top = y + searchRef.value.offsetHeight + "px";
+  }
+}
+
 onMounted(() => {
   initSearchList();
   if (screenWidth.value < 640) {
@@ -92,6 +114,7 @@ onMounted(() => {
   } else {
     expand.value = true;
   }
+  setAssociateSize();
 });
 </script>
 
@@ -101,9 +124,13 @@ onMounted(() => {
     <form
       :action="urlSelected"
       target="_blank"
-      class="relative max-w-lg shadow-lg grow rounded-full"
+      :class="[
+        'relative max-w-lg shadow-lg grow rounded-full w-full',
+        focusInput ? 'rounded-none' : 'rounded-full',
+      ]"
     >
       <div
+        ref="searchRef"
         :class="[
           'search-input bg-white/20 backdrop-blur flex items-center p-2 border z-20 sm:mx-auto',
           focusInput ? 'rounded-t-2xl' : 'rounded-full',
@@ -148,7 +175,7 @@ onMounted(() => {
           autocomplete="off"
           placeholder="请输入关键字"
           class="outline-none flex-grow min-w-0 bg-transparent focus:placeholder:text-white sm:placeholder:text-white px-2"
-          @focus="focusInput = true"
+          @focus="handleFocus"
           @focusout="focusInput = false"
         />
         <el-tooltip effect="dark" content="搜索" placement="bottom">
@@ -165,27 +192,30 @@ onMounted(() => {
           </div>
         </el-tooltip>
       </div>
-      <div
-        v-show="focusInput"
-        class="associate-label absolute top-full left-0 w-full bg-white/90 border-x-2 border-slate-200 rounded-b-2xl overflow-hidden pb-2"
-      >
-        <ul>
-          <li
-            class="px-4 py-2 cursor-pointer transition-all text-orange-500 hover:bg-orange-100 line-clamp-1"
-            v-for="item in dropDownMenu"
-            @click="handleLocalLink(item.url)"
-          >
-            {{ item.site }}
-            <span class="text-gray-400 text-xs">{{ item.introduction }}</span>
-          </li>
-          <li
-            v-show="!dropDownMenu.length"
-            class="text-gray-400 text-center py-2"
-          >
-            未搜索到本地内容
-          </li>
-        </ul>
-      </div>
+      <Teleport to="body">
+        <div
+          v-show="focusInput"
+          :style="associateSize"
+          class="associate-label absolute bg-white/50 backdrop-blur border-x-2 border-slate-200 rounded-b-2xl overflow-hidden pb-2"
+        >
+          <ul>
+            <li
+              class="px-4 py-2 cursor-pointer transition-all text-orange-500 hover:bg-orange-100 line-clamp-1"
+              v-for="item in dropDownMenu"
+              @click="handleLocalLink(item.url)"
+            >
+              {{ item.site }}
+              <span class="text-gray-400 text-xs">{{ item.introduction }}</span>
+            </li>
+            <li
+              v-show="!dropDownMenu.length"
+              class="text-gray-400 text-center py-2"
+            >
+              未搜索到本地内容
+            </li>
+          </ul>
+        </div>
+      </Teleport>
     </form>
   </div>
 </template>
