@@ -7,8 +7,8 @@ import {
   Spotlight,
   StarrySky,
   UnrealBloom,
-} from "../module";
-import WebGL from "../module/WebGL";
+} from "../hook/use-module";
+import WebGL from "../hook/use-webGL";
 import { useRouter } from "vue-router";
 import { ElLoading } from "element-plus";
 
@@ -154,3 +154,4 @@ onMounted(() => {
 </template>
 
 <style scoped></style>
+../hook../hook/WebGL../hook/use-threejs../hook/use-webGL
