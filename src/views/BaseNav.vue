@@ -203,20 +203,23 @@ const handleUpload = () => {
 </script>
 
 <template>
-  <div :class="['lg:flex gap-4 mt-2']">
+  <div class="lg:flex gap-4 mt-2">
     <!-- 主要链接 -->
     <div class="lg:flex-1">
       <!-- nav container -->
       <template v-for="category in navLink">
         <div class="mb-6">
-          <h2 :id="category.navTitle" class="sticky top-0 mb-4 text-2xl">
+          <h2 :id="category.navTitle" class="sticky top-0 text-2xl backdrop-blur z-10 py-2">
             {{ category.navTitle }}
           </h2>
           <div
             class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
           >
             <template v-for="item in category.children">
-              <GlowCard :data="item" @click="handleClick(item.site, item.url)" />
+              <GlowCard
+                :data="item"
+                @click="handleClick(item.site, item.url)"
+              />
             </template>
           </div>
         </div>

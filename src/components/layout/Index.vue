@@ -83,11 +83,10 @@ onUnmounted(() => {
       </el-aside>
       <el-container>
         <el-scrollbar
-          class="w-full"
           wrap-class="main-scroll-wrap"
           @scroll="({ scrollTop }: any) => (mainScroll = scrollTop)"
         >
-          <el-main class="w-full p-0">
+          <el-main style="overflow: visible;">
             <RouterView />
           </el-main>
           <el-footer class="text-gray-500"><Footer /></el-footer>
