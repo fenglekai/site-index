@@ -32,6 +32,7 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Footer: typeof import('./components/layout/Footer.vue')['default']
+    GlowCard: typeof import('./components/GlowCard.vue')['default']
     Header: typeof import('./components/layout/Header.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IEpBack: typeof import('~icons/ep/back')['default']

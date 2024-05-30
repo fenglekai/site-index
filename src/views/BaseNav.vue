@@ -209,24 +209,14 @@ const handleUpload = () => {
       <!-- nav container -->
       <template v-for="category in navLink">
         <div class="mb-6">
-          <h2 :id="category.navTitle" class="mb-4 text-2xl">
+          <h2 :id="category.navTitle" class="sticky top-0 mb-4 text-2xl">
             {{ category.navTitle }}
           </h2>
           <div
             class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
           >
             <template v-for="item in category.children">
-              <div
-                class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer hover:bg-orange-100"
-                @click="handleClick(item.site, item.url)"
-              >
-                <h3 class="font-bold text-md break-words">
-                  {{ item.site }}
-                </h3>
-                <p class="text-gray-400 text-sm break-words">
-                  {{ item.introduction }}
-                </p>
-              </div>
+              <GlowCard :data="item" @click="handleClick(item.site, item.url)" />
             </template>
           </div>
         </div>
