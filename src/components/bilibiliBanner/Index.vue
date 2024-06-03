@@ -12,7 +12,7 @@ const animated: any = ref(null);
 const startX = ref(0);
 const useStart = ref(false);
 const layerList = ref(props.layout || []);
-const STEP = 120;
+const STEP = 50;
 
 const nodeTransformList = computed(() => {
   const result: any = [];
