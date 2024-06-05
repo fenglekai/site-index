@@ -29,6 +29,7 @@ const { cardRef: glowCard } = useGlowCard({
   <div
     class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
     ref="glowCard"
+    @click="$emit('click', props.data.site, props.data.url)"
   >
     <h3 class="font-bold text-md break-words">
       {{ props.data.site }}
