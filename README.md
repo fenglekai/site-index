@@ -1,6 +1,8 @@
-# KAI站点导航首页
+<div><h1 align="center">KAI的实验室</h1></div></div>
 
 采用Vue3+Vite脚手架构建，搭配Element Plus和TailwindCSS简化代码体积。
+
+![image-20240710142802043](https://raw.githubusercontent.com/fenglekai/image-bed/master/image-20240710142802043.png)
 
 ## 简介
 

@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from "vite";
+import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { visualizer } from "rollup-plugin-visualizer";
 import viteCompression from "vite-plugin-compression";
@@ -27,7 +27,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    splitVendorChunkPlugin(),
     viteCompression(),
     visualizer({
       gzipSize: true,
@@ -67,6 +66,7 @@ export default defineConfig({
       ],
 
       dts: path.resolve(pathSrc, "components.d.ts"),
+      directoryAsNamespace: true
     }),
 
     Icons({
