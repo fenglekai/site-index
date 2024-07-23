@@ -7,6 +7,12 @@ pipeline {
 
   }
   stages {
+    stage('Set npm configure') {
+        steps {
+            sh 'npm config set registry https://registry.npmmirror.com'
+        }
+    }
+    
     stage('Initial') {
       steps {
         sh 'npm install'
