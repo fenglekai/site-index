@@ -266,6 +266,21 @@ const navLink = [
     ],
   },
   {
+    navTitle: "线上代码",
+    children: [
+      {
+        site: "StackBlitz",
+        url: "https://stackblitz.com/",
+        introduction: "StackBlitz 是适用于 JavaScript 生态系统的即时全栈 Web IDE。它由Web容器，第一个基于 WebAssembly 的操作系统，可在几毫秒内在您的浏览器选项卡内安全地启动 Node.js 环境。",
+      },
+      {
+        site: "CodePen",
+        url: "https://codepen.io/",
+        introduction: "Pen Editor 是 CodePen 上最重要的页面！这是您实际编写制作笔的代码的地方。标准编辑器是 HTML、CSS 和 JavaScript。",
+      },
+    ]
+  },
+  {
     navTitle: "其他工具",
     children: [
       {
