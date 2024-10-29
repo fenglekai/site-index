@@ -32,18 +32,18 @@ const { cardRef: glowCard } = useGlowCard({
     ref="glowCard"
     @click="$emit('click', props.data)"
   >
-    <p class="font-bold text-md break-words flex gap-1 mb-2">
+    <p class="font-bold text-md break-all flex gap-1 mb-2">
       <img
         :src="
           props.data.icon
             ? props.data.icon
             : `https://favicon.im/${props.data.url}`
         "
-        :style="{ width: '24px' }"
+        class="icon"
       />
       {{ props.data.site }}
     </p>
-    <p class="text-gray-400 text-sm break-words">
+    <p class="text-gray-400 text-sm break-all line-clamp-3">
       {{ props.data.introduction }}
     </p>
   </div>
@@ -57,5 +57,9 @@ const { cardRef: glowCard } = useGlowCard({
   border-radius: 15px;
   box-shadow: 3px 3px 5px #a5a3a3;
   padding: 6px 12px;
+}
+.icon {
+  width: 24px;
+  height: 24px;
 }
 </style>
