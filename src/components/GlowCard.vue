@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface Emits {
-  (e: "click", site: string, url: string): void;
+  (e: "click", data: Props['data']): void;
 }
 
 const props = defineProps<Props>();
@@ -30,9 +30,9 @@ const { cardRef: glowCard } = useGlowCard({
   <div
     class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
     ref="glowCard"
-    @click="$emit('click', props.data.site, props.data.url)"
+    @click="$emit('click', props.data)"
   >
-    <p class="font-bold text-md break-words flex gap-1">
+    <p class="font-bold text-md break-words flex gap-1 mb-2">
       <img
         :src="
           props.data.icon

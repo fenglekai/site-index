@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { inject, onMounted, reactive, ref, watch } from "vue";
-import { navLink } from "../config/index";
+import { inject, onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import Giscus from "@giscus/vue";
+import { Delete } from "@element-plus/icons-vue";
+import { navLink } from "../config/index";
 
 interface SiteProps {
   site: string;
@@ -72,7 +73,7 @@ const deleteHistoryRow = (row: any) => {
 
 // 我的链接
 const ownList = ref<SiteProps[]>([]);
-const getSelfLocal = () => {
+const getSelfLocal = (): SiteProps[] => {
   const localOwn = localStorage.getItem("own-list");
   if (localOwn) {
     if (JSON.parse(localOwn) instanceof Array) {
@@ -112,10 +113,10 @@ const addOwnRow = (site: SiteProps) => {
   let selfLocal = getSelfLocal();
   selfLocal.unshift(site);
   // 去重
-  function uniqueFunc(arr: any, uniId: any) {
+  function uniqueFunc(arr: any[], uniId: string) {
     const res = new Map();
     return arr.filter(
-      (item: any) => !res.has(item[uniId]) && res.set(item[uniId], item)
+      (item) => !res.has(item[uniId]) && res.set(item[uniId], item)
     );
   }
   selfLocal = uniqueFunc(selfLocal, "site");
@@ -123,10 +124,10 @@ const addOwnRow = (site: SiteProps) => {
   localStorage.setItem("own-list", JSON.stringify(selfLocal));
   showAddForm.value = false;
 };
-const deleteOwnRow = (row: any) => {
+const deleteOwnRow = (row: SiteProps) => {
   const selfLocal = getSelfLocal();
   const filterList = selfLocal.filter((item: any) => {
-    if (item.title == row.title && item.url == row.url) {
+    if (item.site == row.site && item.url == row.url) {
       return false;
     } else {
       return true;
@@ -212,11 +213,11 @@ const handleUpload = () => {
     <div class="lg:flex-1">
       <!-- 我的链接 -->
       <section class="mb-6 space-y-2">
-        <div class="flex items-center space-x-2 sticky top-0 backdrop-blur">
-          <h2 class="text-2xl py-2">
-            我的链接
-            <span class="ml-2 text-gray-400 text-sm">右键卡牌删除链接</span>
-          </h2>
+        <div
+          class="flex items-center space-x-2 sticky top-0 backdrop-blur"
+          :style="{ margin: 'auto -20px', zIndex: 3 }"
+        >
+          <h2 class="text-2xl p-2">我的链接</h2>
           <el-tooltip content="添加链接">
             <el-icon
               class="cursor-pointer transition-all hover:text-orange-400"
@@ -292,13 +293,30 @@ const handleUpload = () => {
           class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
         >
           <template v-for="item in ownList">
-            <GlowCard :data="item" @click="handleClick(item)" />
+            <div class="relative" :style="{ zIndex: 2 }">
+              <GlowCard :data="item" @click="handleClick(item)" />
+              <div class="absolute -right-2 top-1">
+                <el-popconfirm
+                  title="确认删除吗?"
+                  confirm-button-text="确认"
+                  cancel-button-text="取消"
+                  @confirm="deleteOwnRow(item)"
+                >
+                  <template #reference>
+                    <el-button type="danger" :icon="Delete" size="small" />
+                  </template>
+                </el-popconfirm>
+              </div>
+            </div>
           </template>
         </div>
       </section>
       <!-- 历史访问 -->
       <section class="mb-6 space-y-2">
-        <h2 class="sticky top-0 text-2xl backdrop-blur py-2">
+        <h2
+          class="sticky top-0 text-2xl backdrop-blur p-2"
+          :style="{ margin: 'auto -20px' }"
+        >
           历史访问
           <span class="ml-2 text-gray-400 text-sm">显示最近15条访问记录</span>
         </h2>
@@ -315,7 +333,8 @@ const handleUpload = () => {
         <section class="mb-6">
           <h2
             :id="category.navTitle"
-            class="sticky top-0 text-2xl backdrop-blur py-2"
+            class="sticky top-0 text-2xl backdrop-blur p-2"
+            :style="{ margin: 'auto -20px' }"
           >
             {{ category.navTitle }}
           </h2>
@@ -328,8 +347,14 @@ const handleUpload = () => {
           </div>
         </section>
       </template>
+      <!-- 评论 -->
       <section class="space-y-2">
-        <h2 class="sticky top-0 text-2xl backdrop-blur py-2">评论</h2>
+        <h2
+          class="sticky top-0 text-2xl backdrop-blur p-2"
+          :style="{ margin: 'auto -20px' }"
+        >
+          评论
+        </h2>
         <Giscus
           id="comments"
           repo="fenglekai/giscus"
