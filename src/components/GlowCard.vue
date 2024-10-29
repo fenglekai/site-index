@@ -18,6 +18,7 @@ interface Emits {
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
+// TODO 光源抖动
 const { cardRef: glowCard } = useGlowCard({
   light: {
     color: "#F26419",
