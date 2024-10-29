@@ -275,7 +275,7 @@ const handleCloseMoreClick = () => {
           <el-footer class="bg-gray-800 text-white"><Footer /></el-footer>
         </div>
       </el-scrollbar>
-      <el-backtop target=".home-wrap" :right="50" :bottom="50" />
+      <el-backtop target=".home-wrap" :right="50" :bottom="50"/>
     </el-container>
   </div>
 </template>

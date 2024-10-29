@@ -69,7 +69,7 @@ onUnmounted(() => {
         `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
       ]"
     >
-      <el-aside
+      <!-- <el-aside
         class="duration-500 block fixed z-10 sm:static sm:z-none"
         style="transition: 0.3s"
         :width="asideWidth"
@@ -80,7 +80,7 @@ onUnmounted(() => {
           :collapse="collapse"
           @setCollapse="setCollapse"
         />
-      </el-aside>
+      </el-aside> -->
       <el-container>
         <el-scrollbar
           wrap-class="main-scroll-wrap"

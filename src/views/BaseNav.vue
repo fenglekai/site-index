@@ -4,13 +4,19 @@ import { navLink } from "../config/index";
 import { ElMessage, FormInstance } from "element-plus";
 import Giscus from "@giscus/vue";
 
+interface SiteProps {
+  site: string;
+  url: string;
+  introduction: string;
+}
+
 onMounted(() => {
   getLocalList();
 });
 
-const handleClick = (title: string, url: string) => {
-  addHistoryRow(title, url);
-  window.open(url);
+const handleClick = (site: SiteProps) => {
+  addHistoryRow(site);
+  window.open(site.url);
 };
 
 /**
@@ -19,7 +25,7 @@ const handleClick = (title: string, url: string) => {
  */
 
 // 历史访问
-const historyList = ref<{ title: string; url: string }[]>([]);
+const historyList = ref<SiteProps[]>([]);
 const getLocal = () => {
   const localHistory = localStorage.getItem("history-list");
   if (localHistory) {
@@ -35,10 +41,9 @@ const getLocal = () => {
   }
 };
 
-const addHistoryRow = (title: string, url: string) => {
+const addHistoryRow = (site: SiteProps) => {
   let localHistory = getLocal();
-  const currentLink = { title, url };
-  localHistory.unshift(currentLink);
+  localHistory.unshift(site);
   // 只保留15条
   localHistory = localHistory.slice(0, 14);
   // 去重
@@ -66,7 +71,7 @@ const deleteHistoryRow = (row: any) => {
 };
 
 // 我的链接
-const ownList = ref<{ title: string; url: string }[]>([]);
+const ownList = ref<SiteProps[]>([]);
 const getSelfLocal = () => {
   const localOwn = localStorage.getItem("own-list");
   if (localOwn) {
@@ -85,14 +90,15 @@ const getSelfLocal = () => {
 const showAddForm = ref(false);
 const ownFormRef = ref<FormInstance>();
 const formLabelAlign = reactive({
-  title: "",
+  site: "",
   url: "http://",
+  introduction: "",
 });
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
     if (valid) {
-      addOwnRow(formLabelAlign.title, formLabelAlign.url);
+      addOwnRow(formLabelAlign);
     }
   });
 };
@@ -102,18 +108,17 @@ const resetForm = (formEl: FormInstance | undefined) => {
   showAddForm.value = false;
 };
 
-const addOwnRow = (title: string, url: string) => {
+const addOwnRow = (site: SiteProps) => {
   let selfLocal = getSelfLocal();
-  const currentLink = { title, url };
-  selfLocal.unshift(currentLink);
+  selfLocal.unshift(site);
   // 去重
   function uniqueFunc(arr: any, uniId: any) {
     const res = new Map();
     return arr.filter(
-      (item: any) => !res.has(item[uniId]) && res.set(item[uniId], 1)
+      (item: any) => !res.has(item[uniId]) && res.set(item[uniId], item)
     );
   }
-  selfLocal = uniqueFunc(selfLocal, "url");
+  selfLocal = uniqueFunc(selfLocal, "site");
   ownList.value = selfLocal;
   localStorage.setItem("own-list", JSON.stringify(selfLocal));
   showAddForm.value = false;
@@ -204,33 +209,14 @@ const handleUpload = () => {
 
 <template>
   <div class="lg:flex gap-4 mt-2">
-    <!-- 主要链接 -->
     <div class="lg:flex-1">
-      <!-- nav container -->
-      <template v-for="category in navLink">
-        <div class="mb-6">
-          <h2 :id="category.navTitle" class="sticky top-0 text-2xl backdrop-blur z-10 py-2">
-            {{ category.navTitle }}
+      <!-- 我的链接 -->
+      <section class="mb-6 space-y-2">
+        <div class="flex items-center space-x-2 sticky top-0 backdrop-blur">
+          <h2 class="text-2xl py-2">
+            我的链接
+            <span class="ml-2 text-gray-400 text-sm">右键卡牌删除链接</span>
           </h2>
-          <div
-            class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
-          >
-            <template v-for="item in category.children">
-              <GlowCard
-                :data="item"
-                @click="handleClick(item.site, item.url)"
-              />
-            </template>
-          </div>
-        </div>
-      </template>
-    </div>
-
-    <!-- 我的链接&历史访问 -->
-    <div class="lg:basis-60">
-      <section class="mb-4 space-y-2">
-        <div class="flex items-center space-x-2">
-          <h3>我的链接</h3>
           <el-tooltip content="添加链接">
             <el-icon
               class="cursor-pointer transition-all hover:text-orange-400"
@@ -261,16 +247,16 @@ const handleUpload = () => {
           :model="formLabelAlign"
           :class="[
             'overflow-hidden transition-all',
-            showAddForm ? 'max-h-32' : 'max-h-0',
+            showAddForm ? 'max-h-40' : 'max-h-0',
           ]"
         >
           <el-form-item
-            prop="title"
+            prop="site"
             :rules="[{ required: true, message: '请输入网站名称' }]"
           >
             <el-input
               size="small"
-              v-model="formLabelAlign.title"
+              v-model="formLabelAlign.site"
               placeholder="网站名称"
             />
           </el-form-item>
@@ -279,6 +265,16 @@ const handleUpload = () => {
             :rules="[{ required: true, message: '请输入网站地址' }]"
           >
             <el-input size="small" v-model="formLabelAlign.url" />
+          </el-form-item>
+          <el-form-item
+            prop="introduction"
+            :rules="[{ required: true, message: '请输入网站描述' }]"
+          >
+            <el-input
+              size="small"
+              v-model="formLabelAlign.introduction"
+              placeholder="网站描述"
+            />
           </el-form-item>
           <el-form-item>
             <el-button
@@ -292,44 +288,48 @@ const handleUpload = () => {
             >
           </el-form-item>
         </el-form>
-        <ul class="list-none">
-          <li v-for="item in ownList" class="flex justify-between items-center">
-            <a
-              @click="handleClick(item.title, item.url)"
-              class="flex-grow cursor-pointer truncate"
-              >{{ item.title }}</a
-            >
-            <el-icon
-              class="cursor-pointer transition-all hover:text-orange-400"
-              @click="deleteOwnRow(item)"
-              ><IEpRemoveFilled
-            /></el-icon>
-          </li>
-        </ul>
+        <div
+          class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
+        >
+          <template v-for="item in ownList">
+            <GlowCard :data="item" @click="handleClick(item)" />
+          </template>
+        </div>
       </section>
-      <section class="mb-4 space-y-2">
-        <h3>历史访问</h3>
-        <ul class="list-none">
-          <li
-            v-for="item in historyList"
-            class="flex justify-between items-center"
+      <!-- 历史访问 -->
+      <section class="mb-6 space-y-2">
+        <h2 class="sticky top-0 text-2xl backdrop-blur py-2">
+          历史访问
+          <span class="ml-2 text-gray-400 text-sm">显示最近15条访问记录</span>
+        </h2>
+        <div
+          class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
+        >
+          <template v-for="item in historyList">
+            <GlowCard :data="item" @click="handleClick(item)" />
+          </template>
+        </div>
+      </section>
+      <!-- 配置站点 -->
+      <template v-for="category in navLink">
+        <section class="mb-6">
+          <h2
+            :id="category.navTitle"
+            class="sticky top-0 text-2xl backdrop-blur py-2"
           >
-            <a
-              @click="handleClick(item.title, item.url)"
-              class="flex-grow cursor-pointer truncate"
-              >{{ item.title }}</a
-            >
-            <el-icon
-              class="cursor-pointer transition-all hover:text-orange-400"
-              @click="deleteHistoryRow(item)"
-              ><IEpRemoveFilled
-            /></el-icon>
-          </li>
-        </ul>
-        <p class="text-gray-400 text-sm">显示最近15条访问记录</p>
-      </section>
-      <section class="mb-4 space-y-2">
-        <h3>评论</h3>
+            {{ category.navTitle }}
+          </h2>
+          <div
+            class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
+          >
+            <template v-for="item in category.children">
+              <GlowCard :data="item" @click="handleClick(item)" />
+            </template>
+          </div>
+        </section>
+      </template>
+      <section class="space-y-2">
+        <h2 class="sticky top-0 text-2xl backdrop-blur py-2">评论</h2>
         <Giscus
           id="comments"
           repo="fenglekai/giscus"

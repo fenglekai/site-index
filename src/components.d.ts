@@ -7,9 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AnimateBanner: typeof import('./components/historyBanner/AnimateBanner.vue')['default']
-    Aside: typeof import('./components/layout/Aside.vue')['default']
-    Banner_20240527: typeof import('./components/historyBanner/Banner_20240527.vue')['default']
     BilibiliBanner: typeof import('./components/bilibiliBanner/Index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
@@ -30,9 +27,7 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    Footer: typeof import('./components/layout/Footer.vue')['default']
     GlowCard: typeof import('./components/GlowCard.vue')['default']
-    Header: typeof import('./components/layout/Header.vue')['default']
     HistoryBannerAnimateBanner: typeof import('./components/historyBanner/AnimateBanner.vue')['default']
     HistoryBannerBanner_20240527: typeof import('./components/historyBanner/Banner_20240527.vue')['default']
     IEpBack: typeof import('~icons/ep/back')['default']

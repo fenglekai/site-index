@@ -98,9 +98,8 @@ const associateSize = reactive({
   zIndex: 999,
 });
 function setAssociateSize() {
-  
   if (searchRef.value) {
-    const {x,y} = searchRef.value.getBoundingClientRect()
+    const { x, y } = searchRef.value.getBoundingClientRect();
     associateSize.width = searchRef.value.offsetWidth + "px";
     associateSize.left = x + "px";
     associateSize.top = y + searchRef.value.offsetHeight + "px";
@@ -124,49 +123,15 @@ onMounted(() => {
     <form
       :action="urlSelected"
       target="_blank"
-      :class="[
-        'relative max-w-lg shadow-lg grow rounded-full w-full',
-        focusInput ? 'rounded-none' : 'rounded-full',
-      ]"
+      :class="['relative max-w-lg shadow-lg grow w-full']"
     >
       <div
         ref="searchRef"
         :class="[
           'search-input bg-white/20 backdrop-blur flex items-center p-2 border z-20 sm:mx-auto',
-          focusInput ? 'rounded-t-2xl' : 'rounded-full',
+          focusInput ? 'rounded-t-2xl' : 'rounded-2xl',
         ]"
       >
-        <el-dropdown trigger="click" @command="handleSearchSelect">
-          <div class="cursor-pointer flex items-center">
-            <el-image
-              style="width: 24px; height: auto; padding-right: 2px"
-              :src="searchSelected"
-            ></el-image>
-            <el-icon><IEpCaretBottom /></el-icon>
-          </div>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="0"
-                ><el-image
-                  style="width: auto; height: 24px; padding-right: 2px"
-                  :src="google"
-                ></el-image
-              ></el-dropdown-item>
-              <el-dropdown-item command="1"
-                ><el-image
-                  style="width: auto; height: 24px; padding-right: 2px"
-                  :src="Bing"
-                ></el-image
-              ></el-dropdown-item>
-              <el-dropdown-item command="2"
-                ><el-image
-                  style="width: auto; height: 24px; padding-right: 2px"
-                  :src="baidu"
-                ></el-image
-              ></el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
         <input
           type="text"
           :name="inputSelected"
@@ -174,42 +139,29 @@ onMounted(() => {
           maxlength="255"
           autocomplete="off"
           placeholder="请输入关键字"
-          class="outline-none flex-grow min-w-0 bg-transparent focus:placeholder:text-white sm:placeholder:text-white px-2"
+          class="outline-none flex-grow min-w-0 bg-transparent placeholder:text-gray-300 px-2"
           @focus="handleFocus"
           @focusout="focusInput = false"
         />
-        <el-tooltip effect="dark" content="搜索" placement="bottom">
-          <div
-            class="relative transition-all flex items-center hover:text-orange-400"
-          >
-            <el-icon size="24"><IEpSearch /></el-icon>
-            <input
-              type="submit"
-              value=" "
-              class="absolute cursor-pointer left-0 w-full h-full"
-              @click="handleSearch"
-            />
-          </div>
-        </el-tooltip>
       </div>
       <Teleport to="body">
         <div
           v-show="focusInput"
           :style="associateSize"
-          class="associate-label absolute bg-white/50 backdrop-blur border-x-2 border-slate-200 rounded-b-2xl overflow-hidden pb-2"
+          class="associate-label absolute bg-white/20 backdrop-blur border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2"
         >
           <ul>
             <li
-              class="px-4 py-2 cursor-pointer transition-all text-orange-500 hover:bg-orange-100 line-clamp-1"
+              class="px-4 py-2 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
               v-for="item in dropDownMenu"
               @click="handleLocalLink(item.url)"
             >
-              {{ item.site }}
-              <span class="text-gray-400 text-xs">{{ item.introduction }}</span>
+              <span class="text-orange-500">{{ item.site }}</span>
+              <span class="text-gray-600 text-xs">{{ item.introduction }}</span>
             </li>
             <li
               v-show="!dropDownMenu.length"
-              class="text-gray-400 text-center py-2"
+              class="text-gray-600 text-center py-2"
             >
               未搜索到本地内容
             </li>
