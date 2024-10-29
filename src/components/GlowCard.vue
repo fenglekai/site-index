@@ -4,6 +4,7 @@ import { useGlowCard } from "../hook/use-glow-card";
 
 interface Props {
   data: {
+    icon?: string;
     site: string;
     url: string;
     introduction: string;
@@ -18,10 +19,10 @@ const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const { cardRef: glowCard } = useGlowCard({
-    light: {
-        color: '#F26419',
-        blur: 50
-    }
+  light: {
+    color: "#F26419",
+    blur: 50,
+  },
 });
 </script>
 
@@ -31,9 +32,17 @@ const { cardRef: glowCard } = useGlowCard({
     ref="glowCard"
     @click="$emit('click', props.data.site, props.data.url)"
   >
-    <h3 class="font-bold text-md break-words">
+    <p class="font-bold text-md break-words flex gap-1">
+      <img
+        :src="
+          props.data.icon
+            ? props.data.icon
+            : `https://favicon.im/${props.data.url}`
+        "
+        :style="{ width: '24px' }"
+      />
       {{ props.data.site }}
-    </h3>
+    </p>
     <p class="text-gray-400 text-sm break-words">
       {{ props.data.introduction }}
     </p>

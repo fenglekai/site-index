@@ -2,7 +2,7 @@
  * 卡牌发光悬浮
  * https://mp.weixin.qq.com/s/hZUX7PCDGQj6Ih8_dWzb1w
  */
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from "vue";
 
 interface IOptions {
   light?: {
@@ -16,15 +16,20 @@ interface IOptions {
 export const useGlowCard = (option: IOptions = {}) => {
   // 获取卡片的dom节点
   const cardRef = ref<HTMLDivElement | null>(null);
-  let cardOverflow = '';
+  let cardOverflow = "";
   // 光的dom节点
-  const lightRef = ref<HTMLDivElement>(document.createElement('div'));
+  const lightRef = ref<HTMLDivElement>(document.createElement("div"));
   // 设置光源的样式
 
   const setLightStyle = () => {
-    const { width = 60, height = 60, color = '#ff4132', blur = 40 } = option.light ?? {};
+    const {
+      width = 60,
+      height = 60,
+      color = "#ff4132",
+      blur = 40,
+    } = option.light ?? {};
     const lightDom = lightRef.value;
-    lightDom.style.position = 'absolute';
+    lightDom.style.position = "absolute";
     lightDom.style.width = `${width}px`;
     lightDom.style.height = `${height}px`;
     lightDom.style.background = color;
@@ -36,7 +41,7 @@ export const useGlowCard = (option: IOptions = {}) => {
     const cardDom = cardRef.value;
     if (cardDom) {
       cardOverflow = cardDom.style.overflow;
-      cardDom.style.overflow = 'hidden';
+      cardDom.style.overflow = "hidden";
     }
   };
   // 还原卡片的 overflow
@@ -44,6 +49,7 @@ export const useGlowCard = (option: IOptions = {}) => {
     const cardDom = cardRef.value;
     if (cardDom) {
       cardDom.style.overflow = cardOverflow;
+      cardDom.style.transform = "";
     }
   };
 
@@ -98,16 +104,16 @@ export const useGlowCard = (option: IOptions = {}) => {
     // 设置光源样式
     setLightStyle();
     // 绑定事件
-    cardRef.value?.addEventListener('mouseenter', onMouseEnter);
-    cardRef.value?.addEventListener('mousemove', onMouseMove);
-    cardRef.value?.addEventListener('mouseleave', onMouseLeave);
+    cardRef.value?.addEventListener("mouseenter", onMouseEnter);
+    cardRef.value?.addEventListener("mousemove", onMouseMove);
+    cardRef.value?.addEventListener("mouseleave", onMouseLeave);
   });
 
   onUnmounted(() => {
     // 解绑事件
-    cardRef.value?.removeEventListener('mouseenter', onMouseEnter);
-    cardRef.value?.removeEventListener('mousemove', onMouseMove);
-    cardRef.value?.removeEventListener('mouseleave', onMouseLeave);
+    cardRef.value?.removeEventListener("mouseenter", onMouseEnter);
+    cardRef.value?.removeEventListener("mousemove", onMouseMove);
+    cardRef.value?.removeEventListener("mouseleave", onMouseLeave);
   });
 
   return {

@@ -89,9 +89,24 @@ const navLink = [
         introduction: "基于exceljs集成简易导出功能",
       },
       {
+        icon: "https://raw.githubusercontent.com/fenglekai/image-bed/refs/heads/master/logo.jpeg",
         site: "LessWriteUI组件",
-        url: "https://www.npmjs.com/package/less-write-ui",
-        introduction: "Vue3组件库",
+        url: "https://fenglekai.github.io/less-write/",
+        introduction: "Vue3组件库, Element Plus项目风格",
+      },
+      {
+        icon: "https://raw.githubusercontent.com/fenglekai/image-bed/refs/heads/master/logo.jpeg",
+        site: "版本Changelog生成",
+        url: "https://fenglekai.github.io/less-write-changelog/",
+        introduction:
+          "基于conventional-changelog制作的Github Release日志生成工具",
+      },
+      {
+        icon: "https://raw.githubusercontent.com/fenglekai/image-bed/refs/heads/master/logo.jpeg",
+        site: "Vitepress主题",
+        url: "https://fenglekai.github.io/less-write-vitepress-theme",
+        introduction:
+          "简易安装的Vitepress主题, 集成UnoCSS彩虹主题, Element Plus示例代码组件",
       },
       {
         site: "Github代理",
@@ -99,11 +114,13 @@ const navLink = [
         introduction: "可以访问Github查阅项目",
       },
       {
+        icon: "https://raw.githubusercontent.com/fenglekai/image-bed/refs/heads/master/logo.jpeg",
         site: "首页站点",
         url: "/home",
         introduction: "个人设计的首页封面",
       },
       {
+        icon: "https://raw.githubusercontent.com/fenglekai/image-bed/refs/heads/master/logo.jpeg",
         site: "Three.js效果",
         url: "/demo",
         introduction: "一些Three.js的示例",
@@ -160,6 +177,7 @@ const navLink = [
         introduction: "SegmentFault 思否是中国领先的开发者技术社区。",
       },
       {
+        icon: "https://lf-web-assets.juejin.cn/obj/juejin-web/xitu_juejin_web/6c61ae65d1c41ae8221a670fa32d05aa.svg",
         site: "稀土掘金",
         url: "https://juejin.cn/",
         introduction: "掘金是面向全球中文开发者的技术内容分享与交流平台。",
@@ -167,17 +185,20 @@ const navLink = [
       {
         site: "TGideas团队前端规范",
         url: "https://tgideas.qq.com/doc/frontend/",
-        introduction: "本前端重构规范是由TGideas团队制定，面向合作伙伴的前端重构人员",
+        introduction:
+          "本前端重构规范是由TGideas团队制定，面向合作伙伴的前端重构人员",
       },
       {
         site: "凹凸实验室前端规范",
         url: "https://guide.aotu.io/docs/index.html",
-        introduction: "基于 W3C、苹果开发者 等官方文档，并结合团队日常业务需求以及团队在日常开发过程中总结提炼出的经验而制定。",
+        introduction:
+          "基于 W3C、苹果开发者 等官方文档，并结合团队日常业务需求以及团队在日常开发过程中总结提炼出的经验而制定。",
       },
       {
         site: "ES6 入门教程",
         url: "https://es6.ruanyifeng.com/",
-        introduction: "JavaScript 语言教程，全面介绍 ECMAScript 6 新引入的语法特性",
+        introduction:
+          "JavaScript 语言教程，全面介绍 ECMAScript 6 新引入的语法特性",
       },
     ],
   },
@@ -206,6 +227,7 @@ const navLink = [
         introduction: "React 大屏数据展示组件库(github有Vue版本)",
       },
       {
+        icon: "https://threejs.org/files/favicon.ico",
         site: "ThreeJS",
         url: "https://threejs.org/",
         introduction: "3D动态模型绘制",
@@ -218,20 +240,17 @@ const navLink = [
       {
         site: "即时设计",
         url: "https://js.design/home",
-        introduction:
-          "可云端编辑的专业级 UI 设计工具",
+        introduction: "可云端编辑的专业级 UI 设计工具",
       },
       {
         site: "摹客",
         url: "https://www.mockplus.cn/",
-        introduction:
-          "全能设计协作平台，产品经理用 RP，UI设计师用 DT",
+        introduction: "全能设计协作平台，产品经理用 RP，UI设计师用 DT",
       },
       {
         site: "ColorSpace",
         url: "https://mycolor.space/",
-        introduction:
-          "设置自己喜欢的颜色并生成对应的渐变色",
+        introduction: "设置自己喜欢的颜色并生成对应的渐变色",
       },
       {
         site: "palettemaker",
@@ -242,14 +261,12 @@ const navLink = [
       {
         site: "coolors",
         url: "https://coolors.co/",
-        introduction:
-          "创建完美的调色板或从数千种美丽的配色方案中获得灵感。",
+        introduction: "创建完美的调色板或从数千种美丽的配色方案中获得灵感。",
       },
       {
         site: "uigradients",
         url: "https://uigradients.com/",
-        introduction:
-          "选择你喜欢的渐变色并拷贝代码",
+        introduction: "选择你喜欢的渐变色并拷贝代码",
       },
       {
         site: "uigradients",
@@ -260,8 +277,7 @@ const navLink = [
       {
         site: "gradienthunt",
         url: "https://gradienthunt.com/",
-        introduction:
-          "选择你喜欢的渐变色并拷贝代码",
+        introduction: "选择你喜欢的渐变色并拷贝代码",
       },
     ],
   },
@@ -271,14 +287,16 @@ const navLink = [
       {
         site: "StackBlitz",
         url: "https://stackblitz.com/",
-        introduction: "StackBlitz 是适用于 JavaScript 生态系统的即时全栈 Web IDE。它由Web容器，第一个基于 WebAssembly 的操作系统，可在几毫秒内在您的浏览器选项卡内安全地启动 Node.js 环境。",
+        introduction:
+          "StackBlitz 是适用于 JavaScript 生态系统的即时全栈 Web IDE。它由Web容器，第一个基于 WebAssembly 的操作系统，可在几毫秒内在您的浏览器选项卡内安全地启动 Node.js 环境。",
       },
       {
         site: "CodePen",
         url: "https://codepen.io/",
-        introduction: "Pen Editor 是 CodePen 上最重要的页面！这是您实际编写制作笔的代码的地方。标准编辑器是 HTML、CSS 和 JavaScript。",
+        introduction:
+          "Pen Editor 是 CodePen 上最重要的页面！这是您实际编写制作笔的代码的地方。标准编辑器是 HTML、CSS 和 JavaScript。",
       },
-    ]
+    ],
   },
   {
     navTitle: "其他工具",
@@ -302,14 +320,12 @@ const navLink = [
       {
         site: "Docker Hub",
         url: "https://hub.docker.com/",
-        introduction:
-          "Docker提供的一项服务，用于与您的团队查找和共享容器映像",
+        introduction: "Docker提供的一项服务，用于与您的团队查找和共享容器映像",
       },
       {
         site: "emojiall",
         url: "https://www.emojiall.com/zh-hans",
-        introduction:
-          "你可能需要一些表情包来修饰你文字内容",
+        introduction: "你可能需要一些表情包来修饰你文字内容",
       },
       {
         site: "Apifox",
