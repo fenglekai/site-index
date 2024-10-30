@@ -215,7 +215,7 @@ const handleUpload = () => {
       <section class="mb-6 space-y-2">
         <div
           class="flex items-center space-x-2 sticky top-0 backdrop-blur"
-          :style="{ margin: 'auto -20px', zIndex: 3 }"
+          :style="{ margin: 'auto -20px', zIndex: 1 }"
         >
           <h2 class="text-2xl p-2">我的链接</h2>
           <el-tooltip content="添加链接">
@@ -293,7 +293,7 @@ const handleUpload = () => {
           class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
         >
           <template v-for="item in ownList">
-            <div class="relative" :style="{ zIndex: 2 }">
+            <div class="relative" :style="{ zIndex: 0 }">
               <GlowCard :data="item" @click="handleClick(item)" />
               <div class="absolute -right-2 top-1">
                 <el-popconfirm

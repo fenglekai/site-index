@@ -12,7 +12,7 @@ interface Props {
 }
 
 interface Emits {
-  (e: "click", data: Props['data']): void;
+  (e: "click", data: Props["data"]): void;
 }
 
 const props = defineProps<Props>();
@@ -35,14 +35,15 @@ const { cardRef: glowCard } = useGlowCard({
   >
     <p class="font-bold text-md break-all flex gap-1 mb-2">
       <img
-        :src="
+        v-lazy
+        :data-src="
           props.data.icon
             ? props.data.icon
             : `https://favicon.im/${props.data.url}`
         "
         class="icon"
       />
-      {{ props.data.site }}
+      <span class="line-clamp-2">{{ props.data.site }}</span>
     </p>
     <p class="text-gray-400 text-sm break-all line-clamp-3">
       {{ props.data.introduction }}
