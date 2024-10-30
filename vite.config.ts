@@ -66,7 +66,7 @@ export default defineConfig({
       ],
 
       dts: path.resolve(pathSrc, "components.d.ts"),
-      directoryAsNamespace: true
+      directoryAsNamespace: true,
     }),
 
     Icons({
@@ -77,6 +77,7 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+      includeAssets: ["**/*.{png,svg,jpg,mp4,webp,hdr,ply,bin,gltf,glb}", "src/assets/**/*"],
       manifest: {
         name: "KAISite",
         short_name: "KAISite",
@@ -84,13 +85,31 @@ export default defineConfig({
         display: "standalone",
         background_color: "#fff",
         description: "A readable Hacker News app.",
-        icons:[
+        icons: [
           {
-            "src": "logo.png",
-            "sizes": "192x192",
-            "type": "image/png"
-          }
-        ]
+            src: "favicon.ico",
+            sizes: "128x128",
+          },
+          {
+            src: "logo.png",
+            sizes: "192x192",
+          },
+        ],
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /\.(png|jpg|jpeg|gif|mp4|webm|svg|ico)$/,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "media-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+              },
+            },
+          },
+        ],
       },
     }),
   ],
