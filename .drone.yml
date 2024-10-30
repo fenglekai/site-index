@@ -1,0 +1,50 @@
+kind: pipeline
+type: docker
+name: Node use pnpm build
+steps:
+- name: restore-cache
+  image: drillster/drone-volume-cache
+  settings:
+    restore: true
+    mount:
+      - ./.npm-cache
+      - ./pnpm-lock.yaml
+      - ./node_modules
+  volumes: 
+    - name: cache
+      path: /cache
+
+- name: build
+  image: node:20
+  volumes:
+    - name: docker-volumes
+      path: /docker-volumes/site-index
+  commands:
+    - npm config set cache ./.npm-cache --global
+    - npm config set registry https://registry.npmjs.com
+    - npm install -g pnpm
+    - pnpm install
+    - pnpm build
+    - rm -rf /docker-volumes/site-index/*
+    - cp ./dist/* /docker-volumes/site-index
+
+- name: rebuild-cache
+  image: drillster/drone-volume-cache
+  settings:
+    rebuild: true
+    mount:
+      - ./.npm-cache
+      - ./pnpm-lock.yaml
+      - ./node_modules
+  volumes:
+    - name: cache
+      path: /cache
+
+
+volumes:
+- name: docker-volumes
+  host:
+    path: /www/wwwroot/site-index
+- name: cache
+  host:
+    path: /root/cache/site-index
