@@ -17,7 +17,7 @@ steps:
 - name: build
   image: node:20
   environment:
-    NODE_OPTIONS: --max-old-space-size=2048
+    NODE_OPTIONS: --max-old-space-size=1024
   volumes:
     - name: docker-volumes
       path: /docker-volumes/site-index
@@ -25,7 +25,7 @@ steps:
     - npm config set cache ./.npm-cache --global
     - npm config set registry https://registry.npmjs.com
     - npm install -g pnpm
-    - pnpm install
+    - pnpm install --frozen-lockfile
     - pnpm build
     - rm -rf /docker-volumes/site-index/*
     - cp ./dist/* /docker-volumes/site-index
