@@ -28,7 +28,7 @@ steps:
     - pnpm install --frozen-lockfile
     - pnpm build
     - rm -rf /docker-volumes/site-index/*
-    - cp ./dist/* /docker-volumes/site-index
+    - cp -r ./dist/* /docker-volumes/site-index
 
 - name: rebuild-cache
   image: drillster/drone-volume-cache
