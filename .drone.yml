@@ -16,6 +16,8 @@ steps:
 
 - name: build
   image: node:20
+  environment:
+    NODE_OPTIONS: --max-old-space-size=2048
   volumes:
     - name: docker-volumes
       path: /docker-volumes/site-index
