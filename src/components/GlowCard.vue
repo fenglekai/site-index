@@ -45,7 +45,7 @@ const { cardRef: glowCard } = useGlowCard({
       />
       <span class="line-clamp-2">{{ props.data.site }}</span>
     </p>
-    <p class="text-gray-400 text-sm break-all line-clamp-3">
+    <p class="text-gray-500 text-sm break-all line-clamp-3">
       {{ props.data.introduction }}
     </p>
   </div>

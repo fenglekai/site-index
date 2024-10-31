@@ -14,6 +14,7 @@ const publicSecurityRegistration = import.meta.env.VITE_FOOTER_PUBLIC_SECURITY_R
         class="text-gray-500"
         href="https://github.com/fenglekai/site-index"
         target="_blank"
+        aria-label="go to github page"
       >
         <svg
           height="20"

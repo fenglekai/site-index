@@ -270,7 +270,7 @@ const handleUpload = () => {
             prop="url"
             :rules="[{ required: true, message: '请输入网站地址' }]"
           >
-            <el-input size="small" v-model="formLabelAlign.url" />
+            <el-input size="small" v-model="formLabelAlign.url" placeholder="网站地址" />
           </el-form-item>
           <el-form-item
             prop="introduction"
@@ -308,7 +308,7 @@ const handleUpload = () => {
                   @confirm="deleteOwnRow(item)"
                 >
                   <template #reference>
-                    <el-button type="danger" :icon="Delete" size="small" />
+                    <el-button type="danger" :icon="Delete" size="small" :aria-label="`删除${item.site}站点按钮`" />
                   </template>
                 </el-popconfirm>
               </div>
@@ -323,7 +323,7 @@ const handleUpload = () => {
           :style="{ margin: 'auto -20px' }"
         >
           历史访问
-          <span class="mx-2 text-gray-400 text-sm">显示最近15条访问记录</span>
+          <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
           <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
         </h2>
         <div
