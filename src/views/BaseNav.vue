@@ -137,6 +137,11 @@ const deleteOwnRow = (row: SiteProps) => {
   localStorage.setItem("own-list", JSON.stringify(filterList));
 };
 
+const cleanHistory = () => {
+  localStorage.setItem("history-list", JSON.stringify([]));
+  historyList.value = [];
+}
+
 const getLocalList = () => {
   historyList.value = getLocal();
   ownList.value = getSelfLocal();
@@ -318,7 +323,8 @@ const handleUpload = () => {
           :style="{ margin: 'auto -20px' }"
         >
           历史访问
-          <span class="ml-2 text-gray-400 text-sm">显示最近15条访问记录</span>
+          <span class="mx-2 text-gray-400 text-sm">显示最近15条访问记录</span>
+          <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
         </h2>
         <div
           class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
