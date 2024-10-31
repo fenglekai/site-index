@@ -5,9 +5,10 @@
   "type": "module",
   "author": "fenglekai",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite --mode ali",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
-    "build": "vite build",
+    "build": "vite build --mode tencent",
+    "build:ali": "vite build --mode ali",
     "preview": "vite preview"
   },
   "dependencies": {

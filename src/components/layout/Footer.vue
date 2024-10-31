@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import {} from "vue";
 import footerImg from "../../assets/footerImg.webp";
+
+const registration = import.meta.env.VITE_FOOTER_REGISTRATION;
+const publicSecurityRegistration = import.meta.env.VITE_FOOTER_PUBLIC_SECURITY_REGISTRATION;
+
 </script>
 
 <template>
@@ -30,7 +34,7 @@ import footerImg from "../../assets/footerImg.webp";
       href="https://beian.miit.gov.cn/"
       target="_blank"
       rel="noopener noreferrer"
-      >桂ICP备2023001286号-1</a
+      >{{registration}}</a
     ><a
       class="font-medium text-gray-500 transition-colors hover:text-orange-500"
       href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702005344"
@@ -46,7 +50,7 @@ import footerImg from "../../assets/footerImg.webp";
         class="inline-block mr-2"
         loading="lazy"
         style="color: transparent"
-      />粤公网安备 44030702005344号</a
+      />{{ publicSecurityRegistration }}</a
     >
   </div>
 </template>
