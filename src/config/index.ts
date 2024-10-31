@@ -22,6 +22,7 @@ import charts from "./charts";
 import technicalDocuments from "./technical-documents";
 import designResources from "./design-resources";
 import otherTools from "./other-tools";
+import ai from "./ai";
 
 export type NavLinkItem = {
   navTitle: string;
@@ -171,6 +172,7 @@ const navLink: NavLinkItem[] = [
     ],
   },
   technicalDocuments,
+  ai,
   designResources,
   {
     navTitle: "线上代码",
