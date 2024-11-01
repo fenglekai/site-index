@@ -50,6 +50,7 @@ export default {
         "一个收集和翻译WebAssembly技术文章和教程的网站。",
     },
     {
+      icon: "https://kaisery.github.io/trpl-zh-cn/favicon.png",
       site: "Rust 程序设计语言中文版",
       url: "https://kaisery.github.io/trpl-zh-cn/",
       introduction:

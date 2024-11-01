@@ -4,6 +4,7 @@ export default {
   navTitle: "其他工具",
   children: [
     {
+      icon: "https://momoyu.cc/icon-192.png",
       site: "摸摸鱼热榜",
       url: "https://momoyu.cc/",
       introduction: "聚合每日热门、搞笑、有趣、适合摸鱼的资讯",

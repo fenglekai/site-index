@@ -214,6 +214,7 @@ const navLink: NavLinkItem[] = [
         introduction: "一文弄懂 10 大排序算法",
       },
       {
+        icon: "https://1908355091-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/spaces%2F-MJeEIvPDza7mczG0t-l%2Favatar-1602734260263.png?generation=1602734260462040&alt=media",
         site: "力扣加加",
         url: "https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution",
         introduction: "努力做西湖区最好的算法题解",
