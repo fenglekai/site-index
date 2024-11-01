@@ -77,12 +77,6 @@ export default {
         "设计精美的组件，您可以将其复制并粘贴到您的应用程序中。可访问。可定制。开源。",
     },
     {
-      site: "shadcn-vue",
-      url: "https://www.shadcn-vue.com/",
-      introduction:
-        "设计精美的组件，您可以将其复制并粘贴到您的应用程序中。可访问。可定制。开源。",
-    },
-    {
       site: "fluent2",
       url: "https://fluent2.microsoft.design/",
       introduction:

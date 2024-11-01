@@ -37,5 +37,23 @@ export default {
       introduction:
         "JavaScript 语言教程，全面介绍 ECMAScript 6 新引入的语法特性",
     },
+    {
+      site: "JSDoc 中文文档",
+      url: "https://jsdoc.bootcss.com/",
+      introduction:
+        "JSDoc 3 是一个用于 JavaScript 的API文档生成器，类似于 Javadoc 或 phpDocumentor。可以将文档注释直接添加到源代码中。",
+    },
+    {
+      site: "WebAssembly中文网",
+      url: "https://wasmdev.cn/",
+      introduction:
+        "一个收集和翻译WebAssembly技术文章和教程的网站。",
+    },
+    {
+      site: "Rust 程序设计语言中文版",
+      url: "https://kaisery.github.io/trpl-zh-cn/",
+      introduction:
+        "本书的英文原版作者为 Steve Klabnik 和 Carol Nichols，并由 Rust 社区补充完善。本简体中文译本由 Rust 中文社区翻译。",
+    },
   ],
 } as NavLinkItem;

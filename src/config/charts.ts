@@ -32,13 +32,18 @@ export default {
       introduction: "提供Three.js、WebGL视频课程",
     },
     {
+      site: "Three.js学习指南",
+      url: "https://www.three3d.cn/",
+      introduction: "快速学习Three.js实现复杂的动画，精美的3D效果",
+    },
+    {
       site: "Pixijs",
       url: "https://pixijs.com/",
       introduction:
         "HTML5 创作引擎 使用最快、最灵活的 2D WebGL 渲染器创建精美的数字内容。",
     },
     {
-      site: "Pixijs",
+      site: "Konvajs",
       url: "https://konvajs.org/",
       introduction: "用于桌面和移动应用程序的 HTML5 2d 画布 js 库",
     },

@@ -131,6 +131,27 @@ const navLink: NavLinkItem[] = [
     ],
   },
   {
+    navTitle: "系统运维",
+    children: [
+      {
+        site: "Docker",
+        url: "https://www.docker.com/",
+        introduction: "开发速度更快。随处运行。",
+      },
+      {
+        site: "Docker Hub",
+        url: "https://hub.docker.com/",
+        introduction: "Docker提供的一项服务，用于与您的团队查找和共享容器映像",
+      },
+      {
+        site: "Compose 模板文件",
+        url: "https://yeasy.gitbook.io/docker_practice/compose/compose_file",
+        introduction:
+          "还在用复杂冗余的docker run？赶紧来试试编写Docker Compose",
+      },
+    ],
+  },
+  {
     navTitle: "CI/CD集成",
     children: [
       {
@@ -158,6 +179,12 @@ const navLink: NavLinkItem[] = [
           "十万阿里人都在用的笔记与文档知识库，面向企业、组织或个人，提供全新的体系化知识管理，打造轻松流畅的工作协同。金融级数据安全、丰富的应用场景、强大的知识创作与管理，助力企业、个人轻松拥有云端知识库",
       },
       {
+        site: "GitBook",
+        url: "https://www.gitbook.com/",
+        introduction:
+          "GitBook 是一款面向工程团队的知识管理工具。它简化了知识共享，支持文档即代码，并具有 AI 驱动的搜索和洞察功能。免费注册！",
+      },
+      {
         site: "飞书",
         url: "https://www.feishu.cn/",
         introduction:
@@ -172,6 +199,27 @@ const navLink: NavLinkItem[] = [
     ],
   },
   technicalDocuments,
+  {
+    navTitle: "数据结构与算法",
+    children: [
+      {
+        site: "LeetCode",
+        url: "https://leetcode.cn/",
+        introduction:
+          "海量技术面试题库，拥有算法、数据结构、系统设计等 1000+题目，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer。",
+      },
+      {
+        site: "算法可视化",
+        url: "https://segmentfault.com/a/1190000043803652",
+        introduction: "一文弄懂 10 大排序算法",
+      },
+      {
+        site: "力扣加加",
+        url: "https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution",
+        introduction: "努力做西湖区最好的算法题解",
+      },
+    ],
+  },
   ai,
   designResources,
   {

@@ -4,9 +4,19 @@ export default {
   navTitle: "AI/机器学习",
   children: [
     {
+      site: "魔搭社区",
+      url: "https://modelscope.cn/home",
+      introduction: "共享 · 共创 · 共进，构建持续创新的 AI 开源生态",
+    },
+    {
       site: "Kimi",
       url: "https://kimi.moonshot.cn/",
       introduction: "Kimi 是一个有着超大“内存”的智能助手，可以一口气读完二十万字的小说，还会上网冲浪，快来跟他聊聊吧",
+    },
+    {
+      site: "Poe",
+      url: "https://poe.com/",
+      introduction: "Poe可让您提问、获得即时回答、并与AI机器人互动对话。提供GPT-4、gpt-3.5-turbo、Anthropic Claude以及其他多种机器人的访问权限。",
     },
     {
       site: "秒画AI",
