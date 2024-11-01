@@ -123,13 +123,13 @@ onMounted(() => {
     <form
       :action="urlSelected"
       target="_blank"
-      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-2xl' : 'rounded-2xl',]"
+      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-xl' : 'rounded-xl',]"
     >
       <div
         ref="searchRef"
         :class="[
           'search-input bg-white/20 backdrop-blur flex items-center p-2 border z-20 sm:mx-auto',
-          focusInput ? 'rounded-t-2xl' : 'rounded-2xl',
+          focusInput ? 'rounded-t-xl' : 'rounded-xl',
         ]"
       >
         <input
