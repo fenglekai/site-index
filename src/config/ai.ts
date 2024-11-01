@@ -4,6 +4,11 @@ export default {
   navTitle: "AI/机器学习",
   children: [
     {
+      site: "TensorFlow.js",
+      url: "https://www.tensorflow.org/js?hl=zh-cn",
+      introduction: "是一个用于使用 JavaScript 进行机器学习开发的库",
+    },
+    {
       site: "魔搭社区",
       url: "https://modelscope.cn/home",
       introduction: "共享 · 共创 · 共进，构建持续创新的 AI 开源生态",
