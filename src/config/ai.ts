@@ -14,9 +14,19 @@ export default {
       introduction: "共享 · 共创 · 共进，构建持续创新的 AI 开源生态",
     },
     {
+      site: "通义千问",
+      url: "https://tongyi.aliyun.com/qianwen/",
+      introduction: "通义是一个通情、达义的国产AI模型，可以帮你解答问题、文档阅读、联网搜索并写作总结，最多支持1000万字的文档速读。",
+    },
+    {
       site: "Kimi",
       url: "https://kimi.moonshot.cn/",
       introduction: "Kimi 是一个有着超大“内存”的智能助手，可以一口气读完二十万字的小说，还会上网冲浪，快来跟他聊聊吧",
+    },
+    {
+      site: "文心一言",
+      url: "https://yiyan.baidu.com/",
+      introduction: "文心一言既是你的智能伙伴，可以陪你聊天、回答问题、画图识图；也是你的AI助手，可以提供灵感、撰写文案、阅读文档、智能翻译，帮你高效完成工作和学习任务。",
     },
     {
       site: "Poe",
