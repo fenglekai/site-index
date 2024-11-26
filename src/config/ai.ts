@@ -9,6 +9,16 @@ export default {
       introduction: "是一个用于使用 JavaScript 进行机器学习开发的库",
     },
     {
+      site: "Pytorch",
+      url: "https://pytorch.org/",
+      introduction: "PyTorch 是一个针对使用 GPU 和 CPU 进行深度学习而优化的张量库。",
+    },
+    {
+      site: "Hugging Face",
+      url: "https://huggingface.co/",
+      introduction: "机器学习社区在模型、数据集和应用程序上进行协作的平台。",
+    },
+    {
       site: "魔搭社区",
       url: "https://modelscope.cn/home",
       introduction: "共享 · 共创 · 共进，构建持续创新的 AI 开源生态",
