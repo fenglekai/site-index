@@ -5,7 +5,7 @@ export default {
   children: [
     {
       site: "个人博客",
-      url: "https://blog.devkai.site/",
+      url: "https://github-pages.devkai.cn/vitepress-blog/",
       introduction: "零碎的前端知识",
     },
     {
@@ -16,26 +16,26 @@ export default {
     {
       icon: "logo.png",
       site: "LessWriteUI组件",
-      url: "https://fenglekai.github.io/less-write/",
+      url: "https://github-pages.devkai.cn/less-write/",
       introduction: "Vue3组件库, Element Plus项目风格",
     },
     {
       icon: "logo.png",
       site: "版本Changelog生成",
-      url: "https://fenglekai.github.io/less-write-changelog/",
+      url: "https://github-pages.devkai.cn/less-write-changelog/",
       introduction:
         "基于conventional-changelog制作的Github Release日志生成工具",
     },
     {
       icon: "logo.png",
       site: "Vitepress主题",
-      url: "https://fenglekai.github.io/less-write-vitepress-theme",
+      url: "https://github-pages.devkai.cn/less-write-vitepress-theme",
       introduction:
         "简易安装的Vitepress主题, 集成UnoCSS彩虹主题, Element Plus示例代码组件",
     },
     {
       site: "Github代理",
-      url: "https://github.devkai.site/",
+      url: "https://github.devkai.cn/",
       introduction: "可以访问Github查阅项目",
     },
     {
