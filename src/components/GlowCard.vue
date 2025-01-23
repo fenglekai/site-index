@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {} from "vue";
+import { } from "vue";
 import { useGlowCard } from "../hook/use-glow-card";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
     url: string;
     introduction: string;
   };
+  staticIcon?: boolean;
 }
 
 interface Emits {
@@ -25,25 +26,29 @@ const { cardRef: glowCard } = useGlowCard({
     blur: 50,
   },
 });
+
+const pageLoad = ref(false)
+onMounted(() => {
+  setTimeout(() => {
+    pageLoad.value = true
+  }, 200);
+})
 </script>
 
 <template>
-  <div
-    class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
-    ref="glowCard"
-    @click="$emit('click', props.data)"
-  >
+  <div class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
+    ref="glowCard" @click="$emit('click', props.data)">
     <p class="font-bold text-md break-all flex gap-1 mb-2">
-      <img
-        v-lazy
-        :data-src="
-          props.data.icon
-            ? props.data.icon
-            : `https://favicon.im/${props.data.url}`
-        "
-        class="icon"
-      />
-      <span class="line-clamp-2">{{ props.data.site }}</span>
+    <div v-if="!pageLoad"></div>
+    <img v-else-if="staticIcon" :src="props.data.icon
+      ? props.data.icon
+      : `https://favicon.im/${props.data.url}`
+      " class="icon" />
+    <img v-else v-lazy :data-src="props.data.icon
+      ? props.data.icon
+      : `https://favicon.im/${props.data.url}`
+      " class="icon" />
+    <span class="line-clamp-2">{{ props.data.site }}</span>
     </p>
     <p class="text-gray-500 text-sm break-all line-clamp-3">
       {{ props.data.introduction }}
@@ -60,6 +65,7 @@ const { cardRef: glowCard } = useGlowCard({
   box-shadow: 3px 3px 5px #a5a3a3;
   padding: 6px 12px;
 }
+
 .icon {
   width: 24px;
   height: 24px;
