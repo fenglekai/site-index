@@ -25,17 +25,6 @@ const handleSearchSelect = (item: any) => {
   inputSelected.value = selectList[item].inputName;
 };
 const searchInput = ref("");
-const handleSearch = (e: Event) => {
-  if (!expand.value) {
-    e.preventDefault();
-    expand.value = true;
-    return;
-  }
-  if (!searchInput.value) {
-    e.preventDefault();
-    ElMessage.warning("请输入搜索内容");
-  }
-};
 
 const localSearch: any = ref(false);
 const searchList: any = [];
@@ -128,7 +117,7 @@ onMounted(() => {
       <div
         ref="searchRef"
         :class="[
-          'search-input bg-white/20 backdrop-blur flex items-center p-2 border z-20 sm:mx-auto',
+          'search-input bg-white flex items-center p-2 border z-20 sm:mx-auto',
           focusInput ? 'rounded-t-xl' : 'rounded-xl',
         ]"
       >
@@ -139,7 +128,7 @@ onMounted(() => {
           maxlength="255"
           autocomplete="off"
           placeholder="请输入关键字"
-          class="outline-none flex-grow min-w-0 bg-transparent placeholder:text-gray-300 px-2"
+          class="text-sm outline-none flex-grow min-w-0 text-black bg-transparent placeholder:text-gray-300 px-2"
           @focus="handleFocus"
           @focusout="focusInput = false"
         />
@@ -148,15 +137,15 @@ onMounted(() => {
         <div
           v-show="focusInput"
           :style="associateSize"
-          class="associate-label absolute bg-white/20 backdrop-blur border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2"
+          class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2"
         >
           <ul>
             <li
-              class="px-4 py-2 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
+              class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
               v-for="item in dropDownMenu"
               @click="handleLocalLink(item.url)"
             >
-              <span class="text-orange-500">{{ item.site }}</span>
+              <span class="text-orange-500 text-sm pr-2">{{ item.site }}</span>
               <span class="text-gray-600 text-xs">{{ item.introduction }}</span>
             </li>
             <li
