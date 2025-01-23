@@ -2,10 +2,11 @@
 import { inject, onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import Giscus from "@giscus/vue";
-import { Delete } from "@element-plus/icons-vue";
+import { Star, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import { navLink } from "../config/index";
 
 interface SiteProps {
+  icon?: string;
   site: string;
   url: string;
   introduction: string;
@@ -43,12 +44,12 @@ const getLocal = () => {
 };
 
 const addHistoryRow = (site: SiteProps) => {
-  let localHistory = getLocal();
+  let localHistory: SiteProps[] = getLocal();
   localHistory.unshift(site);
   // 只保留15条
   localHistory = localHistory.slice(0, 14);
   // 去重
-  function uniqueFunc(arr: any, uniId: any) {
+  function uniqueFunc(arr: SiteProps[], uniId: any) {
     const res = new Map();
     return arr.filter(
       (item: any) => !res.has(item[uniId]) && res.set(item[uniId], 1)
@@ -99,19 +100,20 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
     if (valid) {
-      addOwnRow(formLabelAlign);
+      addOwnLink(formLabelAlign);
     }
   });
 };
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
+  formEl.clearValidate();
   showAddForm.value = false;
 };
 
-const addOwnRow = (site: SiteProps) => {
+const addOwnLink = (site: SiteProps) => {
   let selfLocal = getSelfLocal();
-  selfLocal.unshift(site);
+  selfLocal.push(site);
   // 去重
   function uniqueFunc(arr: any[], uniId: string) {
     const res = new Map();
@@ -140,7 +142,7 @@ const deleteOwnRow = (row: SiteProps) => {
 const cleanHistory = () => {
   localStorage.setItem("history-list", JSON.stringify([]));
   historyList.value = [];
-}
+};
 
 const getLocalList = () => {
   historyList.value = getLocal();
@@ -187,13 +189,13 @@ const handleUpload = () => {
       reader.onload = function () {
         try {
           if (typeof this.result == "string") {
-            const link = JSON.parse(this.result);
+            const link: SiteProps = JSON.parse(this.result);
             if (!(link instanceof Array)) {
               throw Error("数据格式不是数组");
             }
             for (const key in link) {
-              if (!link[key].title || !link[key].url) {
-                throw Error("数据字段不存在title或者url");
+              if (!link[key].site || !link[key].url) {
+                throw Error("数据字段不存在site或者url");
               }
             }
             localStorage.setItem("own-list", JSON.stringify(link));
@@ -214,170 +216,124 @@ const handleUpload = () => {
 </script>
 
 <template>
-  <div class="lg:flex gap-4 mt-2">
+  <div class="lg:flex gap-4 px-4">
     <div class="lg:flex-1">
       <!-- 我的链接 -->
       <section class="mb-6 space-y-2">
-        <div
-          class="flex items-center space-x-2 sticky top-0 backdrop-blur"
-          :style="{ margin: 'auto -20px', zIndex: 1 }"
-        >
-          <h2 class="text-2xl p-2">我的链接</h2>
-          <el-tooltip content="添加链接">
-            <el-icon
-              class="cursor-pointer transition-all hover:text-orange-400"
-              @click="showAddForm = !showAddForm"
-              ><IEpCirclePlusFilled
-            /></el-icon>
-          </el-tooltip>
-          <el-tooltip content="保存到本地">
-            <el-icon
-              class="cursor-pointer transition-all hover:text-orange-400"
-              @click="handleDownload"
-            >
+        <div class="flex items-center space-x-2 sticky top-0 backdrop-blur"
+          :style="{ margin: 'auto -20px', zIndex: 1 }">
+          <h2 class="text-xl p-2">我的链接</h2>
+          <div class="flex cursor-pointer transition-all hover:text-orange-400">
+            <el-icon @click="handleDownload">
               <IEpDownload />
             </el-icon>
-          </el-tooltip>
-          <el-tooltip content="导入链接">
-            <el-icon
-              class="cursor-pointer transition-all hover:text-orange-400"
-              @click="handleUpload"
-            >
+            <span class="text-xs pl-1">保存到本地</span>
+          </div>
+          <div class="flex cursor-pointer transition-all hover:text-orange-400">
+            <el-icon @click="handleUpload">
               <IEpUpload />
             </el-icon>
-          </el-tooltip>
+            <span class="text-xs pl-1">导入</span>
+          </div>
         </div>
-        <!-- add -->
-        <el-form
-          ref="ownFormRef"
-          :model="formLabelAlign"
-          :class="[
-            'overflow-hidden transition-all',
-            showAddForm ? 'max-h-40' : 'max-h-0',
-          ]"
-        >
-          <el-form-item
-            prop="site"
-            :rules="[{ required: true, message: '请输入网站名称' }]"
-          >
-            <el-input
-              size="small"
-              v-model="formLabelAlign.site"
-              placeholder="网站名称"
-            />
-          </el-form-item>
-          <el-form-item
-            prop="url"
-            :rules="[{ required: true, message: '请输入网站地址' }]"
-          >
-            <el-input size="small" v-model="formLabelAlign.url" placeholder="网站地址" />
-          </el-form-item>
-          <el-form-item
-            prop="introduction"
-            :rules="[{ required: true, message: '请输入网站描述' }]"
-          >
-            <el-input
-              size="small"
-              v-model="formLabelAlign.introduction"
-              placeholder="网站描述"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              size="small"
-              type="primary"
-              @click="submitForm(ownFormRef)"
-              >添加</el-button
-            >
-            <el-button size="small" @click="resetForm(ownFormRef)"
-              >取消</el-button
-            >
-          </el-form-item>
-        </el-form>
-        <div
-          class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
-        >
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
           <template v-for="item in ownList">
-            <div class="relative" :style="{ zIndex: 0 }">
-              <GlowCard :data="item" @click="handleClick(item)" />
-              <div class="absolute -right-2 top-1">
-                <el-popconfirm
-                  title="确认删除吗?"
-                  confirm-button-text="确认"
-                  cancel-button-text="取消"
-                  @confirm="deleteOwnRow(item)"
-                >
-                  <template #reference>
-                    <el-button type="danger" :icon="Delete" size="small" :aria-label="`删除${item.site}站点按钮`" />
-                  </template>
-                </el-popconfirm>
-              </div>
-            </div>
+            <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
+              <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item"
+                @click="handleClick(item)" />
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item :icon="Delete" @click="deleteOwnRow(item)">删除</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
+          <div class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
+            @click="showAddForm = !showAddForm">
+            <el-icon size="24px">
+              <Plus />
+            </el-icon>
+          </div>
         </div>
       </section>
       <!-- 历史访问 -->
       <section class="mb-6 space-y-2">
-        <h2
-          class="sticky top-0 text-2xl backdrop-blur p-2"
-          :style="{ margin: 'auto -20px' }"
-        >
+        <h2 class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px' }">
           历史访问
           <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
           <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
         </h2>
-        <div
-          class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
-        >
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
           <template v-for="item in historyList">
-            <GlowCard :data="item" @click="handleClick(item)" />
+            <el-dropdown trigger="contextmenu" style="position: static">
+              <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item"
+                @click="handleClick(item)" />
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item :icon="Star" @click="addOwnLink(item)">收藏</el-dropdown-item>
+                  <el-dropdown-item :icon="Delete" @click="deleteHistoryRow(item)">删除</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
         </div>
       </section>
       <!-- 配置站点 -->
       <template v-for="category in navLink">
         <section class="mb-6">
-          <h2
-            :id="category.navTitle"
-            class="sticky top-0 text-2xl backdrop-blur p-2"
-            :style="{ margin: 'auto -20px' }"
-          >
+          <h2 :id="category.navTitle" class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px' }">
             {{ category.navTitle }}
           </h2>
-          <div
-            class="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6"
-          >
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
             <template v-for="item in category.children">
-              <GlowCard :data="item" @click="handleClick(item)" />
+              <el-dropdown trigger="contextmenu" style="position: static">
+                <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" @click="handleClick(item)" />
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item :icon="Star" @click="addOwnLink(item)">收藏</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </template>
           </div>
         </section>
       </template>
       <!-- 评论 -->
       <section class="space-y-2">
-        <h2
-          class="sticky top-0 text-2xl backdrop-blur p-2"
-          :style="{ margin: 'auto -20px' }"
-        >
+        <h2 class="sticky top-0 text-2xl backdrop-blur p-2" :style="{ margin: 'auto -20px' }">
           评论
         </h2>
-        <Giscus
-          id="comments"
-          repo="fenglekai/giscus"
-          repoId="R_kgDOKS-Cjg"
-          category="Announcements"
-          categoryId="DIC_kwDOKS-Cjs4CZRcG"
-          mapping="pathname"
-          reactionsEnabled="1"
-          emitMetadata="0"
-          inputPosition="top"
-          theme="light"
-          lang="zh-CN"
-          loading="lazy"
-        />
+        <Giscus id="comments" repo="fenglekai/giscus" repoId="R_kgDOKS-Cjg" category="Announcements"
+          categoryId="DIC_kwDOKS-Cjs4CZRcG" mapping="pathname" reactionsEnabled="1" emitMetadata="0" inputPosition="top"
+          theme="light" lang="zh-CN" loading="lazy" />
       </section>
     </div>
   </div>
+
+  <el-drawer v-model="showAddForm" direction="btt" size="35%" @closed="resetForm(ownFormRef)">
+    <template #header>
+      <h4>添加站点</h4>
+    </template>
+    <template #default>
+      <el-form ref="ownFormRef" :model="formLabelAlign">
+        <el-form-item prop="site" :rules="[{ required: true, message: '请输入网站名称' }]">
+          <el-input size="small" v-model="formLabelAlign.site" placeholder="网站名称" />
+        </el-form-item>
+        <el-form-item prop="url" :rules="[{ required: true, message: '请输入网站地址' }]">
+          <el-input size="small" v-model="formLabelAlign.url" placeholder="网站地址" />
+        </el-form-item>
+        <el-form-item prop="introduction" :rules="[{ required: true, message: '请输入网站描述' }]">
+          <el-input size="small" v-model="formLabelAlign.introduction" placeholder="网站描述" />
+        </el-form-item>
+      </el-form>
+    </template>
+    <template #footer>
+      <div style="flex: auto">
+        <el-button size="small" type="primary" @click="submitForm(ownFormRef)">添加</el-button>
+        <el-button size="small" @click="resetForm(ownFormRef)">取消</el-button>
+      </div>
+    </template>
+  </el-drawer>
 </template>
 
 <style scoped></style>
