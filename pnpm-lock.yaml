@@ -14,9 +14,6 @@ importers:
       '@giscus/vue':
         specifier: ^2.4.0
         version: 2.4.0(vue@3.4.27(typescript@4.9.5))
-      '@tailwindcss/line-clamp':
-        specifier: ^0.4.4
-        version: 0.4.4(tailwindcss@3.4.3)
       '@vueuse/core':
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.27(typescript@4.9.5))
@@ -59,7 +56,7 @@ importers:
         version: 8.4.38
       rollup-plugin-visualizer:
         specifier: ^5.12.0
-        version: 5.12.0(rollup@3.29.4)
+        version: 5.12.0(rollup@2.79.1)
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3
@@ -68,13 +65,13 @@ importers:
         version: 4.9.5
       unplugin-auto-import:
         specifier: ^0.16.7
-        version: 0.16.7(@vueuse/core@10.9.0(vue@3.4.27(typescript@4.9.5)))(rollup@3.29.4)
+        version: 0.16.7(@vueuse/core@10.9.0(vue@3.4.27(typescript@4.9.5)))(rollup@2.79.1)
       unplugin-icons:
         specifier: ^0.17.4
         version: 0.17.4(@vue/compiler-sfc@3.4.27)(vue-template-compiler@2.7.16)
       unplugin-vue-components:
         specifier: ^0.25.2
-        version: 0.25.2(@babel/parser@7.24.5)(rollup@3.29.4)(vue@3.4.27(typescript@4.9.5))
+        version: 0.25.2(@babel/parser@7.24.5)(rollup@2.79.1)(vue@3.4.27(typescript@4.9.5))
       vite:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@20.12.12)(terser@5.31.0)
@@ -952,11 +949,6 @@ packages:
   '@sxzz/popperjs-es@2.11.7':
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
 
-  '@tailwindcss/line-clamp@0.4.4':
-    resolution: {integrity: sha512-5U6SY5z8N42VtrCrKlsTAA35gy2VSyYtHWCsg1H87NU1SXnEfekTVlrga9fzUDrrHcGi2Lb5KenUWb4lRQT5/g==}
-    peerDependencies:
-      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
-
   '@types/estree@0.0.39':
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
 
@@ -1527,6 +1519,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -3552,14 +3545,6 @@ snapshots:
     optionalDependencies:
       rollup: 2.79.1
 
-  '@rollup/pluginutils@5.1.0(rollup@3.29.4)':
-    dependencies:
-      '@types/estree': 1.0.5
-      estree-walker: 2.0.2
-      picomatch: 2.3.1
-    optionalDependencies:
-      rollup: 3.29.4
-
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     dependencies:
       ejs: 3.1.10
@@ -3568,10 +3553,6 @@ snapshots:
       string.prototype.matchall: 4.0.11
 
   '@sxzz/popperjs-es@2.11.7': {}
-
-  '@tailwindcss/line-clamp@0.4.4(tailwindcss@3.4.3)':
-    dependencies:
-      tailwindcss: 3.4.3
 
   '@types/estree@0.0.39': {}
 
@@ -4779,14 +4760,14 @@ snapshots:
 
   reusify@1.0.4: {}
 
-  rollup-plugin-visualizer@5.12.0(rollup@3.29.4):
+  rollup-plugin-visualizer@5.12.0(rollup@2.79.1):
     dependencies:
       open: 8.4.2
       picomatch: 2.3.1
       source-map: 0.7.4
       yargs: 17.7.2
     optionalDependencies:
-      rollup: 3.29.4
+      rollup: 2.79.1
 
   rollup@2.79.1:
     optionalDependencies:
@@ -5088,9 +5069,9 @@ snapshots:
 
   unicode-property-aliases-ecmascript@2.1.0: {}
 
-  unimport@3.7.1(rollup@3.29.4):
+  unimport@3.7.1(rollup@2.79.1):
     dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
       acorn: 8.11.3
       escape-string-regexp: 5.0.0
       estree-walker: 3.0.3
@@ -5112,15 +5093,15 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unplugin-auto-import@0.16.7(@vueuse/core@10.9.0(vue@3.4.27(typescript@4.9.5)))(rollup@3.29.4):
+  unplugin-auto-import@0.16.7(@vueuse/core@10.9.0(vue@3.4.27(typescript@4.9.5)))(rollup@2.79.1):
     dependencies:
       '@antfu/utils': 0.7.8
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
       fast-glob: 3.3.2
       local-pkg: 0.5.0
       magic-string: 0.30.10
       minimatch: 9.0.4
-      unimport: 3.7.1(rollup@3.29.4)
+      unimport: 3.7.1(rollup@2.79.1)
       unplugin: 1.10.1
     optionalDependencies:
       '@vueuse/core': 10.9.0(vue@3.4.27(typescript@4.9.5))
@@ -5142,10 +5123,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  unplugin-vue-components@0.25.2(@babel/parser@7.24.5)(rollup@3.29.4)(vue@3.4.27(typescript@4.9.5)):
+  unplugin-vue-components@0.25.2(@babel/parser@7.24.5)(rollup@2.79.1)(vue@3.4.27(typescript@4.9.5)):
     dependencies:
       '@antfu/utils': 0.7.8
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
       chokidar: 3.6.0
       debug: 4.3.4
       fast-glob: 3.3.2

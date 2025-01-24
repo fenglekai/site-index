@@ -42,5 +42,5 @@ export default {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [],
 };
