@@ -19,7 +19,6 @@ interface Emits {
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
-// TODO 光源抖动
 const { cardRef: glowCard } = useGlowCard({
   light: {
     color: "#F26419",
@@ -38,21 +37,23 @@ onMounted(() => {
 <template>
   <div class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
     ref="glowCard" @click="$emit('click', props.data)">
-    <p class="font-bold text-md break-all flex gap-1 mb-2">
-    <div v-if="!pageLoad"></div>
-    <img v-else-if="staticIcon" :src="props.data.icon
-      ? props.data.icon
-      : `https://favicon.im/${props.data.url}`
-      " class="icon" />
-    <img v-else v-lazy :data-src="props.data.icon
-      ? props.data.icon
-      : `https://favicon.im/${props.data.url}`
-      " class="icon" />
-    <span class="line-clamp-2">{{ props.data.site }}</span>
-    </p>
-    <p class="text-gray-500 text-sm break-all line-clamp-3">
-      {{ props.data.introduction }}
-    </p>
+    <div style="perspective: 1000px; transform-style: preserve-3d;">
+      <p class="font-bold text-md break-all flex gap-1 mb-2">
+      <div v-if="!pageLoad"></div>
+      <img v-else-if="staticIcon" :src="props.data.icon
+        ? props.data.icon
+        : `https://favicon.im/${props.data.url}`
+        " class="icon" />
+      <img v-else v-lazy :data-src="props.data.icon
+        ? props.data.icon
+        : `https://favicon.im/${props.data.url}`
+        " class="icon" />
+      <span class="line-clamp-2">{{ props.data.site }}</span>
+      </p>
+      <p class="text-gray-500 text-sm break-all line-clamp-3">
+        {{ props.data.introduction }}
+      </p>
+    </div>
   </div>
 </template>
 

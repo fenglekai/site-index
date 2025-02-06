@@ -258,7 +258,7 @@ const handleUpload = () => {
       </section>
       <!-- 历史访问 -->
       <section class="mb-6 space-y-2">
-        <h2 class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px' }">
+        <h2 class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px', zIndex: 1 }">
           历史访问
           <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
           <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
@@ -281,7 +281,7 @@ const handleUpload = () => {
       <!-- 配置站点 -->
       <template v-for="category in navLink">
         <section class="mb-6">
-          <h2 :id="category.navTitle" class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px' }">
+          <h2 :id="category.navTitle" class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px', zIndex: 1 }">
             {{ category.navTitle }}
           </h2>
           <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
