@@ -4,6 +4,7 @@ export default {
   navTitle: "个人建站",
   children: [
     {
+      icon: "logo.png",
       site: "个人博客",
       url: "https://github-pages.devkai.cn/vitepress-blog/",
       introduction: "零碎的前端知识",
