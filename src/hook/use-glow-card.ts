@@ -13,9 +13,20 @@ interface IOptions {
   };
 }
 
+const mobilephone =
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+
 export const useGlowCard = (option: IOptions = {}) => {
   // 获取卡片的dom节点
   const cardRef = ref<HTMLDivElement | null>(null);
+
+  if (mobilephone) {
+    //手机端不再设置光源，点击时无法消除光源    
+    return { cardRef };
+  }
+
   let cardOverflow = "";
   // 光的dom节点
   const lightRef = ref<HTMLDivElement>(document.createElement("div"));
