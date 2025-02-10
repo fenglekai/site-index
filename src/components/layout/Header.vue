@@ -56,7 +56,7 @@ const selectOptions = computed(() => {
         </h2>
       </div>
 
-      <LocalSearch id="search-input" class="min-w-0 grow" />
+      <LocalSearch class="min-w-0 grow" />
 
       <ul class="hidden md:flex space-x-3 items-center">
         <li></li>

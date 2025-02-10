@@ -109,49 +109,27 @@ onMounted(() => {
 <template>
   <!-- search -->
   <div class="flex justify-center">
-    <form
-      :action="urlSelected"
-      target="_blank"
-      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-xl' : 'rounded-xl',]"
-    >
-      <div
-        ref="searchRef"
-        :class="[
-          'search-input bg-white flex items-center p-2 border z-20 sm:mx-auto',
-          focusInput ? 'rounded-t-xl' : 'rounded-xl',
-        ]"
-      >
-        <input
-          type="text"
-          :name="inputSelected"
-          v-model="searchInput"
-          maxlength="255"
-          autocomplete="off"
+    <form :action="urlSelected" target="_blank"
+      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-xl' : 'rounded-xl',]">
+      <div id="search-input" ref="searchRef" :class="[
+        'search-input bg-white flex items-center p-2 border z-20 sm:mx-auto',
+        focusInput ? 'rounded-t-xl' : 'rounded-xl',
+      ]">
+        <input type="text" :name="inputSelected" v-model="searchInput" maxlength="255" autocomplete="off"
           placeholder="请输入关键字"
           class="text-sm outline-none flex-grow min-w-0 text-black bg-transparent placeholder:text-gray-300 px-2"
-          @focus="handleFocus"
-          @focusout="focusInput = false"
-        />
+          @focus="handleFocus" @focusout="focusInput = false" />
       </div>
       <Teleport to="body">
-        <div
-          v-show="focusInput"
-          :style="associateSize"
-          class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2"
-        >
+        <div v-show="focusInput" :style="associateSize"
+          class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2">
           <ul>
-            <li
-              class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
-              v-for="item in dropDownMenu"
-              @click="handleLocalLink(item.url)"
-            >
+            <li class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
+              v-for="item in dropDownMenu" @click="handleLocalLink(item.url)">
               <span class="text-orange-500 text-sm pr-2">{{ item.site }}</span>
               <span class="text-gray-600 text-xs">{{ item.introduction }}</span>
             </li>
-            <li
-              v-show="!dropDownMenu.length"
-              class="text-gray-600 text-center py-2"
-            >
+            <li v-show="!dropDownMenu.length" class="text-gray-600 text-center py-2">
               未搜索到本地内容
             </li>
           </ul>
