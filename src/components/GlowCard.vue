@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { } from "vue";
+import { computed } from "vue";
 import { useGlowCard } from "../hook/use-glow-card";
+import { type touchCardParams, useTouchCard } from "../hook/use-touch-card";
 
 interface Props {
   data: {
@@ -10,6 +11,8 @@ interface Props {
     introduction: string;
   };
   staticIcon?: boolean;
+  collection?: (data: Props["data"]) => void;
+  delete?: (data: Props["data"]) => void;
 }
 
 interface Emits {
@@ -25,6 +28,41 @@ const { cardRef: glowCard } = useGlowCard({
     blur: 50,
   },
 });
+
+const btnItems = computed(() => {
+  const items: touchCardParams['items'] = []
+  if (props.collection) {
+    items.push({
+      type: 'collection',
+      onClick: () => {
+        if (props.collection) {
+          props.collection(props.data)
+        }
+      }
+    })
+  }
+  if (props.delete) {
+    items.push({
+      type: 'delete',
+      onClick: () => {
+        if (props.delete) {
+          props.delete(props.data)
+        }
+      }
+    })
+  }
+  return items
+})
+
+const showCover = ref(false)
+const coverRef = ref<HTMLDivElement | null>(null)
+
+useTouchCard({
+  showCover,
+  cardRef: glowCard,
+  coverRef,
+  items: btnItems.value
+})
 
 const pageLoad = ref(false)
 onMounted(() => {
@@ -54,6 +92,9 @@ onMounted(() => {
         {{ props.data.introduction }}
       </p>
     </div>
+    <Transition name="fade">
+      <div v-show="showCover" ref="coverRef" class="absolute w-full h-full p-4 top-0 left-0 backdrop-blur-sm flex justify-around items-center"></div>
+    </Transition>
   </div>
 </template>
 

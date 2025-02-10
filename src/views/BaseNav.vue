@@ -2,7 +2,7 @@
 import { inject, onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import Giscus from "@giscus/vue";
-import { Star, Plus, Delete, Edit } from "@element-plus/icons-vue";
+import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import { navLink } from "../config/index";
 
 interface SiteProps {
@@ -239,7 +239,7 @@ const handleUpload = () => {
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
           <template v-for="item in ownList">
             <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
-              <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item"
+              <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :delete="deleteOwnRow"
                 @click="handleClick(item)" />
               <template #dropdown>
                 <el-dropdown-menu>
@@ -267,10 +267,10 @@ const handleUpload = () => {
           <template v-for="item in historyList">
             <el-dropdown trigger="contextmenu" style="position: static">
               <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item"
-                @click="handleClick(item)" />
+                :collection="addOwnLink" :delete="deleteOwnRow" @click="handleClick(item)" />
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item :icon="Star" @click="addOwnLink(item)">收藏</el-dropdown-item>
+                  <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
                   <el-dropdown-item :icon="Delete" @click="deleteHistoryRow(item)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -281,16 +281,18 @@ const handleUpload = () => {
       <!-- 配置站点 -->
       <template v-for="category in navLink">
         <section class="mb-6">
-          <h2 :id="category.navTitle" class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px', zIndex: 1 }">
+          <h2 :id="category.navTitle" class="sticky top-0 text-xl backdrop-blur p-2"
+            :style="{ margin: 'auto -20px', zIndex: 1 }">
             {{ category.navTitle }}
           </h2>
           <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
             <template v-for="item in category.children">
               <el-dropdown trigger="contextmenu" style="position: static">
-                <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" @click="handleClick(item)" />
+                <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
+                  @click="handleClick" />
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item :icon="Star" @click="addOwnLink(item)">收藏</el-dropdown-item>
+                    <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
