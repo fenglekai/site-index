@@ -223,17 +223,17 @@ const handleUpload = () => {
         <div class="flex items-center space-x-2 sticky top-0 backdrop-blur"
           :style="{ margin: 'auto -20px', zIndex: 1 }">
           <h2 class="text-xl p-2">我的链接</h2>
-          <div class="flex cursor-pointer transition-all hover:text-orange-400">
+          <div id="save" class="flex cursor-pointer transition-all hover:text-orange-400">
             <el-icon @click="handleDownload">
               <IEpDownload />
             </el-icon>
-            <span class="text-xs pl-1">保存到本地</span>
+            <span class="text-xs pl-1">保存</span>
           </div>
-          <div class="flex cursor-pointer transition-all hover:text-orange-400">
+          <div id="load" class="flex cursor-pointer transition-all hover:text-orange-400">
             <el-icon @click="handleUpload">
               <IEpUpload />
             </el-icon>
-            <span class="text-xs pl-1">导入</span>
+            <span class="text-xs pl-1">上传</span>
           </div>
         </div>
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
@@ -248,7 +248,7 @@ const handleUpload = () => {
               </template>
             </el-dropdown>
           </template>
-          <div class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
+          <div id="add-own-link" class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
             @click="showAddForm = !showAddForm">
             <el-icon size="24px">
               <Plus />

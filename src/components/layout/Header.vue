@@ -12,6 +12,7 @@ interface Props {
 
 interface Emits {
   (e: "setCollapse"): void;
+  (e: "showTour"): void;
 }
 
 const router = useRouter();
@@ -42,7 +43,7 @@ const selectOptions = computed(() => {
     <div
       class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start"
     >
-      <div id="logo" class="whitespace-nowrap tracking-wider">
+      <div id="logo" class="whitespace-nowrap tracking-wider" @click="emits('showTour')">
         <!-- <div
           class="sm:hidden inline-block transition-all mr-2"
           @click="emits('setCollapse')"
@@ -55,7 +56,7 @@ const selectOptions = computed(() => {
         </h2>
       </div>
 
-      <LocalSearch class="min-w-0 grow" />
+      <LocalSearch id="search-input" class="min-w-0 grow" />
 
       <ul class="hidden md:flex space-x-3 items-center">
         <li></li>
