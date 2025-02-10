@@ -41,7 +41,7 @@ export default {
     {
       icon: "logo.png",
       site: "首页站点",
-      url: "/home",
+      url: "/iai-home",
       introduction: "个人设计的首页封面",
     },
     {

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Layout from "../components/layout/Index.vue";
-import Home from "../views/Home.vue";
+import IAIHome from "../views/IAIHome.vue";
 import BaseNav from "../views/BaseNav.vue";
 import ThreeJS from "../views/ThreeJS.vue";
 import { ref } from "vue";
@@ -13,8 +13,8 @@ const routes = [
     children: [{ path: "/nav", component: BaseNav }],
   },
   {
-    path: "/home",
-    component: Home,
+    path: "/iai-home",
+    component: IAIHome,
   },
   {
     path: "/demo",
