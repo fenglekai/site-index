@@ -76,7 +76,6 @@ export const useTouchCard = (params: touchCardParams) => {
   };
 
   const onTouchStart = (e: TouchEvent) => {
-    e.preventDefault();
     const { clientX, clientY } = e.touches[0];
     touchListen = true;
     beforeTouch = {
@@ -89,7 +88,6 @@ export const useTouchCard = (params: touchCardParams) => {
     };
   };
   const onTouchMove = (e: TouchEvent) => {
-    e.preventDefault();
     if (!touchListen) return;
     const { clientX, clientY } = e.touches[0];
     const touchMove = {
@@ -104,7 +102,6 @@ export const useTouchCard = (params: touchCardParams) => {
     };
   };
   const onTouchEnd = (e: TouchEvent) => {
-    e.preventDefault();
     touchListen = false;
     beforeTouch = {
       clientX: 0,
@@ -123,15 +120,11 @@ export const useTouchCard = (params: touchCardParams) => {
   };
 
   onMounted(() => {
-    document.addEventListener("touchmove", (e) => e.preventDefault(), false);
+    window.addEventListener("touchmove", (e) => e.preventDefault());
     setCoverStyle();
-    cardRef.value?.addEventListener("touchstart", onTouchStart, {
-      passive: false,
-    });
-    cardRef.value?.addEventListener("touchmove", onTouchMove, {
-      passive: false,
-    });
-    cardRef.value?.addEventListener("touchend", onTouchEnd, { passive: false });
+    cardRef.value?.addEventListener("touchstart", onTouchStart);
+    cardRef.value?.addEventListener("touchmove", onTouchMove);
+    cardRef.value?.addEventListener("touchend", onTouchEnd);
   });
 
   onUnmounted(() => {
