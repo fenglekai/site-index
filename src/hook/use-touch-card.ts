@@ -111,10 +111,7 @@ export const useTouchCard = (params: touchCardParams) => {
       clientY: 0,
     };
     if (moveCount.x > 60) {
-      showCover.value = true;
-    }
-    if (moveCount.x < -60) {
-      showCover.value = false;
+      showCover.value = !showCover.value;
     }
     moveCount = {
       x: 0,
