@@ -123,6 +123,7 @@ export const useTouchCard = (params: touchCardParams) => {
   };
 
   onMounted(() => {
+    document.addEventListener("touchmove", (e) => e.preventDefault(), false);
     setCoverStyle();
     cardRef.value?.addEventListener("touchstart", onTouchStart, {
       passive: false,
