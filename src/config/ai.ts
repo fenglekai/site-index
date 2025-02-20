@@ -4,6 +4,16 @@ export default {
   navTitle: "AI/机器学习",
   children: [
     {
+      site: "Siliconflow 硅基流动",
+      url: "https://siliconflow.cn/zh-cn/",
+      introduction: "硅基流动致力于打造规模化、标准化、高效能 AI Infra 平台，提供高效能、低成本的多品类 AI 模型服务，助力开发者和企业聚焦产品创新。",
+    },
+    {
+      site: "OpenRouter",
+      url: "https://openrouter.ai/",
+      introduction: "统一的大型语言模型接口。为您的提示找到最佳模型和价格。",
+    },
+    {
       site: "TensorFlow.js",
       url: "https://www.tensorflow.org/js?hl=zh-cn",
       introduction: "是一个用于使用 JavaScript 进行机器学习开发的库",
