@@ -3,6 +3,7 @@
  * https://mp.weixin.qq.com/s/hZUX7PCDGQj6Ih8_dWzb1w
  */
 import { onMounted, onUnmounted, ref } from "vue";
+import { mobilephone } from "./use-mobile";
 
 interface IOptions {
   light?: {
@@ -12,11 +13,6 @@ interface IOptions {
     blur?: number; // filter: blur()
   };
 }
-
-const mobilephone =
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
 
 export const useGlowCard = (option: IOptions = {}) => {
   // 获取卡片的dom节点

@@ -6,12 +6,10 @@ import AnimateBanner from "../historyBanner/AnimateBanner.vue";
 import Banner_20240527 from "../historyBanner/Banner_20240527.vue";
 
 interface Props {
-  collapse: boolean;
-  notMobile: boolean;
+  mobileScreen: boolean;
 }
 
 interface Emits {
-  (e: "setCollapse"): void;
   (e: "showTour"): void;
 }
 
@@ -32,7 +30,7 @@ const selectOptions = computed(() => {
 
 <template>
   <div
-    v-if="!notMobile"
+    v-if="!mobileScreen"
     class="absolute top-0 left-0 w-full h-full overflow-hidden"
   >
     <Transition name="fade" mode="out-in">
@@ -61,7 +59,7 @@ const selectOptions = computed(() => {
       <ul class="hidden md:flex space-x-3 items-center">
         <li></li>
         <li class="flex items-center">
-          <el-dropdown v-if="!notMobile" @command="selectedBanner = $event">
+          <el-dropdown v-if="!mobileScreen" @command="selectedBanner = $event">
             <span class="text-white" style="outline: none"> 切换Banner </span>
             <template #dropdown>
               <el-dropdown-menu>

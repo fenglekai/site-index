@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { Ref, inject, onMounted, ref, watch, reactive } from "vue";
+import { onMounted, ref, watch, reactive } from "vue";
 import google from "../assets/google.png";
 import Bing from "../assets/Bing.png";
 import baidu from "../assets/baidu.png";
-import { ElMessage } from "element-plus";
 import { navLink } from "../config/index";
+import { screenWidth } from "../hook/use-mobile";
 
 /**
  * 搜索引擎
@@ -53,7 +53,6 @@ const handleLocalLink = (url: string) => {
   focusInput.value = false;
 };
 
-const screenWidth: Ref<number> = inject("screenWidth") || ref(0);
 const expand = ref(true);
 watch(screenWidth, (newVal) => {
   if (newVal < 640) {

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { inject, onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import Giscus from "@giscus/vue";
 import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
