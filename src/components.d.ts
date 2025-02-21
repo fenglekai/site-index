@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BilibiliBanner: typeof import('./components/bilibiliBanner/Index.vue')['default']
+    CategoryAnchor: typeof import('./components/CategoryAnchor.vue')['default']
+    CategoryNav: typeof import('./components/categoryNav.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']

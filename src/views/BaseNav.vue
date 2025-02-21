@@ -217,102 +217,101 @@ const handleUpload = () => {
 </script>
 
 <template>
-  <div class="lg:flex gap-4 px-4">
-    <div class="lg:flex-1">
-      <!-- 我的链接 -->
-      <section class="mb-6 space-y-2">
-        <div class="flex items-center space-x-2 sticky top-0 backdrop-blur"
-          :style="{ margin: 'auto -20px', zIndex: 1 }">
-          <h2 class="md:text-xl sm:text-sm p-2">我的链接</h2>
-          <div id="save" class="flex cursor-pointer transition-all hover:text-orange-400">
-            <el-icon @click="handleDownload">
-              <IEpDownload />
-            </el-icon>
-            <span class="text-xs pl-1">保存</span>
-          </div>
-          <div id="load" class="flex cursor-pointer transition-all hover:text-orange-400">
-            <el-icon @click="handleUpload">
-              <IEpUpload />
-            </el-icon>
-            <span class="text-xs pl-1">上传</span>
-          </div>
+  <div>
+    <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
+    <!-- 我的链接 -->
+    <section class="mb-6 space-y-2">
+      <div class="flex items-center space-x-2 sticky top-20 backdrop-blur" :style="{ zIndex: 1 }">
+        <h2 class="md:text-xl sm:text-sm py-2">我的链接</h2>
+        <div id="save" class="flex cursor-pointer transition-all hover:text-orange-400">
+          <el-icon @click="handleDownload">
+            <IEpDownload />
+          </el-icon>
+          <span class="text-xs pl-1">保存</span>
         </div>
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-          <template v-for="item in ownList">
-            <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
-              <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :delete="deleteOwnRow"
-                @click="handleClick(item)" />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item :icon="Delete" @click="deleteOwnRow(item)">删除</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </template>
-          <div id="add-own-link"
-            class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
-            @click="showAddForm = !showAddForm">
-            <el-icon size="24px">
-              <Plus />
-            </el-icon>
-          </div>
+        <div id="load" class="flex cursor-pointer transition-all hover:text-orange-400">
+          <el-icon @click="handleUpload">
+            <IEpUpload />
+          </el-icon>
+          <span class="text-xs pl-1">上传</span>
         </div>
-      </section>
-      <!-- 历史访问 -->
-      <section class="mb-6 space-y-2">
-        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2" :style="{ margin: 'auto -20px', zIndex: 1 }">
-          历史访问
-          <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
-          <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
+      </div>
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
+        <template v-for="item in ownList">
+          <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
+            <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :delete="deleteOwnRow"
+              @click="handleClick(item)" />
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item :icon="Delete" @click="deleteOwnRow(item)">删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
+        <div id="add-own-link"
+          class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
+          @click="showAddForm = !showAddForm">
+          <el-icon size="24px">
+            <Plus />
+          </el-icon>
+        </div>
+      </div>
+    </section>
+    <!-- 历史访问 -->
+    <section class="mb-6 space-y-2">
+      <h2 class="sticky top-20 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
+        历史访问
+        <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
+        <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
+      </h2>
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
+        <template v-for="item in historyList">
+          <el-dropdown trigger="contextmenu" style="position: static">
+            <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
+              :delete="deleteOwnRow" @click="handleClick(item)" />
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
+                <el-dropdown-item :icon="Delete" @click="deleteHistoryRow(item)">删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </template>
+      </div>
+    </section>
+    <!-- 配置站点 -->
+    <template v-for="category in navLink">
+      <section class="mb-6">
+        <h2 :id="category.navTitle" class="sticky top-20 md:text-xl sm:text-sm backdrop-blur py-2"
+          :style="{ zIndex: 1 }">
+          {{ category.navTitle }}
         </h2>
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-          <template v-for="item in historyList">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
+          <template v-for="item in category.children">
             <el-dropdown trigger="contextmenu" style="position: static">
-              <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item"
-                :collection="addOwnLink" :delete="deleteOwnRow" @click="handleClick(item)" />
+              <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
+                @click="handleClick" />
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
-                  <el-dropdown-item :icon="Delete" @click="deleteHistoryRow(item)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
           </template>
         </div>
       </section>
-      <!-- 配置站点 -->
-      <template v-for="category in navLink">
-        <section class="mb-6">
-          <h2 :id="category.navTitle" class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2"
-            :style="{ margin: 'auto -20px', zIndex: 1 }">
-            {{ category.navTitle }}
-          </h2>
-          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
-            <template v-for="item in category.children">
-              <el-dropdown trigger="contextmenu" style="position: static">
-                <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
-                  @click="handleClick" />
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
-                  </el-dropdown-menu>
-                </template>
-              </el-dropdown>
-            </template>
-          </div>
-        </section>
-      </template>
-      <!-- 评论 -->
-      <section class="space-y-2">
-        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2 font-semibold"
-          :style="{ margin: 'auto -20px' }">
-          评论
-        </h2>
+    </template>
+    <!-- 评论 -->
+    <section class="space-y-2">
+      <h2 class="sticky top-20 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
+        评论
+      </h2>
+      <div class="px-2">
         <Giscus id="comments" repo="fenglekai/giscus" repoId="R_kgDOKS-Cjg" category="Announcements"
           categoryId="DIC_kwDOKS-Cjs4CZRcG" mapping="pathname" reactionsEnabled="1" emitMetadata="0" inputPosition="top"
           theme="light" lang="zh-CN" loading="lazy" />
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
 
   <el-drawer v-model="showAddForm" direction="btt" :size="mobilephone ? '55%' : '40%'" @closed="resetForm(ownFormRef)">
