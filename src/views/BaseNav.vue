@@ -222,7 +222,7 @@ const handleUpload = () => {
       <section class="mb-6 space-y-2">
         <div class="flex items-center space-x-2 sticky top-0 backdrop-blur"
           :style="{ margin: 'auto -20px', zIndex: 1 }">
-          <h2 class="text-xl p-2">我的链接</h2>
+          <h2 class="md:text-xl sm:text-sm p-2">我的链接</h2>
           <div id="save" class="flex cursor-pointer transition-all hover:text-orange-400">
             <el-icon @click="handleDownload">
               <IEpDownload />
@@ -248,7 +248,8 @@ const handleUpload = () => {
               </template>
             </el-dropdown>
           </template>
-          <div id="add-own-link" class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
+          <div id="add-own-link"
+            class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
             @click="showAddForm = !showAddForm">
             <el-icon size="24px">
               <Plus />
@@ -258,7 +259,7 @@ const handleUpload = () => {
       </section>
       <!-- 历史访问 -->
       <section class="mb-6 space-y-2">
-        <h2 class="sticky top-0 text-xl backdrop-blur p-2" :style="{ margin: 'auto -20px', zIndex: 1 }">
+        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2" :style="{ margin: 'auto -20px', zIndex: 1 }">
           历史访问
           <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
           <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
@@ -281,7 +282,7 @@ const handleUpload = () => {
       <!-- 配置站点 -->
       <template v-for="category in navLink">
         <section class="mb-6">
-          <h2 :id="category.navTitle" class="sticky top-0 text-xl backdrop-blur p-2"
+          <h2 :id="category.navTitle" class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2"
             :style="{ margin: 'auto -20px', zIndex: 1 }">
             {{ category.navTitle }}
           </h2>
@@ -302,7 +303,7 @@ const handleUpload = () => {
       </template>
       <!-- 评论 -->
       <section class="space-y-2">
-        <h2 class="sticky top-0 text-2xl backdrop-blur p-2" :style="{ margin: 'auto -20px' }">
+        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2 font-semibold" :style="{ margin: 'auto -20px' }">
           评论
         </h2>
         <Giscus id="comments" repo="fenglekai/giscus" repoId="R_kgDOKS-Cjg" category="Announcements"

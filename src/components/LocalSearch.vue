@@ -99,19 +99,21 @@ onMounted(() => {
   <!-- search -->
   <div class="flex justify-center">
     <form :action="urlSelected" target="_blank"
-      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-xl' : 'rounded-xl',]">
+      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-md' : 'rounded-md',]">
       <div id="search-input" ref="searchRef" :class="[
-        'search-input bg-white flex items-center p-2 border z-20 sm:mx-auto',
-        focusInput ? 'rounded-t-xl' : 'rounded-xl',
+        'search-input bg-white/80 hover:bg-white flex items-center p-1 border z-20 sm:mx-auto',
+        focusInput ? 'rounded-t-md' : 'rounded-md',
       ]">
-        <input type="text" :name="inputSelected" v-model="searchInput" maxlength="255" autocomplete="off"
-          placeholder="请输入关键字"
-          class="text-sm outline-none flex-grow min-w-0 text-black bg-transparent placeholder:text-gray-300 px-2"
-          @focus="handleFocus" @focusout="focusInput = false" />
+        <div :class="['w-full flex px-2 py-1 rounded-md', focusInput ? 'bg-gray-500/25' : '']">
+          <input type="text" :name="inputSelected" v-model="searchInput" maxlength="255" autocomplete="off"
+            placeholder="请输入关键字"
+            class="text-sm outline-none flex-grow min-w-0 text-black bg-transparent placeholder:text-gray-500"
+            @focus="handleFocus" @focusout="focusInput = false" />
+        </div>
       </div>
       <Teleport to="body">
         <div v-show="focusInput" :style="associateSize"
-          class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2">
+          class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-md overflow-hidden pb-2">
           <ul>
             <li class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
               v-for="item in dropDownMenu" @mousedown="handleLocalLink(item.url)">
