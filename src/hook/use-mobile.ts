@@ -15,4 +15,4 @@ export const mobileScreen = computed(() => {
   return screenWidth.value <= MOBILE_WIDTH;
 });
 
-export const mobilephone = testUserAgent || mobileScreen;
+export const mobilephone = testUserAgent || mobileScreen.value;
