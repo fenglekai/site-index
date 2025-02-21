@@ -98,7 +98,7 @@ onMounted(() => {
   <!-- search -->
   <div class="flex justify-center">
     <form :action="urlSelected" target="_blank"
-      :class="['relative max-w-lg shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-md' : 'rounded-md',]">
+      :class="['relative max-w-lg md:shadow-lg grow w-full overflow-hidden', focusInput ? 'rounded-t-md' : 'rounded-md',]">
       <div id="search-input" ref="searchRef" :class="[
         'search-input bg-white/80 hover:bg-white flex items-center p-1 border z-20 sm:mx-auto',
         focusInput ? 'rounded-t-md' : 'rounded-md',

@@ -10,7 +10,6 @@ const headerHeight = computed(() => {
     return "60px"
   }
   if (mainScroll.value > 0) {
-
     return "80px";
   } else {
     return "180px";

@@ -4,6 +4,7 @@ import { ElMessage, FormInstance } from "element-plus";
 import Giscus from "@giscus/vue";
 import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import { navLink } from "../config/index";
+import { mobilephone } from '../hook/use-mobile'
 
 interface SiteProps {
   icon?: string;
@@ -303,7 +304,8 @@ const handleUpload = () => {
       </template>
       <!-- 评论 -->
       <section class="space-y-2">
-        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2 font-semibold" :style="{ margin: 'auto -20px' }">
+        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur p-2 font-semibold"
+          :style="{ margin: 'auto -20px' }">
           评论
         </h2>
         <Giscus id="comments" repo="fenglekai/giscus" repoId="R_kgDOKS-Cjg" category="Announcements"
@@ -313,27 +315,27 @@ const handleUpload = () => {
     </div>
   </div>
 
-  <el-drawer v-model="showAddForm" direction="btt" size="35%" @closed="resetForm(ownFormRef)">
+  <el-drawer v-model="showAddForm" direction="btt" :size="mobilephone ? '55%' : '40%'" @closed="resetForm(ownFormRef)">
     <template #header>
       <h4>添加站点</h4>
     </template>
     <template #default>
       <el-form ref="ownFormRef" :model="formLabelAlign">
         <el-form-item prop="site" :rules="[{ required: true, message: '请输入网站名称' }]">
-          <el-input size="small" v-model="formLabelAlign.site" placeholder="网站名称" />
+          <el-input v-model="formLabelAlign.site" placeholder="网站名称" />
         </el-form-item>
         <el-form-item prop="url" :rules="[{ required: true, message: '请输入网站地址' }]">
-          <el-input size="small" v-model="formLabelAlign.url" placeholder="网站地址" />
+          <el-input v-model="formLabelAlign.url" placeholder="网站地址" />
         </el-form-item>
         <el-form-item prop="introduction" :rules="[{ required: true, message: '请输入网站描述' }]">
-          <el-input size="small" v-model="formLabelAlign.introduction" placeholder="网站描述" />
+          <el-input v-model="formLabelAlign.introduction" placeholder="网站描述" />
         </el-form-item>
       </el-form>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button size="small" type="primary" @click="submitForm(ownFormRef)">添加</el-button>
-        <el-button size="small" @click="resetForm(ownFormRef)">取消</el-button>
+        <el-button type="primary" @click="submitForm(ownFormRef)">添加</el-button>
+        <el-button @click="resetForm(ownFormRef)">取消</el-button>
       </div>
     </template>
   </el-drawer>
