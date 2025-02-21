@@ -236,7 +236,7 @@ const handleUpload = () => {
             <span class="text-xs pl-1">上传</span>
           </div>
         </div>
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
           <template v-for="item in ownList">
             <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
               <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :delete="deleteOwnRow"
@@ -263,7 +263,7 @@ const handleUpload = () => {
           <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
           <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
         </h2>
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
           <template v-for="item in historyList">
             <el-dropdown trigger="contextmenu" style="position: static">
               <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item"
@@ -285,7 +285,7 @@ const handleUpload = () => {
             :style="{ margin: 'auto -20px', zIndex: 1 }">
             {{ category.navTitle }}
           </h2>
-          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 2xl:grid-cols-6">
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
             <template v-for="item in category.children">
               <el-dropdown trigger="contextmenu" style="position: static">
                 <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
