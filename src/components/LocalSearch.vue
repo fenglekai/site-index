@@ -26,7 +26,6 @@ const handleSearchSelect = (item: any) => {
 };
 const searchInput = ref("");
 
-const localSearch: any = ref(false);
 const searchList: any = [];
 const dropDownMenu: any = ref([]);
 const initSearchList = () => {
@@ -48,20 +47,10 @@ watch(searchInput, (newVal) => {
       );
     })
     .slice(0, 15);
-  if (dropDownMenu.value.length > 0) {
-    localSearch.value = true;
-  } else {
-    localSearch.value = false;
-  }
 });
-const handleFocusout = () => {
-  focusInput.value = false;
-  localSearch.value = false;
-};
 const handleLocalLink = (url: string) => {
-  focusInput.value = false;
-  localSearch.value = false;
   window.open(url);
+  focusInput.value = false;
 };
 
 const screenWidth: Ref<number> = inject("screenWidth") || ref(0);
@@ -125,7 +114,7 @@ onMounted(() => {
           class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-2xl overflow-hidden pb-2">
           <ul>
             <li class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
-              v-for="item in dropDownMenu" @click="handleLocalLink(item.url)">
+              v-for="item in dropDownMenu" @mousedown="handleLocalLink(item.url)">
               <span class="text-orange-500 text-sm pr-2">{{ item.site }}</span>
               <span class="text-gray-600 text-xs">{{ item.introduction }}</span>
             </li>
