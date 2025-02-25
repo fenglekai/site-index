@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'chart',
   navTitle: "2D/3D图表库",
   children: [
     {

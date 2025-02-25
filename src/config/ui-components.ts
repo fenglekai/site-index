@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'ui',
   navTitle: "UI组件库",
   children: [
     {

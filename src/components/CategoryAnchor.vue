@@ -7,16 +7,28 @@ interface Props {
 
 defineProps<Props>()
 
-const handleNavClick = (key: string = "home") => {
-    let doc: Document | any = document;
-    doc.querySelector(`#${key}`).scrollIntoView({ behavior: "smooth" });
+onMounted(() => {
+
+})
+
+const handleNavClick = (key: string = "person") => {
+    document.querySelector(`#${key}`)?.scrollIntoView({ behavior: "smooth", block: 'start' });
 };
+
+const container = ref<HTMLDivElement | null>(null)
+const handleWheelContainer = (e: WheelEvent) => {
+    e.preventDefault();
+    const scrollAmount = e.deltaY > 0 ? 50 : -50;
+    if (!container.value) return
+    container.value.scrollLeft += scrollAmount
+}
 </script>
 
 <template>
-    <div class="sticky top-0 py-2 flex gap-2 flex-wrap bg-white" :style="{ zIndex: 2 }">
+    <div ref="container" class="width-full py-2 bg-white whitespace-nowrap overflow-x-scroll" :style="{ zIndex: 2 }"
+        @wheel="handleWheelContainer">
         <div v-for="item in navLink"
-            class="bg-gray-100 hover:bg-gray-200 px-3 py-1 border border-gray-50 rounded-md text-sm text-gray-500 cursor-pointer"
-            @click="handleNavClick(item.navTitle)">{{ item.navTitle }}</div>
+            class="mr-2 inline-block bg-gray-100 hover:bg-gray-200 px-3 py-1 border border-gray-50 rounded-md text-sm text-gray-500 cursor-pointer"
+            @click="handleNavClick(item.id)">{{ item.navTitle }}</div>
     </div>
 </template>

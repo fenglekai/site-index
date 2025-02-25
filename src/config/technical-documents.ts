@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'doc',
   navTitle: "技术文档",
   children: [
     {

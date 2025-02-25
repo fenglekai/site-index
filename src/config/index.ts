@@ -25,6 +25,7 @@ import otherTools from "./other-tools";
 import ai from "./ai";
 
 export type NavLinkItem = {
+  id: string;
   navTitle: string;
   children: NavLinkItemChild[];
 };
@@ -105,6 +106,7 @@ const navLink: NavLinkItem[] = [
   cssCli,
   charts,
   {
+    id: 'api-doc',
     navTitle: "API文档/Mock调试",
     children: [
       {
@@ -121,6 +123,7 @@ const navLink: NavLinkItem[] = [
     ],
   },
   {
+    id: 'web-test',
     navTitle: "Web测试工具",
     children: [
       {
@@ -131,6 +134,7 @@ const navLink: NavLinkItem[] = [
     ],
   },
   {
+    id: 'operations',
     navTitle: "系统运维",
     children: [
       {
@@ -152,6 +156,7 @@ const navLink: NavLinkItem[] = [
     ],
   },
   {
+    id: 'ci-cd',
     navTitle: "CI/CD集成",
     children: [
       {
@@ -169,6 +174,7 @@ const navLink: NavLinkItem[] = [
     ],
   },
   {
+    id: 'knowledge',
     navTitle: "笔记文档/知识库工具",
     children: [
       {
@@ -200,6 +206,7 @@ const navLink: NavLinkItem[] = [
   },
   technicalDocuments,
   {
+    id: 'algorithm',
     navTitle: "数据结构与算法",
     children: [
       {
@@ -224,6 +231,7 @@ const navLink: NavLinkItem[] = [
   ai,
   designResources,
   {
+    id: 'online-code',
     navTitle: "线上代码",
     children: [
       {

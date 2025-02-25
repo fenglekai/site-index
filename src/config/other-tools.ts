@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'tool',
   navTitle: "其他工具",
   children: [
     {

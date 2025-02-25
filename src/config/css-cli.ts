@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'css-cli',
   navTitle: "CSS框架",
   children: [
     {

@@ -218,10 +218,9 @@ const handleUpload = () => {
 
 <template>
   <div>
-    <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
     <!-- 我的链接 -->
     <section class="mb-6 space-y-2">
-      <div class="flex items-center space-x-2 sticky top-20 backdrop-blur" :style="{ zIndex: 1 }">
+      <div class="flex items-center space-x-2 sticky top-0 backdrop-blur" :style="{ zIndex: 1 }">
         <h2 class="md:text-xl sm:text-sm py-2">我的链接</h2>
         <div id="save" class="flex cursor-pointer transition-all hover:text-orange-400">
           <el-icon @click="handleDownload">
@@ -259,7 +258,7 @@ const handleUpload = () => {
     </section>
     <!-- 历史访问 -->
     <section class="mb-6 space-y-2">
-      <h2 class="sticky top-20 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
+      <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
         历史访问
         <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
         <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
@@ -281,8 +280,8 @@ const handleUpload = () => {
     </section>
     <!-- 配置站点 -->
     <template v-for="category in navLink">
-      <section class="mb-6">
-        <h2 :id="category.navTitle" class="sticky top-20 md:text-xl sm:text-sm backdrop-blur py-2"
+      <section :id="category.id" class="mb-6">
+        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2"
           :style="{ zIndex: 1 }">
           {{ category.navTitle }}
         </h2>
@@ -303,7 +302,7 @@ const handleUpload = () => {
     </template>
     <!-- 评论 -->
     <section class="space-y-2">
-      <h2 class="sticky top-20 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
+      <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
         评论
       </h2>
       <div class="px-2">

@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'web-cli',
   navTitle: "Web框架/服务框架",
   children: [
     {

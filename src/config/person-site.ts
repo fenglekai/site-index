@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'person',
   navTitle: "个人建站",
   children: [
     {

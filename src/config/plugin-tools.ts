@@ -1,6 +1,7 @@
 import { NavLinkItem } from ".";
 
 export default {
+  id: 'plugin',
   navTitle: "插件工具库",
   children: [
     {

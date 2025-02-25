@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, provide, ref, watch } from "vue";
+import { ScrollbarInstance } from "element-plus";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import { mobileScreen } from "../../hook/use-mobile";
+import { navLink } from "../../config/index";
 
 const mainScroll = ref(0);
 const headerHeight = computed(() => {
@@ -15,7 +17,9 @@ const headerHeight = computed(() => {
     return "180px";
   }
 });
-
+const onScroll = ({ scrollTop, scrollLeft }: { scrollTop: number; scrollLeft: number }) => {
+  mainScroll.value = scrollTop
+}
 
 const showTour = ref(false)
 const handleTourFinish = () => {
@@ -43,7 +47,10 @@ onUnmounted(() => {
       `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
     ]">
       <el-container>
-        <el-scrollbar wrap-class="main-scroll-wrap" @scroll="({ scrollTop }: any) => (mainScroll = scrollTop)">
+        <el-header height="auto">
+          <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
+        </el-header>
+        <el-scrollbar wrap-class="main-scroll-wrap" @scroll="onScroll">
           <el-main id="main" :style="{ overflow: 'visible', padding: mobileScreen ? '6px' : '' }">
             <RouterView />
           </el-main>
