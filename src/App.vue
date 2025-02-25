@@ -4,10 +4,10 @@ import { LOAD } from "./router/index";
 </script>
 
 <template>
-  <RouterView
-    v-show="!LOAD"
-    class="animate-[slide-down-fade_0.3s_ease-in-out]"
-  />
+  <div v-show="!LOAD" class="animate-[slide-down-fade_0.3s_ease-in-out]">
+    <RouterView
+    />
+  </div>
   <LoadPage v-show="LOAD" class="animate-[slide-down-fade_0.3s_ease-in-out]" />
 </template>
 
