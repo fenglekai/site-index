@@ -7,7 +7,11 @@ import { mobileScreen } from "../../hook/use-mobile";
 import { navLink } from "../../config/index";
 
 const mainScroll = ref(0);
+const hiddenHeader = ref(false)
 const headerHeight = computed(() => {
+  if (hiddenHeader.value) {
+    return "0px"
+  }
   if (mobileScreen.value) {
     return "60px"
   }
@@ -18,6 +22,11 @@ const headerHeight = computed(() => {
   }
 });
 const onScroll = ({ scrollTop, scrollLeft }: { scrollTop: number; scrollLeft: number }) => {
+  if (scrollTop > mainScroll.value && mainScroll.value > 600) {
+    hiddenHeader.value = true
+  } else {
+    hiddenHeader.value = false
+  }
   mainScroll.value = scrollTop
 }
 
@@ -39,7 +48,7 @@ onUnmounted(() => {
 
 <template>
   <el-container id="base-nav" class="min-h-screen relative text-slate-700">
-    <el-header :style="[`min-height: ${headerHeight}; transition: 0.3s; padding: 0;`]"
+    <el-header height="0px" :style="[`min-height: ${headerHeight}; transition: 0.3s; padding: 0; overflow: hidden;`]"
       class="fixed border-b backdrop-blur-md z-10 w-full">
       <Header :mobile-screen="mobileScreen" @show-tour="showTour = true" />
     </el-header>
@@ -47,7 +56,7 @@ onUnmounted(() => {
       `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
     ]">
       <el-container>
-        <el-header height="auto">
+        <el-header height="0px" :style="`min-height: ${hiddenHeader ? '0px' : '48px'}; overflow: hidden; transition: 0.3s;`">
           <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
         </el-header>
         <el-scrollbar wrap-class="main-scroll-wrap" @scroll="onScroll">
