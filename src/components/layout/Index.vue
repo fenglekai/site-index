@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, provide, ref, watch } from "vue";
-import { ScrollbarInstance } from "element-plus";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import { mobileScreen } from "../../hook/use-mobile";
@@ -8,6 +7,7 @@ import { navLink } from "../../config/index";
 
 const mainScroll = ref(0);
 const hiddenHeader = ref(false)
+const mouseOnCategory = ref(false)
 const headerHeight = computed(() => {
   if (hiddenHeader.value) {
     return "0px"
@@ -22,12 +22,18 @@ const headerHeight = computed(() => {
   }
 });
 const onScroll = ({ scrollTop, scrollLeft }: { scrollTop: number; scrollLeft: number }) => {
-  if (scrollTop > mainScroll.value && mainScroll.value > 600) {
+  if (scrollTop > mainScroll.value && mainScroll.value > 600 && !mouseOnCategory.value) {
     hiddenHeader.value = true
   } else {
     hiddenHeader.value = false
   }
   mainScroll.value = scrollTop
+}
+const handleEnterCategory = () => {
+  mouseOnCategory.value = true
+}
+const handleLeaveCategory = () => {
+  mouseOnCategory.value = false
 }
 
 const showTour = ref(false)
@@ -56,7 +62,9 @@ onUnmounted(() => {
       `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
     ]">
       <el-container>
-        <el-header height="0px" :style="`min-height: ${hiddenHeader ? '0px' : '48px'}; overflow: hidden; transition: 0.3s;`">
+        <el-header height="0px"
+          :style="`min-height: ${hiddenHeader ? '0px' : '48px'}; overflow: hidden; transition: 0.3s;`"
+          @mouseenter="handleEnterCategory" @mouseleave="handleLeaveCategory">
           <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
         </el-header>
         <el-scrollbar wrap-class="main-scroll-wrap" @scroll="onScroll">

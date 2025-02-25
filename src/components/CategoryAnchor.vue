@@ -7,10 +7,6 @@ interface Props {
 
 defineProps<Props>()
 
-onMounted(() => {
-
-})
-
 const handleNavClick = (key: string = "person") => {
     document.querySelector(`#${key}`)?.scrollIntoView({ behavior: "smooth", block: 'start' });
 };
