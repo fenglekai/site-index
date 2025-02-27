@@ -5,6 +5,11 @@ export default {
   navTitle: "UI组件库",
   children: [
     {
+      site: "Uiverse",
+      url: "https://uiverse.io/",
+      introduction: "社区制作的免费可自定义 UI 元素库，使用 CSS 或 Tailwind 制作。所有元素均可免费复制并用于您的项目。",
+    },
+    {
       site: "Element Plus",
       url: "https://element-plus.org/zh-CN/",
       introduction: "基于 Vue 3，面向设计师和开发者的组件库",
