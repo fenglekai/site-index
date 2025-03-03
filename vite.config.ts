@@ -99,7 +99,7 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           {
-            urlPattern: /\.(png|jpg|jpeg|gif|mp4|webm|svg|ico)$/,
+            urlPattern: /\.(png|jpg|jpeg|gif|mp4|webm|webp|svg|ico)$/,
             handler: "CacheFirst",
             options: {
               cacheName: "media-cache",
