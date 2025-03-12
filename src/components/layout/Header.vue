@@ -7,6 +7,7 @@ import Banner_20240527 from "../historyBanner/Banner_20240527.vue";
 
 interface Props {
   mobileScreen: boolean;
+  hiddenHeader: boolean;
 }
 
 interface Emits {
@@ -54,7 +55,7 @@ const selectOptions = computed(() => {
         </h2>
       </div>
 
-      <LocalSearch class="min-w-0 grow" />
+      <LocalSearch :hidden-header="hiddenHeader" class="min-w-0 grow" />
 
       <ul class="hidden md:flex space-x-3 items-center">
         <li></li>

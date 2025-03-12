@@ -6,6 +6,19 @@ import baidu from "../assets/baidu.png";
 import { navLink } from "../config/index";
 import { screenWidth } from "../hook/use-mobile";
 
+interface Props {
+  hiddenHeader: boolean;
+}
+
+const props = defineProps<Props>();
+
+const inputRef = ref<HTMLInputElement | null>(null)
+watch(() => props.hiddenHeader, (newVal) => {
+  if (newVal) {
+    inputRef.value && inputRef.value.blur()
+  }
+})
+
 /**
  * 搜索引擎
  *
@@ -104,8 +117,8 @@ onMounted(() => {
         focusInput ? 'rounded-t-md' : 'rounded-md',
       ]">
         <div :class="['w-full flex px-2 py-1 rounded-md', focusInput ? 'bg-gray-500/25' : '']">
-          <input type="text" :name="inputSelected" v-model="searchInput" maxlength="255" autocomplete="off"
-            placeholder="请输入关键字"
+          <input ref="inputRef" type="text" :name="inputSelected" v-model="searchInput" maxlength="255"
+            autocomplete="off" placeholder="请输入关键字"
             class="text-sm outline-none flex-grow min-w-0 text-black bg-transparent placeholder:text-gray-500"
             @focus="handleFocus" @focusout="focusInput = false" />
         </div>

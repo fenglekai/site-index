@@ -56,7 +56,7 @@ onUnmounted(() => {
   <el-container id="base-nav" class="min-h-screen relative text-slate-700">
     <el-header height="0px" :style="[`min-height: ${headerHeight}; transition: 0.3s; padding: 0; overflow: hidden;`]"
       class="fixed border-b backdrop-blur-md z-10 w-full">
-      <Header :mobile-screen="mobileScreen" @show-tour="showTour = true" />
+      <Header :mobile-screen="mobileScreen" :hiddenHeader="hiddenHeader" @show-tour="showTour = true" />
     </el-header>
     <el-container :style="[
       `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
