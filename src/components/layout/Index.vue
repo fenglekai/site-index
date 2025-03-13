@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import type { ScrollbarInstance } from 'element-plus'
+import { useDebounceFn } from '@vueuse/core'
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import { mobileScreen } from "../../hook/use-mobile";
@@ -10,25 +12,26 @@ const hiddenHeader = ref(false)
 const mouseOnCategory = ref(false)
 const headerHeight = computed(() => {
   if (hiddenHeader.value) {
-    return "0px"
+    return 0
   }
   if (mobileScreen.value) {
-    return "60px"
+    return 60
   }
   if (mainScroll.value > 0) {
-    return "80px";
+    return 80;
   } else {
-    return "180px";
+    return 180;
   }
 });
-const onScroll = ({ scrollTop, scrollLeft }: { scrollTop: number; scrollLeft: number }) => {
-  if (scrollTop > mainScroll.value && mainScroll.value > 600 && !mouseOnCategory.value) {
+const scrollRef = ref<ScrollbarInstance | null>(null)
+const onScroll = useDebounceFn(({ scrollTop }: { scrollTop: number }) => {
+  if (scrollTop >= mainScroll.value && mainScroll.value > 600 && !mouseOnCategory.value) {
     hiddenHeader.value = true
   } else {
     hiddenHeader.value = false
   }
   mainScroll.value = scrollTop
-}
+}, 200)
 const handleEnterCategory = () => {
   mouseOnCategory.value = true
 }
@@ -54,20 +57,22 @@ onUnmounted(() => {
 
 <template>
   <el-container id="base-nav" class="min-h-screen relative text-slate-700">
-    <el-header height="0px" :style="[`min-height: ${headerHeight}; transition: 0.3s; padding: 0; overflow: hidden;`]"
+    <el-header height="0px" :style="`min-height: ${headerHeight}px; transition: 0.3s; padding: 0;`"
       class="fixed border-b backdrop-blur-md z-10 w-full">
-      <Header :mobile-screen="mobileScreen" :hiddenHeader="hiddenHeader" @show-tour="showTour = true" />
+      <div :style="`height: 0; min-height: ${headerHeight}px; overflow: hidden; transition: 0.3s;`">
+        <Header :mobile-screen="mobileScreen" :hiddenHeader="hiddenHeader" @show-tour="showTour = true" />
+      </div>
     </el-header>
     <el-container :style="[
-      `max-height: calc(100vh - ${headerHeight});margin-top: ${headerHeight}; transition: 0.3s;`,
+      `margin-top: ${headerHeight}px; transition: 0.3s;`,
     ]">
       <el-container>
-        <el-header height="0px"
-          :style="`min-height: ${hiddenHeader ? '0px' : '48px'}; overflow: hidden; transition: 0.3s;`"
+        <el-header
+          :style="`height: 0; min-height: ${hiddenHeader ? '0px' : '48px'}; overflow: hidden; transition: 0.3s; position: sticky; top: 0;`"
           @mouseenter="handleEnterCategory" @mouseleave="handleLeaveCategory">
           <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
         </el-header>
-        <el-scrollbar wrap-class="main-scroll-wrap" @scroll="onScroll">
+        <el-scrollbar ref="scrollRef" :height="`calc(100vh)`" wrap-class="main-scroll-wrap" @scroll="onScroll">
           <el-main id="main" :style="{ overflow: 'visible', padding: mobileScreen ? '6px' : '' }">
             <RouterView />
           </el-main>
@@ -75,9 +80,9 @@ onUnmounted(() => {
             <Footer />
           </el-footer>
         </el-scrollbar>
-        <el-backtop target=".main-scroll-wrap" :right="50" :bottom="50" />
       </el-container>
     </el-container>
+    <el-backtop target=".main-scroll-wrap" :right="50" :bottom="50" />
   </el-container>
   <el-tour v-model="showTour" :content-style="{ width: '300px' }" class="text-gray-500" @close="handleTourFinish"
     @finish="handleTourFinish">
