@@ -19,6 +19,7 @@
     "element-plus": "^2.7.3",
     "jarallax": "^2.2.1",
     "three": "^0.151.3",
+    "twikoo": "^1.6.41",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },

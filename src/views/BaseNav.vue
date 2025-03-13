@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
-import Giscus from "@giscus/vue";
 import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import { navLink } from "../config/index";
 import { mobilephone } from '../hook/use-mobile'
+import Twikoo from '../components/Twikoo.vue'
 
 interface SiteProps {
   icon?: string;
@@ -306,9 +306,7 @@ const handleUpload = () => {
         评论
       </h2>
       <div class="px-2">
-        <Giscus id="comments" repo="fenglekai/giscus" repoId="R_kgDOKS-Cjg" category="Announcements"
-          categoryId="DIC_kwDOKS-Cjs4CZRcG" mapping="pathname" reactionsEnabled="1" emitMetadata="0" inputPosition="top"
-          theme="light" lang="zh-CN" loading="lazy" />
+        <Twikoo />
       </div>
     </section>
   </div>
