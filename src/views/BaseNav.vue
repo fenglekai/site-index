@@ -311,20 +311,20 @@ const handleUpload = () => {
     </section>
   </div>
 
-  <el-drawer v-model="showAddForm" direction="btt" :size="mobilephone ? '55%' : '40%'" @closed="resetForm(ownFormRef)">
+  <el-drawer v-model="showAddForm" direction="btt" size="auto" @closed="resetForm(ownFormRef)">
     <template #header>
       <h4>添加站点</h4>
     </template>
     <template #default>
       <el-form ref="ownFormRef" :model="formLabelAlign">
-        <el-form-item prop="site" :rules="[{ required: true, message: '请输入网站名称' }]">
-          <el-input v-model="formLabelAlign.site" placeholder="网站名称" />
+        <el-form-item label="网站名称" prop="site" :rules="[{ required: true, message: '请输入网站名称' }]">
+          <el-input v-model="formLabelAlign.site" placeholder="网站名称" size="small" />
         </el-form-item>
-        <el-form-item prop="url" :rules="[{ required: true, message: '请输入网站地址' }]">
-          <el-input v-model="formLabelAlign.url" placeholder="网站地址" />
+        <el-form-item label="网站地址" prop="url" :rules="[{ required: true, message: '请输入网站地址' }]">
+          <el-input v-model="formLabelAlign.url" placeholder="网站地址" size="small" />
         </el-form-item>
-        <el-form-item prop="introduction" :rules="[{ required: true, message: '请输入网站描述' }]">
-          <el-input v-model="formLabelAlign.introduction" placeholder="网站描述" />
+        <el-form-item label="网站描述" prop="introduction" :rules="[{ required: true, message: '请输入网站描述' }]">
+          <el-input v-model="formLabelAlign.introduction" placeholder="网站描述" size="small" />
         </el-form-item>
       </el-form>
     </template>
@@ -337,4 +337,12 @@ const handleUpload = () => {
   </el-drawer>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(.el-input__inner) {
+  border: none;
+  padding: 0;
+}
+:deep(.el-input__wrapper) {
+  width: 100%;
+}
+</style>
