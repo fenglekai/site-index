@@ -66,7 +66,7 @@ onUnmounted(() => {
       `margin-top: ${headerHeight}px; transition: 0.3s;`,
     ]">
       <el-container>
-        <el-header :style="`height: 48px; overflow: hidden; transition: 0.3s; position: sticky; top: 0;`"
+        <el-header :style="`height: auto; min-height: 48px; overflow: hidden; transition: 0.3s; position: sticky; top: 0;`"
           @mouseenter="handleEnterCategory" @mouseleave="handleLeaveCategory">
           <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
         </el-header>
