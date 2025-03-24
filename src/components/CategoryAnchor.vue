@@ -21,8 +21,8 @@ const handleWheelContainer = (e: WheelEvent) => {
 </script>
 
 <template>
-    <div ref="container" class="width-full py-2 bg-white whitespace-nowrap overflow-x-scroll transition" :style="{ zIndex: 2 }"
-        @wheel="handleWheelContainer">
+    <div ref="container" class="width-full py-2 bg-white whitespace-nowrap overflow-x-scroll transition"
+        :style="{ zIndex: 2 }" @wheel="handleWheelContainer">
         <div v-for="item in navLink"
             class="mr-2 inline-block bg-gray-100 hover:bg-gray-200 px-3 py-1 border border-gray-50 rounded-md text-sm text-gray-500 cursor-pointer"
             @click="handleNavClick(item.id)">{{ item.navTitle }}</div>

@@ -24,14 +24,15 @@ const headerHeight = computed(() => {
   }
 });
 const scrollRef = ref<ScrollbarInstance | null>(null)
-const onScroll = useDebounceFn(({ scrollTop }: { scrollTop: number }) => {
-  if (scrollTop >= mainScroll.value && mainScroll.value > 600 && !mouseOnCategory.value) {
+const onScroll = ({ scrollTop }: { scrollTop: number }) => {
+  if (scrollTop > mainScroll.value && mainScroll.value > 600 && !mouseOnCategory.value) {
     hiddenHeader.value = true
-  } else {
+  }
+  if (scrollTop < mainScroll.value && mainScroll.value > 600 && !mouseOnCategory.value) {
     hiddenHeader.value = false
   }
   mainScroll.value = scrollTop
-}, 200)
+}
 const handleEnterCategory = () => {
   mouseOnCategory.value = true
 }
@@ -57,22 +58,19 @@ onUnmounted(() => {
 
 <template>
   <el-container id="base-nav" class="min-h-screen relative text-slate-700">
-    <el-header height="0px" :style="`min-height: ${headerHeight}px; transition: 0.3s; padding: 0;`"
+    <el-header height="0px" :style="`min-height: ${headerHeight}px; transition: 0.3s; padding: 0; overflow: hidden;`"
       class="fixed border-b backdrop-blur-md z-10 w-full">
-      <div :style="`height: 0; min-height: ${headerHeight}px; overflow: hidden; transition: 0.3s;`">
         <Header :mobile-screen="mobileScreen" :hiddenHeader="hiddenHeader" @show-tour="showTour = true" />
-      </div>
     </el-header>
     <el-container :style="[
       `margin-top: ${headerHeight}px; transition: 0.3s;`,
     ]">
       <el-container>
-        <el-header
-          :style="`height: 0; min-height: ${hiddenHeader ? '0px' : '48px'}; overflow: hidden; transition: 0.3s; position: sticky; top: 0;`"
+        <el-header :style="`height: 48px; overflow: hidden; transition: 0.3s; position: sticky; top: 0;`"
           @mouseenter="handleEnterCategory" @mouseleave="handleLeaveCategory">
           <CategoryAnchor :nav-link="navLink"></CategoryAnchor>
         </el-header>
-        <el-scrollbar ref="scrollRef" :height="`calc(100vh)`" wrap-class="main-scroll-wrap" @scroll="onScroll">
+        <el-scrollbar ref="scrollRef" :height="`calc(100vh - 48px - ${headerHeight}px)`" wrap-class="main-scroll-wrap" @scroll="onScroll">
           <el-main id="main" :style="{ overflow: 'visible', padding: mobileScreen ? '6px' : '' }">
             <RouterView />
           </el-main>
