@@ -3,7 +3,6 @@ import { onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import { navLink } from "../config/index";
-import { mobilephone } from '../hook/use-mobile'
 import Twikoo from '../components/Twikoo.vue'
 
 interface SiteProps {
@@ -336,13 +335,3 @@ const handleUpload = () => {
     </template>
   </el-drawer>
 </template>
-
-<style scoped>
-:deep(.el-input__inner) {
-  border: none;
-  padding: 0;
-}
-:deep(.el-input__wrapper) {
-  width: 100%;
-}
-</style>

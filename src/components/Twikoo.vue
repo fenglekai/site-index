@@ -9,7 +9,7 @@ onMounted(async () => {
   // vitepress 会在 ssr 时运行 twikoo 代码，导致 navigator 未定义
   // 所以需要在浏览器环境下才加载 twikoo, 避免 ssr 时报错
   if (typeof window !== 'undefined') {
-    const twikoo = await import('twikoo');
+    const twikoo = await import('twikoo/dist/twikoo.nocss.js');
     twikoo.init({
       envId: 'https://twikoo.devkai.cn/',
       el: '#tcomment',
@@ -21,3 +21,5 @@ onMounted(async () => {
 <template>
   <div id="tcomment"></div>
 </template>
+
+<style src="../styles/twikoo.css"></style>
