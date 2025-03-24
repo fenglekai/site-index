@@ -16,7 +16,7 @@
     "@giscus/vue": "^2.4.0",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.7.2",
-    "element-plus": "^2.7.3",
+    "element-plus": "^2.9.7",
     "jarallax": "^2.2.1",
     "three": "^0.151.3",
     "twikoo": "^1.6.41",
