@@ -125,14 +125,14 @@ onMounted(() => {
       </div>
       <Teleport to="body">
         <div v-show="focusInput" :style="associateSize"
-          class="associate-label absolute bg-white border-x border-b border-slate-200 rounded-b-md overflow-hidden pb-2">
+          class="associate-label absolute rounded-b-md overflow-hidden pb-2">
           <ul>
-            <li class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/50 line-clamp-1"
+            <li class="px-4 py-1 text-gray-600 cursor-pointer transition-all hover:bg-orange-100/20 line-clamp-1"
               v-for="item in dropDownMenu" @mousedown="handleLocalLink(item.url)">
               <span class="text-orange-500 text-sm pr-2">{{ item.site }}</span>
-              <span class="text-gray-600 text-xs">{{ item.introduction }}</span>
+              <span class="kai-text-2 text-xs">{{ item.introduction }}</span>
             </li>
-            <li v-show="!dropDownMenu.length" class="text-gray-600 text-center py-2">
+            <li v-show="!dropDownMenu.length" class="kai-text-2 text-center pt-3">
               未搜索到本地内容
             </li>
           </ul>
@@ -142,4 +142,11 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.associate-label {
+  background-color: var(--kai-bg);
+  border-left: 1px solid var(--kai-c-border);
+  border-right: 1px solid var(--kai-c-border);
+  border-bottom: 1px solid var(--kai-c-border);
+}
+</style>

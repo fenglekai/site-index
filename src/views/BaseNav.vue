@@ -220,14 +220,14 @@ const handleUpload = () => {
     <!-- 我的链接 -->
     <section class="mb-6 space-y-2">
       <div class="flex items-center space-x-2 sticky top-0 backdrop-blur" :style="{ zIndex: 1 }">
-        <h2 class="md:text-xl sm:text-sm py-2">我的链接</h2>
-        <div id="save" class="flex cursor-pointer transition-all hover:text-orange-400">
+        <h2 class="kai-text md:text-xl sm:text-sm py-2">我的链接</h2>
+        <div id="save" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
           <el-icon @click="handleDownload">
             <IEpDownload />
           </el-icon>
           <span class="text-xs pl-1">保存</span>
         </div>
-        <div id="load" class="flex cursor-pointer transition-all hover:text-orange-400">
+        <div id="load" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
           <el-icon @click="handleUpload">
             <IEpUpload />
           </el-icon>
@@ -247,7 +247,7 @@ const handleUpload = () => {
           </el-dropdown>
         </template>
         <div id="add-own-link"
-          class="border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
+          class="kai-text border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
           @click="showAddForm = !showAddForm">
           <el-icon size="24px">
             <Plus />
@@ -257,9 +257,9 @@ const handleUpload = () => {
     </section>
     <!-- 历史访问 -->
     <section class="mb-6 space-y-2">
-      <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
+      <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
         历史访问
-        <span class="mx-2 text-gray-500 text-sm">显示最近15条访问记录</span>
+        <span class="kai-text-2 mx-2 text-sm">显示最近15条访问记录</span>
         <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
       </h2>
       <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
@@ -280,7 +280,7 @@ const handleUpload = () => {
     <!-- 配置站点 -->
     <template v-for="category in navLink">
       <section :id="category.id" class="mb-6">
-        <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2"
+        <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2"
           :style="{ zIndex: 1 }">
           {{ category.navTitle }}
         </h2>
@@ -301,10 +301,10 @@ const handleUpload = () => {
     </template>
     <!-- 评论 -->
     <section class="space-y-2">
-      <h2 class="sticky top-0 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
+      <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
         评论
       </h2>
-      <div class="px-2">
+      <div class="px-2 kai-text">
         <Twikoo />
       </div>
     </section>

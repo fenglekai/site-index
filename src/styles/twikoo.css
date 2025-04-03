@@ -50,7 +50,7 @@
     padding: 0 1rem;
   }
   .tk-meta-input .el-input input:invalid {
-    border: 1px solid #f56c6c;
+    border: 1px solid rgba(144, 147, 153, 0.31);;
     box-shadow: none;
   }
   @media screen and (max-width: 767px) {

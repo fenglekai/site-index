@@ -73,10 +73,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-4 bg-white border rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
+  <div class="kai-card-bg p-4 rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
     ref="glowCard" @click="$emit('click', props.data)">
     <div style="perspective: 1000px; transform-style: preserve-3d;">
-      <p class="font-bold text-md break-all flex gap-1 mb-2">
+      <p class="kai-text font-bold text-md break-all flex gap-1 mb-2">
       <div v-if="!pageLoad"></div>
       <img v-else-if="staticIcon" :src="props.data.icon
         ? props.data.icon
@@ -88,7 +88,7 @@ onMounted(() => {
         " class="icon" />
       <span class="line-clamp-2">{{ props.data.site }}</span>
       </p>
-      <p class="text-gray-500 text-sm break-all line-clamp-3">
+      <p class="kai-text-2 text-sm break-all line-clamp-3">
         {{ props.data.introduction }}
       </p>
     </div>

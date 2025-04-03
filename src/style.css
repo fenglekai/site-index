@@ -11,6 +11,16 @@
 #F26419
 */
 
+/* 暗黑模式 */
+html.dark {
+  --kai-bg: #1b1b1f;
+  --kai-c-bg: #65758529;
+  --kai-c-bg-hover: #65758546;
+  --kai-c-border: #414243;
+  --kai-text: #dfdfd6;
+  --kai-text-2: #98989f;
+}
+
 /* latin */
 @font-face {
   font-family: "Days One";
@@ -29,7 +39,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #F26419;
+  color: #f26419;
   background-color: #ffffff;
 
   font-synthesis: none;
@@ -37,6 +47,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --kai-bg: #ffffff;
+  --kai-c-bg: #f3f4f6;
+  --kai-c-bg-hover: #e5e7eb;
+  --kai-c-border: #e4e7ed;
+  --kai-text: #3c3c43;
+  --kai-text-2: #67676c;
 }
 
 #app {
@@ -45,15 +62,18 @@
 
 a {
   font-weight: 500;
-  color: #F26419;
+  color: #f26419;
   text-decoration: inherit;
 }
 a:hover {
-  color: #F6AE2D;
+  color: #f6ae2d;
 }
 
 body {
   margin: 0;
+  color: var(--kai-text);
+  background-color: var(--kai-bg);
+  transition: background-color, color 0.3s;
 }
 
 h1 {
@@ -73,7 +93,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #F26419;
+  border-color: #f26419;
 }
 button:active,
 button:focus,
@@ -89,13 +109,31 @@ img {
   padding: 2em;
 }
 
+.kai-card-bg {
+  background-color: var(--kai-c-bg);
+  border: 1px solid var(--kai-c-border);
+  transition: background-color,border 0.3s;
+}
+
+.kai-card-bg:hover {
+  background-color: var(--kai-c-bg-hover);
+}
+
+.kai-text {
+  color: var(--kai-text);
+}
+
+.kai-text-2 {
+  color: var(--kai-text-2);
+}
+
 @media (prefers-color-scheme: light) {
   :root {
-    color: #F26419;
+    color: #f26419;
     background-color: #ffffff;
   }
   a:hover {
-    color: #F6AE2D;
+    color: #f6ae2d;
   }
   button {
     background-color: #f9f9f9;

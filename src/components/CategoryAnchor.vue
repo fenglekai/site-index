@@ -32,15 +32,15 @@ const handleCollapse = () => {
 
 <template>
     <div class="relative">
-        <div ref="container" class="width-full py-2 bg-white whitespace-nowrap overflow-x-scroll mr-8"
+        <div ref="container" class="width-full py-2 whitespace-nowrap overflow-x-scroll mr-8"
             :style="{ zIndex: 2 }" @wheel="handleWheelContainer">
             <div v-for="item in navLink"
-                class="mr-2 inline-block bg-gray-100 hover:bg-gray-200 px-3 py-1 border border-gray-50 rounded-md text-sm text-gray-500 cursor-pointer"
+                class="kai-card-bg kai-text-2 mr-2 inline-block px-3 py-1 rounded-md text-sm cursor-pointer"
                 @click="handleNavClick(item.id)">{{ item.navTitle }}</div>
         </div>
 
-        <div class="absolute bottom-0 -right-5 bg-white p-2 h-full">
-            <div class="bg-gray-100 px-2 h-7 border border-gray-50 rounded-md flex items-center cursor-pointer hover:bg-gray-200"
+        <div class="absolute bottom-0 -right-5 p-2 h-full">
+            <div class="kai-card-bg kai-text-2 px-2 h-7 rounded-md flex items-center cursor-pointer"
                 @click="handleCollapse">
                 <el-icon>
                     <CaretBottom />
@@ -51,7 +51,7 @@ const handleCollapse = () => {
         <el-drawer v-model="collapse" :with-header="false" append-to-body direction="ttb" size="auto">
             <div class="flex flex-wrap gap-2">
                 <div v-for="item in navLink"
-                    class="inline-block bg-gray-100 hover:bg-gray-200 px-3 py-1 border border-gray-50 rounded-md text-sm text-gray-500 cursor-pointer"
+                    class="kai-card-bg kai-text-2 inline-block px-3 py-1 rounded-md text-sm text-gray-500 cursor-pointer"
                     @click="handleNavClick(item.id)">{{ item.navTitle }}</div>
             </div>
         </el-drawer>
