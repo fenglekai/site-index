@@ -65,7 +65,7 @@ const selectedBanner = computed(() => {
 
       <LocalSearch :hidden-header="hiddenHeader" class="min-w-0 grow" />
 
-      <ul class="hidden md:flex space-x-3 items-center">
+      <ul class="flex space-x-3 items-center">
         <li>
           <el-switch v-model="darkMode" :class="[darkMode ? 'dark-switch' : '']" style="--el-switch-on-color: #8e96aa55; --el-switch-off-color: #8e96aa55">
             <template #active-action>
