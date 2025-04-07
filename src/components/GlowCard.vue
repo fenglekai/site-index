@@ -57,7 +57,7 @@ const btnItems = computed(() => {
 const showCover = ref(false)
 const coverRef = ref<HTMLDivElement | null>(null)
 
-const {setShowCover} = useTouchCard({
+const { setShowCover } = useTouchCard({
   showCover,
   cardRef: glowCard,
   coverRef,
@@ -73,8 +73,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="kai-card-bg p-4 rounded-md shadow-md transition-all group overflow-hidden cursor-pointer"
-    ref="glowCard" @click="$emit('click', props.data)" @focusout="() => setShowCover(false)">
+  <div class="kai-card-bg p-4 rounded-md shadow-md transition-all group overflow-hidden cursor-pointer" ref="glowCard"
+    @click="$emit('click', props.data)" @focusout="() => setShowCover(false)">
     <div style="perspective: 1000px; transform-style: preserve-3d;">
       <p class="kai-text font-bold text-md break-all flex gap-1 mb-2">
       <div v-if="!pageLoad"></div>
@@ -92,9 +92,9 @@ onMounted(() => {
         {{ props.data.introduction }}
       </p>
     </div>
-    <div class="absolute w-full h-full top-0 left-0"></div>
     <Transition name="fade">
-      <div v-show="showCover" ref="coverRef" class="absolute w-full h-full p-4 top-0 left-0 backdrop-blur-sm flex justify-around items-center"></div>
+      <div v-show="showCover" ref="coverRef"
+        class="absolute w-full h-full p-4 top-0 left-0 backdrop-blur-sm flex justify-around items-center"></div>
     </Transition>
   </div>
 </template>
