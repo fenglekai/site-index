@@ -16,27 +16,26 @@ const mobilephone =
   );
 
 const collectionIcon =
-  '<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M192 736h640V128H256a64 64 0 0 0-64 64zm64-672h608a32 32 0 0 1 32 32v672a32 32 0 0 1-32 32H160l-32 57.536V192A128 128 0 0 1 256 64"></path><path fill="currentColor" d="M240 800a48 48 0 1 0 0 96h592v-96zm0-64h656v160a64 64 0 0 1-64 64H240a112 112 0 0 1 0-224m144-608v250.88l96-76.8 96 76.8V128zm-64-64h320v381.44a32 32 0 0 1-51.968 24.96L480 384l-108.032 86.4A32 32 0 0 1 320 445.44z"></path></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"><path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" /></svg>';
 
 const deleteIcon =
-  '<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32zm448-64v-64H416v64zM224 896h576V256H224zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32m192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32"></path></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"><path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" /></svg>';
+
+const closeIcon =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" /></svg>';
 
 export const useTouchCard = (params: touchCardParams) => {
-  if (!mobilephone) {
-    return;
-  }
-
   const { showCover, cardRef, coverRef, items } = params;
 
-  let touchListen = false;
-  let beforeTouch = {
-    clientX: 0,
-    clientY: 0,
+  let timeOutEvent: NodeJS.Timeout | null;
+
+  const setShowCover = (value: boolean) => {
+    showCover.value = value;
   };
-  let moveCount = {
-    x: 0,
-    y: 0,
-  };
+
+  if (!mobilephone) {
+    return {setShowCover};
+  }
 
   const setCoverStyle = () => {
     if (!cardRef.value) return;
@@ -56,13 +55,14 @@ export const useTouchCard = (params: touchCardParams) => {
       }
     }
 
+    setBtn(closeIcon, () => setShowCover(false));
     cardRef.value.appendChild(coverRef.value);
   };
 
   const setBtn = (icon: string, onClick: () => void) => {
     if (!coverRef.value) return;
     const btn = document.createElement("div");
-    btn.className = "flex-1 h-full flex justify-center items-center";
+    btn.className = "kai-text flex-1 h-full flex justify-center items-center";
     btn.onclick = (e) => {
       e.stopPropagation();
       onClick();
@@ -77,46 +77,23 @@ export const useTouchCard = (params: touchCardParams) => {
 
   const onTouchStart = (e: TouchEvent) => {
     e.stopPropagation();
-    const { clientX, clientY } = e.touches[0];
-    touchListen = true;
-    beforeTouch = {
-      clientX: clientX,
-      clientY: clientY,
-    };
-    moveCount = {
-      x: 0,
-      y: 0,
-    };
+    timeOutEvent = setTimeout(() => {
+      setShowCover(true);
+    }, 500);
   };
   const onTouchMove = (e: TouchEvent) => {
     e.stopPropagation();
-    if (!touchListen) return;
-    const { clientX, clientY } = e.touches[0];
-    const touchMove = {
-      x: beforeTouch.clientX - clientX,
-      y: beforeTouch.clientY - clientY,
-    };
-    moveCount.x += touchMove.x;
-    moveCount.y += touchMove.y;
-    beforeTouch = {
-      clientX,
-      clientY,
-    };
+    if (timeOutEvent) {
+      clearTimeout(timeOutEvent);
+      timeOutEvent = null;
+    }
   };
   const onTouchEnd = (e: TouchEvent) => {
     e.stopPropagation();
-    touchListen = false;
-    beforeTouch = {
-      clientX: 0,
-      clientY: 0,
-    };
-    if (moveCount.x > 60) {
-      showCover.value = !showCover.value;
+    if (timeOutEvent) {
+      clearTimeout(timeOutEvent);
+      timeOutEvent = null;
     }
-    moveCount = {
-      x: 0,
-      y: 0,
-    };
   };
 
   onMounted(() => {
@@ -132,5 +109,7 @@ export const useTouchCard = (params: touchCardParams) => {
     cardRef.value?.removeEventListener("touchend", onTouchEnd);
   });
 
-  return;
+  return {
+    setShowCover: setShowCover
+  };
 };

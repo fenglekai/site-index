@@ -93,7 +93,7 @@ onUnmounted(() => {
       target="#add-own-link" title="新增链接" description="手动新增一个链接" />
     <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '下一步' }" title="操作卡片">
       <p class="mb-1">电脑右键卡片打开下拉菜单</p>
-      <p>手机在卡片上向左滑动显示操作按钮，再次向左滑动隐藏操作按钮</p>
+      <p>手机在卡片上长按显示操作按钮</p>
     </el-tour-step>
     <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '结束' }" target="#logo"
       title="提示" description="这里可以再次打开引导提示" />
