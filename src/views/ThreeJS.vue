@@ -154,4 +154,3 @@ onMounted(() => {
 </template>
 
 <style scoped></style>
-../hook../hook/WebGL../hook/use-threejs../hook/use-webGL
