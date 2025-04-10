@@ -35,6 +35,7 @@ export type NavLinkItemChild = {
   url: string;
   introduction: string;
   icon?: string;
+  onClick?: () => void
 };
 
 const projectContain = [

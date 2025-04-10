@@ -2,21 +2,14 @@
 import { onMounted, reactive, ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
-import { navLink } from "../config/index";
+import { navLink, NavLinkItemChild } from "../config/index";
 import Twikoo from '../components/Twikoo.vue'
-
-interface SiteProps {
-  icon?: string;
-  site: string;
-  url: string;
-  introduction: string;
-}
 
 onMounted(() => {
   getLocalList();
 });
 
-const handleClick = (site: SiteProps) => {
+const handleClick = (site: NavLinkItemChild) => {
   addHistoryRow(site);
   window.open(site.url);
 };
@@ -27,7 +20,7 @@ const handleClick = (site: SiteProps) => {
  */
 
 // 历史访问
-const historyList = ref<SiteProps[]>([]);
+const historyList = ref<NavLinkItemChild[]>([]);
 const getLocal = () => {
   const localHistory = localStorage.getItem("history-list");
   if (localHistory) {
@@ -43,13 +36,13 @@ const getLocal = () => {
   }
 };
 
-const addHistoryRow = (site: SiteProps) => {
-  let localHistory: SiteProps[] = getLocal();
+const addHistoryRow = (site: NavLinkItemChild) => {
+  let localHistory: NavLinkItemChild[] = getLocal();
   localHistory.unshift(site);
   // 只保留15条
   localHistory = localHistory.slice(0, 14);
   // 去重
-  function uniqueFunc(arr: SiteProps[], uniId: any) {
+  function uniqueFunc(arr: NavLinkItemChild[], uniId: any) {
     const res = new Map();
     return arr.filter(
       (item: any) => !res.has(item[uniId]) && res.set(item[uniId], 1)
@@ -73,8 +66,8 @@ const deleteHistoryRow = (row: any) => {
 };
 
 // 我的链接
-const ownList = ref<SiteProps[]>([]);
-const getSelfLocal = (): SiteProps[] => {
+const ownList = ref<NavLinkItemChild[]>([]);
+const getSelfLocal = (): NavLinkItemChild[] => {
   const localOwn = localStorage.getItem("own-list");
   if (localOwn) {
     if (JSON.parse(localOwn) instanceof Array) {
@@ -111,7 +104,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   showAddForm.value = false;
 };
 
-const addOwnLink = (site: SiteProps) => {
+const addOwnLink = (site: NavLinkItemChild) => {
   let selfLocal = getSelfLocal();
   selfLocal.push(site);
   // 去重
@@ -126,7 +119,7 @@ const addOwnLink = (site: SiteProps) => {
   localStorage.setItem("own-list", JSON.stringify(selfLocal));
   showAddForm.value = false;
 };
-const deleteOwnRow = (row: SiteProps) => {
+const deleteOwnRow = (row: NavLinkItemChild) => {
   const selfLocal = getSelfLocal();
   const filterList = selfLocal.filter((item: any) => {
     if (item.site == row.site && item.url == row.url) {
@@ -189,7 +182,7 @@ const handleUpload = () => {
       reader.onload = function () {
         try {
           if (typeof this.result == "string") {
-            const link: SiteProps = JSON.parse(this.result);
+            const link: NavLinkItemChild = JSON.parse(this.result);
             if (!(link instanceof Array)) {
               throw Error("数据格式不是数组");
             }
@@ -216,99 +209,96 @@ const handleUpload = () => {
 </script>
 
 <template>
-  <div>
-    <!-- 我的链接 -->
-    <section class="mb-6 space-y-2">
-      <div class="flex items-center space-x-2 sticky top-0 backdrop-blur" :style="{ zIndex: 1 }">
-        <h2 class="kai-text md:text-xl sm:text-sm py-2">我的链接</h2>
-        <div id="save" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
-          <el-icon @click="handleDownload">
-            <IEpDownload />
-          </el-icon>
-          <span class="text-xs pl-1">保存</span>
-        </div>
-        <div id="load" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
-          <el-icon @click="handleUpload">
-            <IEpUpload />
-          </el-icon>
-          <span class="text-xs pl-1">上传</span>
-        </div>
+  <!-- 我的链接 -->
+  <section class="mb-6 space-y-2">
+    <div class="flex items-center space-x-2 sticky top-0 backdrop-blur" :style="{ zIndex: 1 }">
+      <h2 class="kai-text md:text-xl sm:text-sm py-2">我的链接</h2>
+      <div id="save" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
+        <el-icon @click="handleDownload">
+          <IEpDownload />
+        </el-icon>
+        <span class="text-xs pl-1">保存</span>
       </div>
-      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
-        <template v-for="item in ownList">
-          <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
-            <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :delete="deleteOwnRow"
-              @click="handleClick(item)" />
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item :icon="Delete" @click="deleteOwnRow(item)">删除</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </template>
-        <div id="add-own-link"
-          class="kai-text border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
-          @click="showAddForm = !showAddForm">
-          <el-icon size="24px">
-            <Plus />
-          </el-icon>
-        </div>
+      <div id="load" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
+        <el-icon @click="handleUpload">
+          <IEpUpload />
+        </el-icon>
+        <span class="text-xs pl-1">上传</span>
       </div>
-    </section>
-    <!-- 历史访问 -->
-    <section class="mb-6 space-y-2">
+    </div>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
+      <template v-for="item in ownList">
+        <el-dropdown trigger="contextmenu" style="position: static; z-index: 0; display: inline-grid">
+          <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :delete="deleteOwnRow"
+            @click="() => item.onClick ? item.onClick() : handleClick(item)" />
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item :icon="Delete" @click="deleteOwnRow(item)">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </template>
+      <div id="add-own-link"
+        class="kai-text border border-dashed rounded-md flex justify-center items-center min-h-24 cursor-pointer"
+        @click="showAddForm = !showAddForm">
+        <el-icon size="24px">
+          <Plus />
+        </el-icon>
+      </div>
+    </div>
+  </section>
+  <!-- 历史访问 -->
+  <section class="mb-6 space-y-2">
+    <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
+      历史访问
+      <span class="kai-text-2 mx-2 text-sm">显示最近15条访问记录</span>
+      <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
+    </h2>
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
+      <template v-for="item in historyList">
+        <el-dropdown trigger="contextmenu" style="position: static">
+          <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
+            :delete="deleteOwnRow" @click="() => item.onClick ? item.onClick() : handleClick(item)" />
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
+              <el-dropdown-item :icon="Delete" @click="deleteHistoryRow(item)">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </template>
+    </div>
+  </section>
+  <!-- 配置站点 -->
+  <template v-for="category in navLink">
+    <section :id="category.id" class="mb-6">
       <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2" :style="{ zIndex: 1 }">
-        历史访问
-        <span class="kai-text-2 mx-2 text-sm">显示最近15条访问记录</span>
-        <el-button type="danger" link @click="cleanHistory">清空历史</el-button>
+        {{ category.navTitle }}
       </h2>
       <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
-        <template v-for="item in historyList">
+        <template v-for="item in category.children">
           <el-dropdown trigger="contextmenu" style="position: static">
-            <GlowCard staticIcon class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
-              :delete="deleteOwnRow" @click="handleClick(item)" />
+            <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
+              @click="() => item.onClick ? item.onClick() : handleClick(item)" />
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
-                <el-dropdown-item :icon="Delete" @click="deleteHistoryRow(item)">删除</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
         </template>
       </div>
     </section>
-    <!-- 配置站点 -->
-    <template v-for="category in navLink">
-      <section :id="category.id" class="mb-6">
-        <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2"
-          :style="{ zIndex: 1 }">
-          {{ category.navTitle }}
-        </h2>
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2">
-          <template v-for="item in category.children">
-            <el-dropdown trigger="contextmenu" style="position: static">
-              <GlowCard class="w-full leading-6 text-base text-gray-700" :data="item" :collection="addOwnLink"
-                @click="handleClick" />
-              <template #dropdown>
-                <el-dropdown-menu>
-                  <el-dropdown-item :icon="Collection" @click="addOwnLink(item)">收藏</el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </template>
-        </div>
-      </section>
-    </template>
-    <!-- 评论 -->
-    <section class="space-y-2">
-      <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
-        评论
-      </h2>
-      <div class="px-2 kai-text">
-        <Twikoo />
-      </div>
-    </section>
-  </div>
+  </template>
+  <!-- 评论 -->
+  <section class="space-y-2">
+    <h2 class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur font-semibold py-2">
+      评论
+    </h2>
+    <div class="px-2 kai-text">
+      <Twikoo />
+    </div>
+  </section>
 
   <el-drawer v-model="showAddForm" direction="btt" size="auto" @closed="resetForm(ownFormRef)">
     <template #header>
@@ -334,4 +324,5 @@ const handleUpload = () => {
       </div>
     </template>
   </el-drawer>
+
 </template>

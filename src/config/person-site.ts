@@ -1,4 +1,6 @@
 import { NavLinkItem } from ".";
+import router from "../router";
+
 
 export default {
   id: 'person',
@@ -45,12 +47,14 @@ export default {
       site: "首页站点",
       url: "/iai-home",
       introduction: "个人设计的首页封面",
+      onClick: () => router.push('/iai-home')
     },
     {
       icon: "logo.png",
       site: "Three.js效果",
       url: "/demo",
       introduction: "一些Three.js的示例",
+      onClick: () => router.push('/demo')
     },
   ],
 } as NavLinkItem;
