@@ -7,15 +7,10 @@ import indexImg from "../assets/indexImg.jpg";
 import { projectContain } from "../config/index";
 import { Ref, onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { openLoad } from "../router/index";
 import { jarallax, jarallaxVideo } from "jarallax";
 
 const router = useRouter();
 const jarallaxRef = ref(null);
-
-onBeforeMount(() => {
-  openLoad(400);
-});
 
 onMounted(() => {
   // Optional video extension
@@ -113,7 +108,6 @@ const handleCloseMoreClick = () => {
                   class="menu-text text-sm maxSize:text-7xl xl:text-2xl"
                   @click="
                     router.push('/nav');
-                    openLoad();
                   "
                   >Navigation</a
                 >
@@ -144,7 +138,6 @@ const handleCloseMoreClick = () => {
               class="menu-text justify-center"
               @click="
                 router.push('/nav');
-                openLoad();
               "
               ><span class="py-4">Navigation</span>
             </a>

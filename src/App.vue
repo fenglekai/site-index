@@ -1,14 +1,28 @@
 <script setup lang="ts">
-import LoadPage from "./views/LoadPage.vue";
-import { LOAD } from "./router/index";
+import { useDark } from '@vueuse/core';
+import LoadPage from './views/LoadPage.vue';
+import useBaseStore from './store/base';
+
+const baseStore = useBaseStore()
+
+const loading = computed(() => baseStore.isLoading)
+
+const isDark = useDark({
+  disableTransition: false
+})
 </script>
 
 <template>
-  <div v-show="!LOAD" class="animate-[slide-down-fade_0.3s_ease-in-out]">
-    <RouterView
-    />
-  </div>
-  <LoadPage v-show="LOAD" class="animate-[slide-down-fade_0.3s_ease-in-out]" />
+  <RouterView v-slot="{ Component }">
+    <template v-if="Component">
+      <Transition name="fade" mode="out-in">
+        <KeepAlive>
+          <component :is="Component"></component>
+        </KeepAlive>
+      </Transition>
+    </template>
+  </RouterView>
+  <LoadPage></LoadPage>
 </template>
 
 <style scoped></style>

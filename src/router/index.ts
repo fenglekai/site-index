@@ -3,7 +3,7 @@ import Layout from "../components/layout/Index.vue";
 import IAIHome from "../views/IAIHome.vue";
 import BaseNav from "../views/BaseNav.vue";
 import ThreeJS from "../views/ThreeJS.vue";
-import { ref } from "vue";
+import { useBaseStore } from "../store/base";
 
 const routes = [
   {
@@ -27,22 +27,34 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  document.body.scrollIntoView();
+const waitCompleted = () => {
+  return new Promise((resolve) => {
+    const baseStore = useBaseStore();
+    const loop  = () => {
+      if (baseStore.isCompleted) {
+        baseStore.setLoadingComplete(false)
+        resolve(true)
+      } else {
+        requestAnimationFrame(loop)
+      }
+    }
+    requestAnimationFrame(loop)
+  });
+};
+
+router.beforeEach(async (to, from, next) => {
+  if (from.path == '/') {
+    return next()
+  }
+  const baseStore = useBaseStore();
+  baseStore.setLoading(true);
+  await waitCompleted();
   return next();
 });
 
-let LOAD = ref(false);
-
-const openLoad = (time = 0) => {
-  if (!LOAD.value) {
-    setTimeout(() => {
-      LOAD.value = false;
-    }, 250 + 270 + 1000 + 270 + 250 + time);
-    LOAD.value = true;
-  }
-};
-
-export { LOAD, openLoad };
+router.afterEach(async () => {
+  const baseStore = useBaseStore();
+  baseStore.setLoading(false);
+});
 
 export default router;
