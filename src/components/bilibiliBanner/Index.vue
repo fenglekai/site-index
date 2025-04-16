@@ -209,7 +209,7 @@ onUnmounted(() => {
   min-height: 155px;
   height: 180px;
   max-height: 240px;
-  background-color: #e3e5e7;
+  background-color: var(--kai-bg);
   background-position: center 0;
   background-size: cover;
   background-repeat: no-repeat;
