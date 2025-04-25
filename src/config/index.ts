@@ -227,6 +227,11 @@ const navLink: NavLinkItem[] = [
         url: "https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution",
         introduction: "努力做西湖区最好的算法题解",
       },
+      {
+        site: "Hello 算法",
+        url: "https://www.hello-algo.com/",
+        introduction: "动画图解、一键运行的数据结构与算法教程",
+      },
     ],
   },
   ai,
