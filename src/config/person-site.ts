@@ -26,7 +26,7 @@ export default {
     {
       icon: "logo.png",
       site: "版本Changelog生成",
-      url: "https://github-pages.devkai.cn/less-write-changelog/",
+      url: "https://www.npmjs.com/package/less-write-changelog/",
       introduction:
         "基于conventional-changelog制作的Github Release日志生成工具",
     },
