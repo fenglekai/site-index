@@ -20,6 +20,11 @@ export default {
       introduction: "用于构建 Web 和原生交互界面的库",
     },
     {
+      site: "Next.js",
+      url: "https://nextjs.org/",
+      introduction: "Vercel 的 Next.js 是用于 Web 的全栈 React 框架。",
+    },
+    {
       site: "React Native",
       url: "https://www.reactnative.cn/",
       introduction: "使用 React 来创建 Android 和 iOS 的原生应用",
