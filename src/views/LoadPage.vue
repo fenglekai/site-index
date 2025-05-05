@@ -70,7 +70,7 @@ const textLoad = () => {
   const textChildren = textRef.value.children;
   for (let i = 0; i < textChildren.length; i++) {
     const span = textChildren[i] as HTMLSpanElement
-    animate(span, { opacity: 1, transform: 'scale(1) translateY(10px)', duration: 250, delay: 10 * (i + 1) })
+    animate(span, { opacity: 1, transform: 'scale(1) translateY(10px)', duration: 250, delay: 30 * (i + 1) })
   }
 };
 const textUnload = () => {
@@ -78,7 +78,7 @@ const textUnload = () => {
   const textChildren = textRef.value.children;
   for (let i = 0; i < textChildren.length; i++) {
     const span = textChildren[i] as HTMLSpanElement
-    animate(span, { opacity: 0, transform: 'scale(0) translateY(10px)', duration: 250, delay: 10 * (i + 1) })
+    animate(span, { opacity: 0, transform: 'scale(0) translateY(10px)', duration: 250, delay: 30 * (i + 1) })
   }
 };
 

@@ -113,4 +113,11 @@ onMounted(() => {
   width: 24px;
   height: 24px;
 }
+
+.kai-card-bg {
+  background-color: transparent;
+}
+.kai-card-bg:hover {
+  background-color: transparent;
+}
 </style>
