@@ -145,7 +145,6 @@ onUnmounted(() => {
   -ms-flex-pack: center;
   justify-content: center;
   margin: 0 auto;
-  min-width: 1000px;
   min-height: 155px;
   height: 180px;
   max-height: 240px;
