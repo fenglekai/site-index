@@ -49,40 +49,72 @@ const selectedBanner = computed(() => {
 </script>
 
 <template>
-  <div v-if="!mobileScreen" class="absolute top-0 left-0 w-full h-full overflow-hidden">
-    <Transition name="fade" mode="out-in">
-      <component :is="bannerList[selectedBanner]" />
+  <div class="w-full h-full overflow-hidden">
+    <Transition v-if="!mobileScreen" name="fade" mode="out-in">
+      <component :is="bannerList[selectedBanner]">
+        <div class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start">
+          <div id="logo" class="whitespace-nowrap tracking-wider" @click="emits('showTour')">
+            <h2 class="inline-block header-text" @click="router.push('/')">
+              <span>KAI</span>
+              <span class="hidden sm:inline-block">站点导航</span>
+            </h2>
+          </div>
+
+          <LocalSearch :hidden-header="hiddenHeader" class="min-w-0 grow" />
+
+          <ul class="flex space-x-3 items-center">
+            <li>
+              <el-switch v-model="darkMode" :class="[darkMode ? 'dark-switch' : '']"
+                style="--el-switch-on-color: #8e96aa55; --el-switch-off-color: #8e96aa55">
+                <template #active-action>
+                  <el-icon class="dark-icon">
+                    <Moon />
+                  </el-icon>
+                </template>
+                <template #inactive-action>
+                  <el-icon class="light-icon">
+                    <Sunny />
+                  </el-icon>
+                </template>
+              </el-switch>
+            </li>
+          </ul>
+        </div>
+      </component>
     </Transition>
-  </div>
-  <div class="w-full h-full flex sm:relative sm:block">
-    <div class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start">
-      <div id="logo" class="whitespace-nowrap tracking-wider" @click="emits('showTour')">
-        <h2 class="inline-block header-text" @click="router.push('/')">
-          <span>KAI</span>
-          <span class="hidden sm:inline-block">站点导航</span>
-        </h2>
+
+    <div v-else class="w-full h-full flex sm:relative sm:block">
+      <div class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start">
+        <div id="logo" class="whitespace-nowrap tracking-wider" @click="emits('showTour')">
+          <h2 class="inline-block header-text" @click="router.push('/')">
+            <span>KAI</span>
+            <span class="hidden sm:inline-block">站点导航</span>
+          </h2>
+        </div>
+
+        <LocalSearch :hidden-header="hiddenHeader" class="min-w-0 grow" />
+
+        <ul class="flex space-x-3 items-center">
+          <li>
+            <el-switch v-model="darkMode" :class="[darkMode ? 'dark-switch' : '']"
+              style="--el-switch-on-color: #8e96aa55; --el-switch-off-color: #8e96aa55">
+              <template #active-action>
+                <el-icon class="dark-icon">
+                  <Moon />
+                </el-icon>
+              </template>
+              <template #inactive-action>
+                <el-icon class="light-icon">
+                  <Sunny />
+                </el-icon>
+              </template>
+            </el-switch>
+          </li>
+        </ul>
       </div>
-
-      <LocalSearch :hidden-header="hiddenHeader" class="min-w-0 grow" />
-
-      <ul class="flex space-x-3 items-center">
-        <li>
-          <el-switch v-model="darkMode" :class="[darkMode ? 'dark-switch' : '']" style="--el-switch-on-color: #8e96aa55; --el-switch-off-color: #8e96aa55">
-            <template #active-action>
-              <el-icon class="dark-icon">
-                <Moon />
-              </el-icon>
-            </template>
-            <template #inactive-action>
-              <el-icon class="light-icon">
-                <Sunny />
-              </el-icon>
-            </template>
-          </el-switch>
-        </li>
-      </ul>
     </div>
   </div>
+
 </template>
 
 <style scoped>

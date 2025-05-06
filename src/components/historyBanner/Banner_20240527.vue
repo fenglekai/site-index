@@ -400,6 +400,10 @@ onMounted(() => {
         "
       />
     </div>
+
+    <template v-slot:content>
+      <slot></slot>
+    </template>
   </AnimateBanner>
 </template>
 

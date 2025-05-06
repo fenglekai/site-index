@@ -7,192 +7,132 @@ const props = defineProps<{
   layout: Array<Layout>;
 }>();
 
-const bannerWrapper: any = ref(null);
-const animated: any = ref(null);
-const startX = ref(0);
-const useStart = ref(false);
+const biliWrapper = ref<HTMLDivElement | null>(null);
+const animated = ref<HTMLDivElement | null>(null);
 const layerList = ref(props.layout || []);
-const STEP = 50;
+const duration = 300;
+let startTime = 0;
+let startX = 0;
+let moveX = 0;
 
+// 存储原始transform值
 const nodeTransformList = computed(() => {
-  const result: any = [];
-  for (let i = 0; i < animated.value.children.length; i++) {
-    result.push(animated.value.children[i].children[0].style.transform);
+  const result = [];
+  if (animated.value) {
+    for (let i = 0; i < animated.value.children.length; i++) {
+      result.push((animated.value.children[i].children.item(0) as HTMLImageElement).style.transform);
+    }
   }
-  return result;
+  return result
 });
 
-const getTranslateXY = (item: any) => {
-  return item
-    .replace(/[^0-9\-.,]/g, "")
-    .slice(0, -2)
-    .split(",")
-    .map((item: string) => {
-      return Number(item);
-    });
-};
-
-const transitionLabel = (
-  key: number,
-  translateX: number,
-  translateY: number = 0
-) => {
-  const splitTransform = getTranslateXY(nodeTransformList.value[key]);
-  return `translate(${splitTransform[0] + translateX}px , ${
-    splitTransform[1] + translateY
-  }px) rotate(0deg) scale(1)`;
-};
-
-const translateReset = (data: Layout) => {
-  const { key, translateXPower, translateYPower } = data;
-  const img = animated.value?.children[key].children[0];
-  if (img) {
-    const defaultValue = getTranslateXY(nodeTransformList.value[key]);
-    const currentValue = getTranslateXY(img.style.transform);
-    let countX = translateXPower
-      ? Math.abs(currentValue[0] - defaultValue[0]) / Math.abs(translateXPower)
-      : 0;
-    let countY = translateYPower
-      ? Math.abs(currentValue[1] - defaultValue[1]) / Math.abs(translateYPower)
-      : 0;
-
-    const frame = requestAnimationFrame(loop);
-    function loop() {
-      if (countX + countY === 0) {
-        cancelAnimationFrame(frame);
-        return;
-      }
-      
-      countX = Math.max(countX - STEP, 0);
-      countY = Math.max(countY - STEP, 0);
-      let x = translateXPower ? Math.abs(translateXPower) : 0;
-      let y = translateYPower ? Math.abs(translateYPower) : 0;
-
-      if (currentValue[0] > defaultValue[0]) {
-        x *= countX;
-      } else {
-        x *= -countX;
-      }
-      if (currentValue[1] > defaultValue[1]) {
-        y *= countY;
-      } else {
-        y *= -countY;
-      }
-
-      img.style.transform = transitionLabel(key, x, y);
-      requestAnimationFrame(loop);
-    }
+// 获取字符串translate X,Y值
+const getTranslateXY = (transform: string) => {
+  const matchStr = transform
+    .match(/translate\(([^px]+)px,\s*([^px)]+)px\)/)
+  if (matchStr) {
+    return [Number(matchStr[1]), Number(matchStr[2])];
   }
+  return [0, 0]
 };
 
-const getRotate = (transform: any) => {
-  return Number(
-    transform
-      .replace(/[^0-9\-.)]/g, "")
-      .slice(0, -1)
-      .split(")")
-      .slice(1, 2)[0]
-  );
+// 获取字符串旋转值
+const getRotate = (transform: string) => {
+  const matchStr = transform
+    .match(/rotate\(([^deg]+)deg\)/)
+  if (matchStr) {
+    return Number(
+      matchStr[1]
+    );
+  }
+  return 0
 };
 
-const rotateLabel = (key: number, rotate: number) => {
-  const defaultTranslate = getTranslateXY(nodeTransformList.value[key]);
-  const defaultRotate = getRotate(nodeTransformList.value[key]);
-  return `translate(${defaultTranslate[0]}px , ${
-    defaultTranslate[1]
-  }px) rotate(${defaultRotate + rotate}deg) scale(1)`;
-};
-
-const rotateReset = (data: { key: number; rotatePower?: number }) => {
-  const { key, rotatePower } = data;
-  const img = animated.value?.children[key].children[0];
-  if (rotatePower && img) {
+// 设置过渡变化
+const setTransform = (progress?: number) => {
+  const resetFlag = typeof progress == 'number';
+  for (let i = 0; i < layerList.value.length; i++) {
+    const {
+      key,
+      translateXPower,
+      translateYPower,
+      disableTranslateX,
+      rotatePower,
+    } = layerList.value[i];
+    const img = animated.value?.children[key].children[0] as HTMLImageElement;
+    const translateXY = getTranslateXY(nodeTransformList.value[key]);
     const defaultRotate = getRotate(nodeTransformList.value[key]);
-    const currentRotate = getRotate(img.style.transform);
-    let count = Math.abs(currentRotate - defaultRotate) / rotatePower;
-    const frame = requestAnimationFrame(loop);
-    function loop() {
-      if (count <= 0 || !rotatePower) {
-        cancelAnimationFrame(frame);
-        return;
-      }
-      count = Math.max(count - STEP, 0);
-      if (currentRotate > defaultRotate) {
-        img.style.transform = rotateLabel(key, rotatePower * count);
+    let x = translateXY[0];
+    let y = translateXY[1];
+    let rotate = defaultRotate;
+    if (translateXPower) {
+      if (resetFlag) {
+        x += !disableTranslateX ? moveX * (1 - progress) * translateXPower : 0;
+        y += translateYPower ? moveX * (1 - progress) * translateYPower : 0;
       } else {
-        img.style.transform = rotateLabel(key, -rotatePower * count);
+        x += !disableTranslateX ? moveX * translateXPower : 0;
+        y += translateYPower ? moveX * translateYPower : 0;
       }
-      requestAnimationFrame(loop);
     }
-  }
-};
-
-const resetTransform = () => {
-  layerList.value.forEach((item) => {
-    translateReset(item);
-    rotateReset(item);
-  });
-};
-
-const useMousemove = (e: any) => {
-  if (e.y < bannerWrapper.value.clientHeight) {
-    if (!useStart.value) {
-      startX.value = e.x;
-      useStart.value = true;
+    if (rotatePower) {
+      if (resetFlag) {
+        rotate = -moveX * (1 - progress) * rotatePower
+      } else {
+        rotate = -moveX * rotatePower
+      }
     }
-
-    const translateXNum = -(startX.value - e.x);
-
-    layerList.value.forEach((item) => {
-      const {
-        key,
-        translateXPower,
-        translateYPower,
-        disableTranslateX,
-        rotatePower,
-      } = item;
-      const img = animated.value.children[key].children[0];
-      if (translateXPower && img) {
-        const x = !disableTranslateX ? translateXNum * translateXPower : 0;
-        const y = translateYPower ? translateXNum * translateYPower : 0;
-        img.style.transform = transitionLabel(key, x, y);
-      }
-      if (rotatePower && img) {
-        const splitTransform = getTranslateXY(nodeTransformList.value[3]);
-        img.style.transform = `translate(${splitTransform[0]}px , ${
-          splitTransform[1]
-        }px) rotate(${-translateXNum * rotatePower}deg) scale(1)`;
-      }
-    });
-  } else {
-    useStart.value = false;
-
-    resetTransform();
+    img.style.transform = `translate(${x}px , ${y}px) rotate(${rotate}deg) scale(1)`;
   }
+}
+
+// 回归过渡
+// references: https://github.com/palxiao/bilibili-banner/blob/main/index.js
+const resetTransform = (timestamp: number) => {
+  !startTime && (startTime = timestamp)
+  const elapsed = timestamp - startTime;
+  const progress = Math.min(elapsed / duration, 1);
+  setTransform(progress)
+  progress < 1 && requestAnimationFrame(resetTransform)
 };
 
-const useMouseleave = (e: any) => {
-  useStart.value = false;
-  resetTransform();
+const useMouseenter = (e: MouseEvent) => {
+  startX = e.x;
+}
+
+const moveAnimation = () => {
+  setTransform()
+}
+
+const useMousemove = (e: MouseEvent) => {
+  moveX = e.x - startX;
+  requestAnimationFrame(moveAnimation)
+};
+
+const useMouseleave = (e: MouseEvent) => {
+  startTime = 0
+  requestAnimationFrame(resetTransform)
 };
 
 onMounted(() => {
-  document.body.addEventListener("mousemove", useMousemove);
-  document.body.addEventListener("mouseleave", useMouseleave);
+  biliWrapper.value?.addEventListener("mouseenter", useMouseenter);
+  biliWrapper.value?.addEventListener("mousemove", useMousemove);
+  biliWrapper.value?.addEventListener("mouseleave", useMouseleave);
 });
 onUnmounted(() => {
-  document.body.removeEventListener("mousemove", useMousemove);
-  document.body.removeEventListener("mouseleave", useMouseleave);
+  biliWrapper.value?.removeEventListener("mousemove", useMousemove);
+  biliWrapper.value?.removeEventListener("mouseleave", useMouseleave);
 });
 </script>
 
 <template>
-  <div class="bili-header">
+  <div ref="biliWrapper" class="bili-header">
     <div class="bili-header__banner">
       <div ref="animated" class="animated-banner">
         <slot></slot>
       </div>
-      <div ref="bannerWrapper" class="relative w-full h-full"></div>
+      <div class="relative w-full h-full">
+        <slot name="content"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -214,6 +154,7 @@ onUnmounted(() => {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .bili-header .animated-banner {
   position: absolute;
   top: 0;
@@ -222,7 +163,8 @@ onUnmounted(() => {
   right: 0;
   overflow: hidden;
 }
-.bili-header .animated-banner > .layer {
+
+.bili-header .animated-banner>.layer {
   position: absolute;
   left: 0;
   top: 0;
