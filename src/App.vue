@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDark } from '@vueuse/core';
-import LoadPage from './views/LoadPage.vue';
+import LoadPage from './components/LoadPage.vue';
 import useBaseStore from './store/base';
 
 const baseStore = useBaseStore()

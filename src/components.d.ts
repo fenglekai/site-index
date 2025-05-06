@@ -46,6 +46,7 @@ declare module 'vue' {
     LayoutAside: typeof import('./components/layout/Aside.vue')['default']
     LayoutFooter: typeof import('./components/layout/Footer.vue')['default']
     LayoutHeader: typeof import('./components/layout/Header.vue')['default']
+    LoadPage: typeof import('./components/LoadPage.vue')['default']
     LocalSearch: typeof import('./components/LocalSearch.vue')['default']
     ProjectCard: typeof import('./components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
