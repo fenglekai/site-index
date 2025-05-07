@@ -1,15 +1,19 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../components/layout/Index.vue";
+import Index from "../views/Index.vue";
 import IAIHome from "../views/IAIHome.vue";
 import BaseNav from "../views/BaseNav.vue";
 import ThreeJS from "../views/ThreeJS.vue";
 import { useBaseStore } from "../store/base";
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/",
+    component: Index,
+  },
+  {
+    path: "/nav",
     component: Layout,
-    redirect: "/nav",
     children: [{ path: "/nav", component: BaseNav }],
   },
   {
@@ -30,21 +34,21 @@ const router = createRouter({
 const waitCompleted = () => {
   return new Promise((resolve) => {
     const baseStore = useBaseStore();
-    const loop  = () => {
+    const loop = () => {
       if (baseStore.isCompleted) {
-        baseStore.setLoadingComplete(false)
-        resolve(true)
+        baseStore.setLoadingComplete(false);
+        resolve(true);
       } else {
-        requestAnimationFrame(loop)
+        requestAnimationFrame(loop);
       }
-    }
-    requestAnimationFrame(loop)
+    };
+    requestAnimationFrame(loop);
   });
 };
 
 router.beforeEach(async (to, from, next) => {
-  if (from.path == '/') {
-    return next()
+  if (from.path == "/") {
+    return next();
   }
   const baseStore = useBaseStore();
   baseStore.setLoading(true);
