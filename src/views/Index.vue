@@ -19,6 +19,7 @@ import { waitCompleted } from "../router";
 onMounted(() => {
   lineAnimation();
   landingBgAnimation();
+  titleAnimation();
 });
 onUnmounted(() => {
   timeline.value && utils.remove(timeline.value);
@@ -49,7 +50,6 @@ const lineAnimation = () => {
       ease: "easeInOutSine",
       delay: stagger(50),
       duration: 600,
-      onComplete: (a) => console.log("end"),
     },
     autoplay: onScroll({
       target: ".stagger-visualizer-wrapper",
@@ -171,11 +171,33 @@ const landingBgAnimation = () => {
   });
 };
 
+const titleAnimation = () => {
+  const scrollOberver = onScroll({
+    sync: 0.99,
+    enter: "top+=1em min+=12px",
+    leave: "top+=1em max",
+  });
+  const scrollOberver2 = onScroll({
+    sync: 0.99,
+    enter: "top+=1em min+=12px",
+    leave: "top+=1em max",
+  });
+  const params: AnimationParams = {
+    transform: [
+      "translate3d(0px, 0px, 0px) rotateX(0deg) scale(1, 1)",
+      "translate3d(0px, -30px, 0px) rotateX(90deg) scale(0.7, 0.7)",
+    ],
+    filter: ["blur(0px)", "blur(12px)"],
+  };
+  animate("#title", { ...params, autoplay: scrollOberver });
+  animate("#subtitle", { ...params, autoplay: scrollOberver2 });
+};
+
 const handleLoading = async () => {
   baseStore.setLoading(true);
   await waitCompleted();
   baseStore.setLoading(false);
-}
+};
 
 const handleCard = (site: NavLinkItemChild) => {
   site.onClick ? site.onClick() : window.open(site.url);
@@ -195,8 +217,13 @@ const handleCard = (site: NavLinkItemChild) => {
 
     <!-- container -->
     <div class="spacer">
-      <h2 class="text-center text-4xl font-bold mb-12">KAI的实验室</h2>
-      <section class="my-6">
+      <section class="py-28">
+        <h2 id="title" class="text-center text-4xl font-bold mb-12">
+          KAI的实验室
+        </h2>
+        <h3 id="subtitle" class="text-center text-2xl mb-6">有趣的前端实验</h3>
+      </section>
+      <section class="my-6 flex justify-center">
         <button @click="handleLoading">路由动画</button>
       </section>
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -210,12 +237,14 @@ const handleCard = (site: NavLinkItemChild) => {
         </template>
       </section>
     </div>
+
     <div class="fixed right-2 top-2 z-[3]">
       <button class="kai-text theme-btn" @click="() => toggleDark()">
         <Sunny style="width: 1em; height: 1em" />
       </button>
     </div>
-    <el-backtop target=".scroll" :right="50" :bottom="50" />
+
+    <el-backtop target=".spacer" :right="50" :bottom="50" />
   </div>
 </template>
 
