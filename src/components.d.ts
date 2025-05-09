@@ -10,6 +10,7 @@ declare module 'vue' {
     BilibiliBanner: typeof import('./components/bilibiliBanner/Index.vue')['default']
     CategoryAnchor: typeof import('./components/CategoryAnchor.vue')['default']
     CategoryNav: typeof import('./components/categoryNav.vue')['default']
+    ElAffix: typeof import('element-plus/es')['ElAffix']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
@@ -51,6 +52,7 @@ declare module 'vue' {
     ProjectCard: typeof import('./components/ProjectCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ThemeButton: typeof import('./components/ThemeButton.vue')['default']
     Twikoo: typeof import('./components/Twikoo.vue')['default']
   }
 }

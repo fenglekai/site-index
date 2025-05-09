@@ -7,7 +7,17 @@ import Twikoo from '../components/Twikoo.vue'
 
 onMounted(() => {
   getLocalList();
+  const baseNavTour = localStorage.getItem("base-nav-tour");
+  if (!baseNavTour) {
+    showTour.value = true
+  }
 });
+
+// 引导提示
+const showTour = ref(false)
+const handleTourFinish = () => {
+  localStorage.setItem("base-nav-tour", '1');
+}
 
 const handleClick = (site: NavLinkItemChild) => {
   addHistoryRow(site);
@@ -213,13 +223,13 @@ const handleUpload = () => {
   <section class="mb-6 space-y-2">
     <div class="flex items-center space-x-2 sticky top-0 backdrop-blur" :style="{ zIndex: 1 }">
       <h2 class="kai-text md:text-xl sm:text-sm py-2">我的链接</h2>
-      <div id="save" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
+      <div id="save" class="kai-text-2 flex cursor-pointer transition-all kai-text-hover">
         <el-icon @click="handleDownload">
           <IEpDownload />
         </el-icon>
         <span class="text-xs pl-1">保存</span>
       </div>
-      <div id="load" class="kai-text-2 flex cursor-pointer transition-all hover:text-orange-400">
+      <div id="load" class="kai-text-2 flex cursor-pointer transition-all kai-text-hover">
         <el-icon @click="handleUpload">
           <IEpUpload />
         </el-icon>
@@ -325,4 +335,29 @@ const handleUpload = () => {
     </template>
   </el-drawer>
 
+  <div class="kai-text">
+      <el-tour v-model="showTour" :content-style="{ width: '300px' }" @close="handleTourFinish"
+        @finish="handleTourFinish">
+        <el-tour-step :next-button-props="{ children: '下一步' }" target="#search-input" title="搜索" description="输入框搜索链接" />
+        <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '下一步' }" target="#save"
+          title="保存" description="保存添加的链接到本地" />
+        <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '下一步' }" target="#load"
+          title="上传" description="上传导入之前的链接" />
+        <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '下一步' }"
+          target="#add-own-link" title="新增链接" description="手动新增一个链接" />
+        <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '下一步' }" title="操作卡片">
+          <p class="mb-1">电脑右键卡片打开下拉菜单</p>
+          <p>手机在卡片上长按显示操作按钮</p>
+        </el-tour-step>
+        <el-tour-step :prev-button-props="{ children: '上一步' }" :next-button-props="{ children: '结束' }" target="#logo"
+          title="提示" description="这里可以再次打开引导提示" />
+      </el-tour>
+    </div>
+
 </template>
+
+<style scope>
+.kai-card-bg:hover {
+  background-color: var(--kai-c-bg);
+}
+</style>

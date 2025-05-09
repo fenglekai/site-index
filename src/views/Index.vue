@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useDark, useToggle } from "@vueuse/core";
 import {
   animate,
   utils,
@@ -7,17 +8,18 @@ import {
   stagger,
   AnimationParams,
 } from "animejs";
-import { useDark, useToggle } from '@vueuse/core'
+import { Sunny, Moon } from "@element-plus/icons-vue";
+import personSite from "../config/person-site";
+import { NavLinkItemChild } from "../config";
 
 onMounted(() => {
   lineAnimation();
 });
 
 const isDark = useDark({
-  disableTransition: false
-})
-const toggleDark = useToggle(isDark)
-
+  disableTransition: false,
+});
+const toggleDark = useToggle(isDark);
 
 const lineAnimation = () => {
   //-----------------------------------------timeline
@@ -128,6 +130,10 @@ const lineAnimation = () => {
     timeline.add(".stagger-visualizer div", frame);
   }
 };
+
+const handleCard = (site: NavLinkItemChild) => {
+  site.onClick ? site.onClick() : window.open(site.url);
+};
 </script>
 
 <template>
@@ -135,13 +141,36 @@ const lineAnimation = () => {
     <div class="stagger-visualizer-wrapper">
       <div class="stagger-visualizer"></div>
     </div>
-    <div class="spacer"></div>
+    <!-- container -->
+    <div class="spacer">
+      <h2 class="text-center text-4xl font-bold mb-12">KAI的实验室</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <template v-for="item in personSite.children">
+          <GlowCard
+            staticIcon
+            class="leading-6 text-base text-gray-700"
+            :data="item"
+            @click="handleCard"
+          />
+        </template>
+      </div>
+    </div>
+    <div class="fixed right-2 bottom-2 z-[3]">
+      <button class="kai-text theme-btn" @click="() => toggleDark()">
+        <Sunny style="width: 1em; height: 1em" />
+      </button>
+    </div>
+    <el-backtop target=".scroll" :right="50" :bottom="50" />
   </div>
 </template>
 
-<style>
+<style scoped>
 .spacer {
+  position: relative;
   height: 800lvh;
+  z-index: 2;
+  font-family: "Days One", "Arial Black", "Copperplate", sans-serif;
+  padding: 2em;
 }
 
 .stagger-visualizer-wrapper {
@@ -153,21 +182,45 @@ const lineAnimation = () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .stagger-visualizer {
   display: flex;
-  /*flex-wrap: wrap;*/
   justify-content: center;
   align-items: center;
-  width: 450px;
-  height: 450px;
+  width: 100%;
 }
 
-.stagger-visualizer div {
-  /*position: absolute;*/
-  width: 128px;
-  height: 256px;
-  background: linear-gradient(to bottom, #657585, #f3f4f6);
+:deep(.stagger-visualizer div) {
+  width: 2em;
+  height: 100vh;
+  background: linear-gradient(
+    -45deg,
+    var(--kai-c-brand-1) 30%,
+    var(--kai-c-brand-next)
+  );
+}
+
+.theme-btn {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--kai-bg);
+  transition: 0.3s background linear;
+}
+.theme-btn:hover {
+  background-color: var(--kai-c-bg-hover);
+}
+
+.kai-card-bg {
+  background-color: var(--kai-bg);
+}
+.kai-card-bg:hover {
+  background-color: var(--kai-bg);
 }
 </style>

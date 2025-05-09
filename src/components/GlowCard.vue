@@ -24,7 +24,7 @@ const emits = defineEmits<Emits>();
 
 const { cardRef: glowCard } = useGlowCard({
   light: {
-    color: "#F26419",
+    color: "linear-gradient(-45deg, var(--kai-c-brand-1) 30%, var(--kai-c-brand-next))",
     blur: 50,
   },
 });
@@ -112,12 +112,5 @@ onMounted(() => {
 .icon {
   width: 24px;
   height: 24px;
-}
-
-.kai-card-bg {
-  background-color: transparent;
-}
-.kai-card-bg:hover {
-  background-color: transparent;
 }
 </style>

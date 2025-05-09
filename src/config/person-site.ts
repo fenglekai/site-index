@@ -8,6 +8,27 @@ export default {
   children: [
     {
       icon: "logo.png",
+      site: "站点导航",
+      url: "/nav",
+      introduction: "非常多的站点收集",
+      onClick: () => router.push('/nav')
+    },
+    {
+      icon: "logo.png",
+      site: "星空",
+      url: "/demo",
+      introduction: "一些Three.js的示例",
+      onClick: () => router.push('/demo')
+    },
+    {
+      icon: "logo.png",
+      site: "IAI首页",
+      url: "/iai-home",
+      introduction: "落地页展示",
+      onClick: () => router.push('/iai-home')
+    },
+    {
+      icon: "logo.png",
       site: "个人博客",
       url: "https://github-pages.devkai.cn/vitepress-blog/",
       introduction: "零碎的前端知识",
@@ -41,20 +62,6 @@ export default {
       site: "Github代理",
       url: "https://github.devkai.cn/",
       introduction: "可以访问Github查阅项目",
-    },
-    {
-      icon: "logo.png",
-      site: "首页站点",
-      url: "/iai-home",
-      introduction: "个人设计的首页封面",
-      onClick: () => router.push('/iai-home')
-    },
-    {
-      icon: "logo.png",
-      site: "Three.js效果",
-      url: "/demo",
-      introduction: "一些Three.js的示例",
-      onClick: () => router.push('/demo')
     },
   ],
 } as NavLinkItem;

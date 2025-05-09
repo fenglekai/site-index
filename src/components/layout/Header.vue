@@ -12,14 +12,9 @@ interface Props {
   hiddenHeader: boolean;
 }
 
-interface Emits {
-  (e: "showTour"): void;
-}
 
 const router = useRouter();
-
 const props = defineProps<Props>();
-const emits = defineEmits<Emits>();
 
 const isDark = useDark({
   disableTransition: false
@@ -53,7 +48,7 @@ const selectedBanner = computed(() => {
     <Transition v-if="!mobileScreen" name="fade" mode="out-in">
       <component :is="bannerList[selectedBanner]">
         <div class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start">
-          <div id="logo" class="whitespace-nowrap tracking-wider" @click="emits('showTour')">
+          <div id="logo" class="whitespace-nowrap tracking-wider">
             <h2 class="inline-block header-text" @click="router.push('/')">
               <span>KAI</span>
               <span class="hidden sm:inline-block">站点导航</span>
@@ -85,7 +80,7 @@ const selectedBanner = computed(() => {
 
     <div v-else class="w-full h-full flex sm:relative sm:block">
       <div class="header-wrapper text-gray-400 sm:text-white gap-2 px-5 sm:pt-4 sm:justify-start">
-        <div id="logo" class="whitespace-nowrap tracking-wider" @click="emits('showTour')">
+        <div id="logo" class="whitespace-nowrap tracking-wider">
           <h2 class="inline-block header-text" @click="router.push('/')">
             <span>KAI</span>
             <span class="hidden sm:inline-block">站点导航</span>
@@ -136,7 +131,7 @@ const selectedBanner = computed(() => {
 }
 
 .header-text:hover {
-  color: #ffd04b;
+  color: var(--kai-c-brand-lighter);
 }
 
 :deep(.dark-icon) {
