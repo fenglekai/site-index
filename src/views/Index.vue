@@ -7,13 +7,19 @@ import {
   createTimeline,
   stagger,
   AnimationParams,
+  Timeline,
 } from "animejs";
+
 import { Sunny, Moon } from "@element-plus/icons-vue";
 import personSite from "../config/person-site";
 import { NavLinkItemChild } from "../config";
 
 onMounted(() => {
   lineAnimation();
+  landingBgAnimation();
+});
+onUnmounted(() => {
+  timeline.value && utils.remove(timeline.value);
 });
 
 const isDark = useDark({
@@ -21,6 +27,7 @@ const isDark = useDark({
 });
 const toggleDark = useToggle(isDark);
 
+const timeline = ref<Timeline>();
 const lineAnimation = () => {
   //-----------------------------------------timeline
   const staggerVisualizerEl = document.querySelector(".stagger-visualizer");
@@ -33,7 +40,7 @@ const lineAnimation = () => {
 
   staggerVisualizerEl?.appendChild(fragment);
 
-  const timeline = createTimeline({
+  timeline.value = createTimeline({
     defaults: {
       ease: "easeInOutSine",
       delay: stagger(50),
@@ -43,12 +50,17 @@ const lineAnimation = () => {
     autoplay: onScroll({
       target: ".stagger-visualizer-wrapper",
       sync: 0.99,
-      enter: "center 55%",
+      enter: "center 55vh",
       leave: "center 750lvh",
+      // debug: true,
     }),
   });
 
   const keyframes: AnimationParams[] = [
+    {
+      opacity: 1,
+      delay: stagger(1, { from: "center" }),
+    },
     {
       scale: stagger([2.5, 1], { from: "center", grid: [9, 9] }),
       translateX: stagger([-100, 100]),
@@ -127,8 +139,32 @@ const lineAnimation = () => {
 
   for (let i = 0; i < keyframes.length; i++) {
     const frame = keyframes[i];
-    timeline.add(".stagger-visualizer div", frame);
+    timeline.value.add(".stagger-visualizer div", frame);
   }
+};
+
+const landingBgAnimation = () => {
+  animate(".landing-bg", {
+    width: ["100vw", "450px"],
+    height: ["100vh", "256px"],
+    filter: ["blur(300px)", "blur(0px)"],
+    opacity: ["1", "0"],
+    ease: "linear",
+    autoplay: onScroll({
+      sync: 0.99,
+      enter: "center center",
+      leave: "center 55vh",
+    }),
+  });
+  animate(".stagger-visualizer-wrapper", {
+    filter: ["blur(100px)", "blur(0px)"],
+    ease: "linear",
+    autoplay: onScroll({
+      sync: 0.99,
+      enter: "center center",
+      leave: "center 55vh",
+    }),
+  });
 };
 
 const handleCard = (site: NavLinkItemChild) => {
@@ -138,9 +174,15 @@ const handleCard = (site: NavLinkItemChild) => {
 
 <template>
   <div class="scroll">
+    <div
+      class="w-screen h-screen flex justify-center items-center fixed top-0 left-0"
+    >
+      <div class="landing-bg"></div>
+    </div>
     <div class="stagger-visualizer-wrapper">
       <div class="stagger-visualizer"></div>
     </div>
+
     <!-- container -->
     <div class="spacer">
       <h2 class="text-center text-4xl font-bold mb-12">KAI的实验室</h2>
@@ -148,7 +190,7 @@ const handleCard = (site: NavLinkItemChild) => {
         <template v-for="item in personSite.children">
           <GlowCard
             staticIcon
-            class="leading-6 text-base text-gray-700"
+            class="leading-6 text-base text-gray-700 backdrop-blur-md"
             :data="item"
             @click="handleCard"
           />
@@ -173,6 +215,16 @@ const handleCard = (site: NavLinkItemChild) => {
   padding: 2em;
 }
 
+.landing-bg {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+    -45deg,
+    var(--kai-c-brand-1) 30%,
+    var(--kai-c-brand-next)
+  );
+}
+
 .stagger-visualizer-wrapper {
   position: fixed;
   top: 0;
@@ -189,17 +241,19 @@ const handleCard = (site: NavLinkItemChild) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 450px;
+  height: 450px;
 }
 
 :deep(.stagger-visualizer div) {
-  width: 2em;
-  height: 100vh;
+  width: 64px;
+  height: 256px;
   background: linear-gradient(
     -45deg,
     var(--kai-c-brand-1) 30%,
     var(--kai-c-brand-next)
   );
+  opacity: 0;
 }
 
 .theme-btn {
@@ -218,9 +272,9 @@ const handleCard = (site: NavLinkItemChild) => {
 }
 
 .kai-card-bg {
-  background-color: var(--kai-bg);
+  background-color: var(--kai-c-bg);
 }
 .kai-card-bg:hover {
-  background-color: var(--kai-bg);
+  background-color: var(--kai-c-bg);
 }
 </style>

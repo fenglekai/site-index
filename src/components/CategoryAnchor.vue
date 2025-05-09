@@ -32,7 +32,7 @@ const handleCollapse = () => {
 
 <template>
     <div class="relative">
-        <div ref="container" class="width-full py-2 whitespace-nowrap overflow-x-scroll mr-8"
+        <div ref="container" class="anchor-wrapper width-full py-2 whitespace-nowrap overflow-x-scroll mr-8"
             :style="{ zIndex: 2 }" @wheel="handleWheelContainer">
             <div v-for="item in navLink"
                 class="kai-card-bg kai-text-2 mr-2 inline-block px-3 py-1 rounded-md text-sm cursor-pointer"
@@ -57,3 +57,22 @@ const handleCollapse = () => {
         </el-drawer>
     </div>
 </template>
+
+<style scoped>
+.kai-card-bg:hover {
+  background-color: var(--kai-c-bg-hover);
+}
+
+.anchor-wrapper::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+.anchor-wrapper::-ms-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+.anchor-wrapper::-moz-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+</style>

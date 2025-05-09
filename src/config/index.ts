@@ -100,7 +100,6 @@ const projectContain = [
  */
 
 const navLink: NavLinkItem[] = [
-  personSite,
   webCli,
   pluginTools,
   uiComponents,

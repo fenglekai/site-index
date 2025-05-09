@@ -47,8 +47,6 @@ const waitCompleted = () => {
 };
 
 router.beforeEach(async (to, from, next) => {
-  console.log(from);
-  
   if (to.path == "/") {
     return next();
   }
