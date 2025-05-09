@@ -10,7 +10,7 @@ import {
   Timeline,
 } from "animejs";
 
-import { Sunny, Moon } from "@element-plus/icons-vue";
+import { Sunny, Moon, CaretTop } from "@element-plus/icons-vue";
 import personSite from "../config/person-site";
 import { NavLinkItemChild } from "../config";
 import useBaseStore from "../store/base";
@@ -202,6 +202,13 @@ const handleLoading = async () => {
 const handleCard = (site: NavLinkItemChild) => {
   site.onClick ? site.onClick() : window.open(site.url);
 };
+
+const handleBackToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 </script>
 
 <template>
@@ -239,8 +246,14 @@ const handleCard = (site: NavLinkItemChild) => {
     </div>
 
     <div class="fixed right-2 top-2 z-[3]">
-      <button class="kai-text theme-btn" @click="() => toggleDark()">
-        <Sunny style="width: 1em; height: 1em" />
+      <button class="kai-text circle-btn" @click="() => toggleDark()">
+        <Sunny v-if="!isDark" style="width: 1em; height: 1em" />
+        <Moon v-else style="width: 1em; height: 1em" />
+      </button>
+    </div>
+    <div class="fixed right-2 bottom-2 z-[3]">
+      <button class="kai-text circle-btn" @click="handleBackToTop">
+        <CaretTop style="width: 1em; height: 1em" />
       </button>
     </div>
 
@@ -298,7 +311,7 @@ const handleCard = (site: NavLinkItemChild) => {
   opacity: 0;
 }
 
-.theme-btn {
+.circle-btn {
   width: 48px;
   height: 48px;
   padding: 0;
@@ -306,10 +319,10 @@ const handleCard = (site: NavLinkItemChild) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--kai-bg);
+  background-color: var(--kai-c-bg);
   transition: 0.3s background linear;
 }
-.theme-btn:hover {
+.circle-btn:hover {
   background-color: var(--kai-c-bg-hover);
 }
 
