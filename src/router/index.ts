@@ -31,7 +31,7 @@ const router = createRouter({
   routes,
 });
 
-const waitCompleted = () => {
+export const waitCompleted = () => {
   return new Promise((resolve) => {
     const baseStore = useBaseStore();
     const loop = () => {

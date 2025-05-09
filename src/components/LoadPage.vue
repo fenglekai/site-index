@@ -1,118 +1,181 @@
 <script lang="ts" setup>
-import { animate } from 'animejs';
-import useBaseStore from '../store/base';
+import { animate } from "animejs";
+import useBaseStore from "../store/base";
 
-const baseStore = useBaseStore()
+const baseStore = useBaseStore();
 
-watch(() => baseStore.isLoading, async (val) => {
-  if (val) {
-    showPage.value = true
-    backgroundLoad()
-    textLoad()
-    svgLoad()
-  } else {
-    await nextTick()
-    backgroundUnload()
-    textUnload()
-    svgUnload()
+watch(
+  () => baseStore.isLoading,
+  async (val) => {
+    if (val) {
+      showPage.value = true;
+      backgroundLoad();
+    } else {
+      await nextTick();
+      textUnload();
+    }
   }
-})
+);
 
 onMounted(() => {
-  animate(['feTurbulence', 'feDisplacementMap'], {
-    baseFrequency: .05,
+  animate(["feTurbulence", "feDisplacementMap"], {
+    baseFrequency: 0.05,
     scale: 15,
     alternate: true,
-    loop: true
+    loop: true,
   });
-  animate('polygon', {
-    points: '64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100',
+  animate("polygon", {
+    points: "64 68.64 8.574 100 63.446 67.68 64 4 64.554 67.68 119.426 100",
     alternate: true,
-    loop: true
+    loop: true,
   });
-})
+});
 
-const showPage = ref(false)
-const mainText = 'KAI Site.'
+const showPage = ref(false);
+const mainText = "KAI Site.";
 const textList = computed(() => {
-  return mainText.split('');
-})
+  return mainText.split("");
+});
 
 const textRef = ref<HTMLDivElement>();
 const bgRef = ref<HTMLDivElement>();
 
 const backgroundLoad = () => {
-  if (!bgRef.value) return
-  const clientHeight = document.documentElement.clientHeight
-  const clientWidth = document.documentElement.clientWidth
-  const side = Math.max(clientHeight, clientWidth)
+  if (!bgRef.value) return;
+  const clientHeight = document.documentElement.clientHeight;
+  const clientWidth = document.documentElement.clientWidth;
+  const side = Math.max(clientHeight, clientWidth);
   animate(bgRef.value, {
-    width: side * 2, height: side * 2, duration: 500, onComplete: () => {
-      setTimeout(() => {
-        baseStore.setLoadingComplete(true)
-      }, 500);
-    }
-  })
-}
+    width: side * 2,
+    height: side * 2,
+    duration: 500,
+    onComplete: () => {
+      textLoad();
+      svgLoad();
+    },
+  });
+};
 const backgroundUnload = () => {
-  if (!bgRef.value) return
+  if (!bgRef.value) return;
   animate(bgRef.value, {
-    width: 0, height: 0, duration: 500, onComplete: () => {
-      setTimeout(() => {
-        showPage.value = false
-      }, 500);
-    }
-  })
-}
+    width: 1,
+    height: 1,
+    duration: 500,
+    onComplete: () => {
+      svgUnload();
+    },
+  });
+};
 
 const textLoad = () => {
-  if (!textRef.value) return
+  if (!textRef.value) return;
   const textChildren = textRef.value.children;
   for (let i = 0; i < textChildren.length; i++) {
-    const span = textChildren[i] as HTMLSpanElement
-    animate(span, { opacity: 1, transform: 'scale(1) translateY(10px)', duration: 250, delay: 30 * (i + 1) })
+    const span = textChildren[i] as HTMLSpanElement;
+    if (i === textChildren.length - 1) {
+      animate(span, {
+        opacity: 1,
+        transform: "scale(1) translateY(10px)",
+        duration: 250,
+        delay: 30 * (i + 1),
+        onComplete: () => baseStore.setLoadingComplete(true),
+      });
+    } else {
+      animate(span, {
+        opacity: 1,
+        transform: "scale(1) translateY(10px)",
+        duration: 250,
+        delay: 30 * (i + 1),
+      });
+    }
   }
 };
 const textUnload = () => {
-  if (!textRef.value || !bgRef.value) return
+  if (!textRef.value || !bgRef.value) return;
   const textChildren = textRef.value.children;
   for (let i = 0; i < textChildren.length; i++) {
-    const span = textChildren[i] as HTMLSpanElement
-    animate(span, { opacity: 0, transform: 'scale(0) translateY(10px)', duration: 250, delay: 30 * (i + 1) })
+    const span = textChildren[i] as HTMLSpanElement;
+    if (i === textChildren.length - 1) {
+      animate(span, {
+        opacity: 0,
+        transform: "scale(0) translateY(10px)",
+        duration: 250,
+        delay: 30 * (i + 1),
+        onComplete: () => {
+          backgroundUnload();
+        },
+      });
+    } else {
+      animate(span, {
+        opacity: 0,
+        transform: "scale(0) translateY(10px)",
+        duration: 250,
+        delay: 30 * (i + 1),
+      });
+    }
   }
 };
 
 const svgLoad = () => {
-  animate('.animate-wrapper', {
-    opacity: 0.5
+  animate(".animate-wrapper", {
+    opacity: 0.5,
   });
-
-}
+};
 
 const svgUnload = () => {
-  animate('.animate-wrapper', {
-    opacity: 0
+  animate(".animate-wrapper", {
+    opacity: 0,
+    onComplete: () => {
+      showPage.value = false;
+    },
   });
-}
+};
 </script>
 
 <template>
-  <div v-show="showPage" id="load"
-    class="w-screen h-screen fixed top-0 left-0 z-50 text-white text-5xl flex justify-center items-center">
-    <div ref="bgRef" id="start-load-wrapper"
-      class="kai-bg absolute w-full h-full flex justify-center items-center transition-all"></div>
-    <div ref="textRef" class="kai-text absolute w-full h-full flex justify-center items-center">
-      <span v-for="text in textList" v-html="text.trim() === '' ? '&nbsp' : text" class="transition-all"
-        style="opacity: 0; transform: scale(0) translateY(10px)"></span>
+  <div
+    v-show="showPage"
+    id="load"
+    class="w-screen h-screen fixed top-0 left-0 z-50 text-white text-5xl flex justify-center items-center"
+  >
+    <div
+      ref="bgRef"
+      id="start-load-wrapper"
+      class="kai-bg absolute w-full h-full flex justify-center items-center transition-all"
+    ></div>
+    <div
+      ref="textRef"
+      class="kai-text absolute w-full h-full flex justify-center items-center"
+    >
+      <span
+        v-for="text in textList"
+        v-html="text.trim() === '' ? '&nbsp' : text"
+        class="transition-all"
+        style="opacity: 0; transform: scale(0) translateY(10px)"
+      ></span>
     </div>
     <div class="animate-wrapper kai-text">
       <svg width="128" height="128" viewBox="0 0 128 128">
         <filter id="displacementFilter">
-          <feTurbulence type="turbulence" numOctaves="2" baseFrequency="0" result="turbulence" />
-          <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="1" xChannelSelector="R" yChannelSelector="G" />
+          <feTurbulence
+            type="turbulence"
+            numOctaves="2"
+            baseFrequency="0"
+            result="turbulence"
+          />
+          <feDisplacementMap
+            in2="turbulence"
+            in="SourceGraphic"
+            scale="1"
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
         </filter>
-        <polygon points="64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96" fill="currentColor"
-          filter="url(#displacementFilter)" />
+        <polygon
+          points="64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96"
+          fill="currentColor"
+          filter="url(#displacementFilter)"
+        />
       </svg>
     </div>
   </div>

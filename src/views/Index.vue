@@ -13,6 +13,8 @@ import {
 import { Sunny, Moon } from "@element-plus/icons-vue";
 import personSite from "../config/person-site";
 import { NavLinkItemChild } from "../config";
+import useBaseStore from "../store/base";
+import { waitCompleted } from "../router";
 
 onMounted(() => {
   lineAnimation();
@@ -21,6 +23,8 @@ onMounted(() => {
 onUnmounted(() => {
   timeline.value && utils.remove(timeline.value);
 });
+
+const baseStore = useBaseStore();
 
 const isDark = useDark({
   disableTransition: false,
@@ -167,6 +171,12 @@ const landingBgAnimation = () => {
   });
 };
 
+const handleLoading = async () => {
+  baseStore.setLoading(true);
+  await waitCompleted();
+  baseStore.setLoading(false);
+}
+
 const handleCard = (site: NavLinkItemChild) => {
   site.onClick ? site.onClick() : window.open(site.url);
 };
@@ -186,7 +196,10 @@ const handleCard = (site: NavLinkItemChild) => {
     <!-- container -->
     <div class="spacer">
       <h2 class="text-center text-4xl font-bold mb-12">KAI的实验室</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section class="my-6">
+        <button @click="handleLoading">路由动画</button>
+      </section>
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <template v-for="item in personSite.children">
           <GlowCard
             staticIcon
@@ -195,9 +208,9 @@ const handleCard = (site: NavLinkItemChild) => {
             @click="handleCard"
           />
         </template>
-      </div>
+      </section>
     </div>
-    <div class="fixed right-2 bottom-2 z-[3]">
+    <div class="fixed right-2 top-2 z-[3]">
       <button class="kai-text theme-btn" @click="() => toggleDark()">
         <Sunny style="width: 1em; height: 1em" />
       </button>
