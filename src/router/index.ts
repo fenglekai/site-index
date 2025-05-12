@@ -5,7 +5,7 @@ import IAIHome from "../views/IAIHome.vue";
 import BaseNav from "../views/BaseNav.vue";
 import ThreeJS from "../views/ThreeJS.vue";
 import { useBaseStore } from "../store/base";
-import { useLoadPage, waitCompleted } from "../hook/use-load-page";
+import { includeRoute, waitCompleted } from "../hook/use-load-page";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -22,7 +22,7 @@ const routes: RouteRecordRaw[] = [
     component: IAIHome,
   },
   {
-    path: "/demo",
+    path: "/threejs",
     component: ThreeJS,
   },
 ];
@@ -33,12 +33,17 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (to.path == "/") {
-    return next();
+  // 遍历需要loading页面的路由
+  // 在页面调用useLoadPage
+  for (let i = 0; i < includeRoute.length; i++) {
+    const route = includeRoute[i];
+    if (to.path == route) {
+      const baseStore = useBaseStore();
+      baseStore.setLoading(true);
+      await waitCompleted();
+      return next();
+    }
   }
-  const baseStore = useBaseStore();
-  baseStore.setLoading(true);
-  await waitCompleted();
   return next();
 });
 

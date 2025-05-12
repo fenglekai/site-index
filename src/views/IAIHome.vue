@@ -8,6 +8,9 @@ import { projectContain } from "../config/index";
 import { Ref, onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { jarallax, jarallaxVideo } from "jarallax";
+import { useLoadPage } from "../hook/use-load-page";
+
+useLoadPage()
 
 const router = useRouter();
 const jarallaxRef = ref(null);
@@ -107,7 +110,7 @@ const handleCloseMoreClick = () => {
                 <a
                   class="menu-text text-sm maxSize:text-7xl xl:text-2xl"
                   @click="
-                    router.push('/nav');
+                    router.push('/');
                   "
                   >Navigation</a
                 >

@@ -144,7 +144,7 @@ onMounted(() => {
       </li>
       <li
         @click="
-          router.push('/nav');
+          router.push('/');
           removeChild();
         "
         class="p-2 flex justify-center items-center cursor-pointer transition hover:bg-gray-100"

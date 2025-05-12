@@ -16,9 +16,9 @@ export default {
     {
       icon: "logo.png",
       site: "星空",
-      url: "/demo",
+      url: "/threejs",
       introduction: "一些Three.js的示例",
-      onClick: () => router.push('/demo')
+      onClick: () => router.push('/threejs')
     },
     {
       icon: "logo.png",

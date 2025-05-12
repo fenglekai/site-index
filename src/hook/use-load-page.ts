@@ -1,6 +1,8 @@
 import { onMounted } from "vue";
 import { useBaseStore } from "../store/base";
 
+export const includeRoute = ['/threejs','/iai-home']
+
 export const waitCompleted = () => {
   return new Promise((resolve) => {
     const baseStore = useBaseStore();
