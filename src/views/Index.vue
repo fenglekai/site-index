@@ -15,6 +15,7 @@ import personSite from "../config/person-site";
 import { NavLinkItemChild } from "../config";
 import useBaseStore from "../store/base";
 import { waitCompleted } from "../router";
+import Footer from "../components/layout/Footer.vue";
 
 onMounted(() => {
   lineAnimation();
@@ -245,6 +246,10 @@ const handleBackToTop = () => {
       </section>
     </div>
 
+    <div class="relative py-2 z-[2]">
+      <Footer />
+    </div>
+
     <div class="fixed right-2 top-2 z-[3]">
       <button class="kai-text circle-btn" @click="() => toggleDark()">
         <Sunny v-if="!isDark" style="width: 1em; height: 1em" />
@@ -256,8 +261,6 @@ const handleBackToTop = () => {
         <CaretTop style="width: 1em; height: 1em" />
       </button>
     </div>
-
-    <el-backtop target=".spacer" :right="50" :bottom="50" />
   </div>
 </template>
 
