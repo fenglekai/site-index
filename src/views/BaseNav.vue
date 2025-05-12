@@ -4,6 +4,9 @@ import { ElMessage, FormInstance } from "element-plus";
 import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import { navLink, NavLinkItemChild } from "../config/index";
 import Twikoo from '../components/Twikoo.vue'
+import { useLoadPage } from "../hook/use-load-page";
+
+useLoadPage()
 
 onMounted(() => {
   getLocalList();

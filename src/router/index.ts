@@ -5,6 +5,7 @@ import IAIHome from "../views/IAIHome.vue";
 import BaseNav from "../views/BaseNav.vue";
 import ThreeJS from "../views/ThreeJS.vue";
 import { useBaseStore } from "../store/base";
+import { useLoadPage, waitCompleted } from "../hook/use-load-page";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -31,21 +32,6 @@ const router = createRouter({
   routes,
 });
 
-export const waitCompleted = () => {
-  return new Promise((resolve) => {
-    const baseStore = useBaseStore();
-    const loop = () => {
-      if (baseStore.isCompleted) {
-        baseStore.setLoadingComplete(false);
-        resolve(true);
-      } else {
-        requestAnimationFrame(loop);
-      }
-    };
-    requestAnimationFrame(loop);
-  });
-};
-
 router.beforeEach(async (to, from, next) => {
   if (to.path == "/") {
     return next();
@@ -54,11 +40,6 @@ router.beforeEach(async (to, from, next) => {
   baseStore.setLoading(true);
   await waitCompleted();
   return next();
-});
-
-router.afterEach(async () => {
-  const baseStore = useBaseStore();
-  baseStore.setLoading(false);
 });
 
 export default router;

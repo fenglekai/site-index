@@ -14,7 +14,7 @@ import { Sunny, Moon, CaretTop } from "@element-plus/icons-vue";
 import personSite from "../config/person-site";
 import { NavLinkItemChild } from "../config";
 import useBaseStore from "../store/base";
-import { waitCompleted } from "../router";
+import { waitCompleted } from "../hook/use-load-page";
 import Footer from "../components/layout/Footer.vue";
 
 onMounted(() => {
@@ -197,7 +197,9 @@ const titleAnimation = () => {
 const handleLoading = async () => {
   baseStore.setLoading(true);
   await waitCompleted();
-  baseStore.setLoading(false);
+  setTimeout(() => {
+    baseStore.setLoading(false);
+  }, 2000);
 };
 
 const handleCard = (site: NavLinkItemChild) => {

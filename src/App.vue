@@ -16,9 +16,7 @@ const isDark = useDark({
   <RouterView v-slot="{ Component }">
     <template v-if="Component">
       <Transition name="fade" mode="out-in">
-        <KeepAlive>
           <component :is="Component"></component>
-        </KeepAlive>
       </Transition>
     </template>
   </RouterView>

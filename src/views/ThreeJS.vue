@@ -11,6 +11,9 @@ import {
 import WebGL from "../hook/use-webGL";
 import { useRouter } from "vue-router";
 import { ElLoading } from "element-plus";
+import { useLoadPage } from "../hook/use-load-page";
+
+useLoadPage()
 
 const router = useRouter();
 
