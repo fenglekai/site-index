@@ -79,7 +79,7 @@ onUnmounted(() => {
           </el-header>
           <el-scrollbar
             ref="scrollRef"
-            :height="`calc(100vh - 48px - ${headerHeight}px)`"
+            :height="`calc(100vh - 48px)`"
             wrap-class="main-scroll-wrap"
             @scroll="onScroll"
           >
