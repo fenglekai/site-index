@@ -14,7 +14,7 @@ import { Sunny, Moon, CaretTop } from "@element-plus/icons-vue";
 import personSite from "../config/person-site";
 import { NavLinkItemChild } from "../config";
 import useBaseStore from "../store/base";
-import { waitCompleted } from "../hook/use-load-page";
+import { waitCompleted } from "../hook/use-loading";
 import Footer from "../components/layout/Footer.vue";
 
 onMounted(() => {

@@ -5,7 +5,7 @@ import IAIHome from "../views/IAIHome.vue";
 import BaseNav from "../views/BaseNav.vue";
 import ThreeJS from "../views/ThreeJS.vue";
 import { useBaseStore } from "../store/base";
-import { includeRoute, waitCompleted } from "../hook/use-load-page";
+import { includeRoute, waitCompleted } from "../hook/use-loading";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -34,7 +34,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   // 遍历需要loading页面的路由
-  // 在页面调用useLoadPage
+  // 在页面调用useLoading
   for (let i = 0; i < includeRoute.length; i++) {
     const route = includeRoute[i];
     if (to.path == route) {

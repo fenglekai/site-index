@@ -8,9 +8,9 @@ import { projectContain } from "../config/index";
 import { Ref, onBeforeMount, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { jarallax, jarallaxVideo } from "jarallax";
-import { useLoadPage } from "../hook/use-load-page";
+import { useLoading } from "../hook/use-loading";
 
-useLoadPage()
+useLoading()
 
 const router = useRouter();
 const jarallaxRef = ref(null);

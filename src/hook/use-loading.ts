@@ -1,7 +1,7 @@
 import { onMounted } from "vue";
 import { useBaseStore } from "../store/base";
 
-export const includeRoute = ['/threejs','/iai-home']
+export const includeRoute = ['/nav','/threejs','/iai-home']
 
 export const waitCompleted = () => {
   return new Promise((resolve) => {
@@ -18,7 +18,7 @@ export const waitCompleted = () => {
   });
 };
 
-export function useLoadPage() {
+export function useLoading() {
   onMounted(() => {
     setTimeout(() => {
       const baseStore = useBaseStore();
