@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref, nextTick } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
-import { Collection, Plus, Delete, Edit } from "@element-plus/icons-vue";
+import { Collection, Plus, Delete } from "@element-plus/icons-vue";
 import { navLink, NavLinkItem, NavLinkItemChild } from "../config/index";
 import Twikoo from "../components/Twikoo.vue";
 import { useLoading } from "../hook/use-loading";
-
-useLoading();
+import { useBaseStore } from "../store/base";
 
 onMounted(async () => {
-  await loadNavLink();
+  loadNavLink();
   getLocalList();
   const baseNavTour = localStorage.getItem("base-nav-tour");
   if (!baseNavTour) {
@@ -17,23 +16,50 @@ onMounted(async () => {
   }
 });
 
+const baseStore = useBaseStore();
+
+useLoading();
+
 // 分页加载数据
-const currentPage = ref(0)
-const defaultLoad = 3
-const container = ref<HTMLDivElement | null>(null)
+const currentPage = ref(0);
+const defaultLoad = 3;
+const container = ref<HTMLDivElement | null>(null);
+const loadStatus = ref(false);
 const asyncNavLink = ref<NavLinkItem[]>([]);
-const loadNavLink = async () => {
-  for (let i = 0; i < defaultLoad; i++) {
-    currentPage.value = i
-    asyncNavLink.value.push(...navLink.slice(i, i + 1));
-    await nextTick();
+const loadNavLink = () => {
+  asyncNavLink.value = navLink.slice(currentPage.value, defaultLoad);
+  currentPage.value = defaultLoad;
+};
+const loadNextPage = (index: number = 1) => {
+  if (currentPage.value < navLink.length) {
+    loadStatus.value = true;
+    const nextPage = currentPage.value + index;
+    asyncNavLink.value.push(...navLink.slice(currentPage.value, nextPage));
+    currentPage.value = nextPage;
+    loadStatus.value = false;
   }
 };
-const loadNextPage = () => {
-  const nextPage = currentPage.value+1
-  asyncNavLink.value.push(...navLink.slice(nextPage, nextPage + 1));
-  currentPage.value = nextPage
-}
+watch(
+  () => baseStore.getNavScrollTop,
+  () => {
+    if (!container.value) return;
+    const rect = container.value.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    if (rect.bottom <= windowHeight && !loadStatus.value) {
+      loadNextPage();
+    }
+  }
+);
+watch(
+  () => baseStore.getloadPage,
+  () => {
+    if (!container.value) return;
+    const needToLoad = baseStore.loadPage - currentPage.value + 1;
+    if (needToLoad > 0) {
+      loadNextPage(needToLoad);
+    }
+  }
+);
 
 // 引导提示
 const showTour = ref(false);
@@ -340,45 +366,45 @@ const handleUpload = () => {
     </div>
   </section>
   <!-- 配置站点 -->
-   <div ref="container">
-     <section
-       v-for="category in asyncNavLink"
-       :key="category.id"
-       :id="category.id"
-       class="mb-6"
-     >
-       <h2
-         class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2"
-         :style="{ zIndex: 1 }"
-       >
-         {{ category.navTitle }}
-       </h2>
-       <div
-         class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2"
-       >
-         <el-dropdown
-           v-for="item in category.children"
-           :key="item.site"
-           trigger="contextmenu"
-           style="position: static"
-         >
-           <GlowCard
-             class="w-full leading-6 text-base text-gray-700"
-             :data="item"
-             :collection="addOwnLink"
-             @click="() => (item.onClick ? item.onClick() : handleClick(item))"
-           />
-           <template #dropdown>
-             <el-dropdown-menu>
-               <el-dropdown-item :icon="Collection" @click="addOwnLink(item)"
-                 >收藏</el-dropdown-item
-               >
-             </el-dropdown-menu>
-           </template>
-         </el-dropdown>
-       </div>
-     </section>
-   </div>
+  <div ref="container">
+    <section
+      v-for="category in asyncNavLink"
+      :key="category.id"
+      :id="category.id"
+      class="mb-6"
+    >
+      <h2
+        class="kai-text sticky top-0 md:text-xl sm:text-sm backdrop-blur py-2"
+        :style="{ zIndex: 1 }"
+      >
+        {{ category.navTitle }}
+      </h2>
+      <div
+        class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 px-2"
+      >
+        <el-dropdown
+          v-for="item in category.children"
+          :key="item.site"
+          trigger="contextmenu"
+          style="position: static"
+        >
+          <GlowCard
+            class="w-full leading-6 text-base text-gray-700"
+            :data="item"
+            :collection="addOwnLink"
+            @click="() => (item.onClick ? item.onClick() : handleClick(item))"
+          />
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item :icon="Collection" @click="addOwnLink(item)"
+                >收藏</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+    </section>
+  </div>
   <!-- 评论 -->
   <section class="space-y-2">
     <h2

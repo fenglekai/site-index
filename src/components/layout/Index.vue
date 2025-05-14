@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import type { ScrollbarInstance } from "element-plus";
-import { useDebounceFn } from "@vueuse/core";
 import Header from "./Header.vue";
 import Footer from "./Footer.vue";
 import { mobileScreen } from "../../hook/use-mobile";
 import { navLink } from "../../config/index";
+import { useBaseStore } from '../../store/base'
+
+onUnmounted(() => {
+  window.onresize = null;
+});
+
+const baseStore = useBaseStore()
 
 const mainScroll = ref(0);
 const hiddenHeader = ref(false);
@@ -40,6 +46,7 @@ const onScroll = ({ scrollTop }: { scrollTop: number }) => {
     hiddenHeader.value = false;
   }
   mainScroll.value = scrollTop;
+  baseStore.setNavScroll(scrollTop)
 };
 const handleEnterCategory = () => {
   mouseOnCategory.value = true;
@@ -47,10 +54,6 @@ const handleEnterCategory = () => {
 const handleLeaveCategory = () => {
   mouseOnCategory.value = false;
 };
-
-onUnmounted(() => {
-  window.onresize = null;
-});
 </script>
 
 <template>
