@@ -118,7 +118,8 @@ onMounted(() => {
   biliWrapper.value?.addEventListener("mousemove", useMousemove);
   biliWrapper.value?.addEventListener("mouseleave", useMouseleave);
 });
-onUnmounted(() => {
+onBeforeUnmount(() => {
+  biliWrapper.value?.removeEventListener("mouseenter", useMouseenter);
   biliWrapper.value?.removeEventListener("mousemove", useMousemove);
   biliWrapper.value?.removeEventListener("mouseleave", useMouseleave);
 });
