@@ -175,12 +175,12 @@ const landingBgAnimation = () => {
 const titleAnimation = () => {
   const scrollOberver = onScroll({
     sync: 0.99,
-    enter: "top+=1em min+=12px",
+    enter: "top+=1em min-=1em",
     leave: "top+=1em max",
   });
   const scrollOberver2 = onScroll({
     sync: 0.99,
-    enter: "top+=1em min+=12px",
+    enter: "top+=1em min-=1em",
     leave: "top+=1em max",
   });
   const params: AnimationParams = {
@@ -331,10 +331,10 @@ const handleBackToTop = () => {
   background-color: var(--kai-c-bg-hover);
 }
 
-.kai-card-bg {
-  background-color: var(--kai-c-bg);
+html:not(.dark) .kai-card-bg {
+  background-color: #f3f4f629;
 }
-.kai-card-bg:hover {
-  background-color: var(--kai-c-bg);
+html:not(.dark) .kai-card-bg:hover {
+  background-color: #f3f4f629;
 }
 </style>
